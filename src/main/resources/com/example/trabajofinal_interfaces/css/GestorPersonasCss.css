@@ -1,0 +1,37 @@
+.label {
+    -fx-font-size: 14px;
+}
+
+.text-field {
+    -fx-pref-width: 200px;
+    -fx-font-size: 14px;
+}
+
+.button {
+    -fx-pref-width: 120px;
+    -fx-font-size: 14px;
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+}
+
+#btnRegistrarse {
+    -fx-background-color: #F39C12;
+}
+
+#btnEliminar {
+    -fx-background-color: #FF5733;
+}
+
+#btnEditar {
+    -fx-background-color: #F4D03F;
+}
+
+#btnVolver {
+    -fx-background-color: #3498DB;
+}
+
+#lbError {
+    -fx-font-size: 14px;
+    -fx-text-fill: red;
+}
+

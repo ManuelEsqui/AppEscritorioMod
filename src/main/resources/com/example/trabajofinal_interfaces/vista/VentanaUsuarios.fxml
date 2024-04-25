@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/VentanaUsuariosCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trabajofinal_interfaces.controlador.controladorVentanaUsuarios">
+   <children>
+      <TableView fx:id="tablaEventos" layoutX="3.0" layoutY="55.0" prefHeight="200.0" prefWidth="593.0">
+        <columns>
+          <TableColumn fx:id="columnaNombre" prefWidth="75.0" text="Nombre" />
+          <TableColumn fx:id="columnaDescripcion" prefWidth="217.5999755859375" text="Descripcion" />
+            <TableColumn fx:id="columnaLocalidad" prefWidth="97.5999755859375" text="Localidad" />
+            <TableColumn fx:id="columnaUbicacion" prefWidth="129.60003662109375" text="Ubicacion" />
+            <TableColumn fx:id="columnaFecha" prefWidth="77.60003662109375" text="Fecha" />
+        </columns>
+      </TableView>
+      <HBox layoutX="87.0" layoutY="299.0" prefHeight="50.0" prefWidth="414.0" spacing="50.0">
+         <children>
+            <Button fx:id="btnVolver" mnemonicParsing="false" onAction="#volverLogin" text="Volver" />
+            <Button mnemonicParsing="false" onAction="#apuntarseAEvento" text="Apuntarse" />
+            <Button fx:id="btnInfo" mnemonicParsing="false" onAction="#refresh" text="refrescar" />
+            <Button mnemonicParsing="false" onAction="#ventanaMisEventos" text="mis eventos" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

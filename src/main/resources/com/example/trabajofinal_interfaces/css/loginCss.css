@@ -1,0 +1,27 @@
+.label {
+    -fx-font-size: 16px;
+}
+
+.text-field {
+    -fx-pref-width: 200px;
+    -fx-font-size: 14px;
+}
+
+.button {
+    -fx-pref-width: 150px;
+    -fx-font-size: 14px;
+}
+
+#LogIn {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+}
+
+#SingUp {
+    -fx-background-color: #008CBA;
+    -fx-text-fill: white;
+}
+#ExtrEventos{
+    -fx-font-size: 50px;
+    -fx-font-family: Centaur;
+}

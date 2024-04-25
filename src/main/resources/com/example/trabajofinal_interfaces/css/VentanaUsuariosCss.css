@@ -1,0 +1,9 @@
+.table-view {
+    -fx-background-color: #f0f0f0;
+}
+
+/* Estilo para los botones */
+.button {
+    -fx-background-color: #007bff;
+    -fx-text-fill: white;
+}

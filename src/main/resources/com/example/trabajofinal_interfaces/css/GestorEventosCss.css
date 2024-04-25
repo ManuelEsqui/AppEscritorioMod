@@ -1,0 +1,42 @@
+.label {
+    -fx-font-size: 14px;
+}
+
+.text-field {
+    -fx-pref-width: 200px;
+    -fx-font-size: 14px;
+}
+
+.button {
+    -fx-pref-width: 120px;
+    -fx-font-size: 14px;
+    -fx-background-color: #4CAF50; /* Green */
+    -fx-text-fill: white;
+}
+
+.tab-pane {
+    -fx-background-color: #F0F0F0; /* Light gray */
+}
+
+.tab {
+    -fx-background-color: #3498DB; /* Blue */
+    -fx-text-fill: white;
+}
+
+.tab-pane .tab-header-area {
+    -fx-background-color: #3498DB;
+}
+
+.tab-pane .tab-header-area .tab:selected .tab-label {
+    -fx-background-color: #2980B9;
+}
+
+.table-view {
+    -fx-background-color: white;
+}
+
+.table-view .column-header,
+.table-view .column-header-background {
+    -fx-background-color: #2980B9;
+    -fx-text-fill: white;
+}

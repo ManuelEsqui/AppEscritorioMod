@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="685.0" stylesheets="@../css/EventosUsuariosCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trabajofinal_interfaces.controlador.controladorEventosUsuarios">
+   <children>
+      <TableView fx:id="tablaEventos" layoutY="57.0" prefHeight="200.0" prefWidth="685.0">
+        <columns>
+          <TableColumn fx:id="ColumnaNombre" prefWidth="121.60000765323639" text="Nombre" />
+          <TableColumn fx:id="columnaDescripcion" prefWidth="287.2000045776367" text="Descripcion" />
+            <TableColumn fx:id="columnaLocalidad" prefWidth="92.79998779296875" text="Localidad" />
+            <TableColumn fx:id="columnaUbicacion" prefWidth="115.20010375976562" text="Ubicacion" />
+            <TableColumn fx:id="columnaFecha" prefWidth="70.39990234375" text="Fecha" />
+        </columns>
+      </TableView>
+      <Button fx:id="volver" layoutX="477.0" layoutY="306.0" mnemonicParsing="false" onAction="#volverVentanaUsuarios" text="Volver" />
+      <Button fx:id="desapuntarse" layoutX="138.0" layoutY="306.0" mnemonicParsing="false" onAction="#delete" text="Desapuntarse" />
+   </children>
+</AnchorPane>

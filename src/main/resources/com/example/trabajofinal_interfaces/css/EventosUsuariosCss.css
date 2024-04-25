@@ -1,0 +1,28 @@
+/* Estilos para la TableView */
+.table-view {
+    -fx-background-color: #ffffff; /* Color de fondo */
+    -fx-font-size: 14px; /* Tamaño de fuente */
+}
+
+/* Estilos para las columnas de la TableView */
+.table-column {
+    -fx-alignment: CENTER; /* Alineación del texto al centro */
+}
+
+/* Estilos para los botones */
+.button {
+    -fx-background-color: #007bff; /* Color de fondo */
+    -fx-text-fill: white; /* Color del texto */
+    -fx-font-size: 14px; /* Tamaño de fuente */
+    -fx-padding: 8px 16px; /* Espaciado interno */
+}
+
+/* Estilos para el botón de volver */
+#volver {
+    -fx-background-color: #dc3545; /* Color de fondo */
+}
+
+/* Estilos para el texto de los botones */
+.button .text {
+    -fx-fill: white; /* Color del texto */
+}

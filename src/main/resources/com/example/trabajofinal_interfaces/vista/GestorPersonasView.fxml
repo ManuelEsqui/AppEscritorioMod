@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane prefHeight="315.0" prefWidth="648.0" stylesheets="@../css/GestorPersonasCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trabajofinal_interfaces.controlador.controladorGestorPersonas">
+   <children>
+      <TextField fx:id="txtNombre" layoutX="33.0" layoutY="34.0" />
+      <TextField fx:id="txtApellidos" layoutX="34.0" layoutY="83.0" />
+      <TextField fx:id="txtEstadoCivil" layoutX="394.0" layoutY="134.0" />
+      <TextField fx:id="txtEdad" layoutX="34.0" layoutY="185.0" />
+      <TextField fx:id="txtLocalidad" layoutX="394.0" layoutY="185.0" />
+      <Label layoutX="33.0" layoutY="14.0" text="Nombre:" />
+      <Label layoutX="33.0" layoutY="66.0" text="Apellidos:" />
+      <Label layoutX="33.0" layoutY="116.0" text="Sexo:" />
+      <Label layoutX="394.0" layoutY="116.0" text="Estado civil:" />
+      <Label layoutX="32.0" layoutY="168.0" text="Edad:" />
+      <Label layoutX="394.0" layoutY="168.0" text="Localidad" />
+      <TextField fx:id="txtUsuario" layoutX="394.0" layoutY="34.0" />
+      <Label layoutX="394.0" layoutY="14.0" text="Usuario" />
+      <Label layoutX="395.0" layoutY="66.0" text="Contraseña" />
+      <Label fx:id="lbError" layoutX="347.0" layoutY="337.0" prefHeight="20.0" prefWidth="182.0" />
+      <PasswordField fx:id="txtContrasenia" layoutX="394.0" layoutY="83.0" prefHeight="30.0" prefWidth="206.0" />
+      <ComboBox fx:id="cbSexo" layoutX="30.0" layoutY="136.0" prefHeight="26.0" prefWidth="200.0" />
+      <HBox layoutY="281.0" prefHeight="30.0" prefWidth="648.0" spacing="60.0">
+         <children>
+            <Button fx:id="btnRegistrarse" mnemonicParsing="false" onAction="#registrarse" text="Registrarse" />
+            <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#editarDatos" text="Editar Datos" />
+            <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#eliminarCuenta" text="Eliminar cuenta" />
+            <Button fx:id="btnVolver" mnemonicParsing="false" onAction="#volver" prefHeight="29.0" prefWidth="65.0" text="Volver" />
+         </children>
+      </HBox>
+      <CheckBox fx:id="checkAdmin" disable="true" layoutX="458.0" layoutY="234.0" mnemonicParsing="false" text="Administrador" />
+   </children>
+</AnchorPane>
