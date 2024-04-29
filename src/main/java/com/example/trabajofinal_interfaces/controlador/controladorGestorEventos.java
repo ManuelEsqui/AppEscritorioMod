@@ -182,12 +182,9 @@ public class controladorGestorEventos {
 
         String nombre=txtEditNombre.getText();
         String idString=txtId.getText();
-        if (nombre.length()<1 && idString.length()<1){
-            eventoSelec=TableViewEventos.getSelectionModel().getSelectedItem();
-            txtId.setText(""+eventoSelec.getId());
-            txtEditNombre.setText(eventoSelec.getNombre());
-            nombre=txtEditNombre.getText();
-            idString=txtId.getText();
+        if (nombre.length()<1 || idString.length()<1){
+            rellenarCampos();
+            return;
         }
         String descripcion=txtEditDescripcion.getText();
         String ubicacion=txtEditUbicacion.getText();
@@ -251,6 +248,17 @@ public class controladorGestorEventos {
         }
 
     }
+
+    private void rellenarCampos() {
+        String nombre;
+        String idString;
+        eventoSelec=TableViewEventos.getSelectionModel().getSelectedItem();
+        txtId.setText(""+eventoSelec.getId());
+        txtEditNombre.setText(eventoSelec.getNombre());
+        nombre=txtEditNombre.getText();
+        idString=txtId.getText();
+    }
+
     @FXML
     void buscarEvento(ActionEvent event) throws SQLException, ClassNotFoundException {
         String nombreEvento=txtBuscar.getText();
