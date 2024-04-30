@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="469.0" prefWidth="678.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trabajofinal_interfaces.controlador.controladorVentanaGestionLocalidades">
+   <children>
+      <ListView fx:id="listViewLocalidades" editable="true" layoutY="93.0" onEditCommit="#edit" prefHeight="223.0" prefWidth="235.0" />
+      <Label fx:id="provincia" layoutY="51.0" prefHeight="41.0" prefWidth="235.0" text="Esta en la provincia de: ____________">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <MenuButton fx:id="menuButton" layoutX="52.0" layoutY="320.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="103.0" text="Acciones">
+        <items>
+          <MenuItem mnemonicParsing="false" onAction="#delete" text="borrar" />
+          <MenuItem mnemonicParsing="false" onAction="#update" text="editar" />
+            <MenuItem mnemonicParsing="false" onAction="#add" text="insertar" />
+        </items>
+      </MenuButton>
+      <ImageView fx:id="imagen" fitHeight="195.0" fitWidth="275.0" layoutX="355.0" layoutY="107.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <InnerShadow />
+         </effect>
+      </ImageView>
+   </children>
+</AnchorPane>

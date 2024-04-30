@@ -140,5 +140,14 @@ public class controladorVentanaAdmin {
         transition.setCycleCount(2); // Repetir la animación 2 veces
         transition.play(); // Iniciar la animación
     }
+
+    public void cambiarVentanaLocalidades(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaGestionLocalidades.fxml"));
+        Scene escena = new Scene(root);
+        Stage stage =(Stage) btnVolver.getScene().getWindow();
+        stage.setScene(escena);
+        stage.close();
+        stage.show();
+    }
 }
 

@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.Optional;
 
 public class controladorGestorPersonas {
 
@@ -36,9 +37,6 @@ public class controladorGestorPersonas {
 
     @FXML
     private TextField txtContrasenia;
-
-    @FXML
-    private Label lbError;
 
     @FXML
     private TextField txtEdad;
@@ -135,7 +133,7 @@ public class controladorGestorPersonas {
                     }
 
                 }
-                if (!encontrada) lbError.setText("Localidad no encontrada en la bd");
+                if (!encontrada) Alertas(Alert.AlertType.WARNING, "No se encontro la localidad", "Se te pondra la localidad desconocido por defecto");
 
                 //Se crea la consulta para actualizar los datos
                 String sql = "UPDATE Personas SET nombre = ?, apellidos = ?, sexo = ?, estadoCivil = ?, edad = ?,  localidad_id = ?, admin = ? WHERE user = ? AND passwrd = ?;";
@@ -150,7 +148,7 @@ public class controladorGestorPersonas {
                 sentencia.setString(8,user);
                 sentencia.setString(9,passwrd);
                 sentencia.executeUpdate();
-                Alertas(Alert.AlertType.WARNING, "Actualizado", "Cuenta actualizada correctamente");
+                Alertas(Alert.AlertType.INFORMATION, "Actualizado", "Cuenta actualizada correctamente");
 
 
                 sentencia.close();
@@ -197,9 +195,19 @@ public class controladorGestorPersonas {
         int filas=sentencia.executeUpdate();
         System.out.println(filas+" rows afected");
         if (filas<1){
-            lbError.setText("No se ha eliminado ninguna cuenta");
+            Alertas(Alert.AlertType.ERROR, "Fallo", "No ha sido posible eliminar la cuenta, puede deberse a que la cuenta no existe o la contraseña sea incorrecta");
         }else{
-            lbError.setText("Cuenta eliminada");
+//            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+//            alert.setTitle("Confirm Change");
+//            alert.setHeaderText("A change occurred.");
+//            alert.setContentText("Do you really want to change the value?");
+//            Optional<ButtonType> buttonType = alert.showAndWait();
+//            if(buttonType.isPresent() && buttonType.get().equals(ButtonType.OK)) {
+//                return;
+//            }
+            Alertas(Alert.AlertType.INFORMATION, "Tu cuenta se ha eliminado con éxito", "Has eliminado la cuenta de: "+user);
+
+
         }
 
 
@@ -227,6 +235,7 @@ public class controladorGestorPersonas {
             String regex="^.{8,}$";
             if (!passwrd.matches(regex)){
                 Alertas(Alert.AlertType.WARNING, "Warning", "La contraseña no es segura");
+                return;
             }
             localidad=txtLocalidad.getText();
             String sEdad=txtEdad.getText();
@@ -250,6 +259,7 @@ public class controladorGestorPersonas {
                 String sql2 = "SELECT * FROM Localidades;";
                 ResultSet resul = sentencia2.executeQuery(sql2);
 
+
                 // Recorremos el resultado para visualizar cada fila
                 // Se hace un bucle mientras haya registros
                 boolean encontrada=false;
@@ -261,7 +271,17 @@ public class controladorGestorPersonas {
                     }
 
                 }
-                if (!encontrada) lbError.setText("Localidad no encontrada en la bd");
+                sql2="SELECT user FROM personas;";
+                resul = sentencia2.executeQuery(sql2);
+                //if (!encontrada) lbError.setText("Localidad no encontrada en la bd");
+                while (resul.next()) {
+
+                    if (resul.getString(1).equals(user)){
+                        Alertas(Alert.AlertType.ERROR, "Usuario existente", "Prueba con otro nombre de usuario");
+                        return;
+                    }
+
+                }
 
 
                 String sql = "INSERT INTO personas (nombre, apellidos, sexo, estadoCivil, user, passwrd, edad, admin, localidad_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -277,7 +297,7 @@ public class controladorGestorPersonas {
                 sentencia.setBoolean(8, checkAdmin.isSelected());
                 sentencia.setInt(9, id_loc);
                 sentencia.executeUpdate();
-                Alertas(Alert.AlertType.WARNING, "Añadido", "Persona añadida con exito");
+                Alertas(Alert.AlertType.INFORMATION, "Añadido", "Persona añadida con exito");
 
 
                 sentencia.close();
@@ -317,5 +337,6 @@ public class controladorGestorPersonas {
         tiposSexo.addAll("Hombre","Mujer","Otro");
         cbSexo.setItems(tiposSexo);
     }
+
 }
 

@@ -18,6 +18,14 @@ public class Usuario {
         this.localidad=localidad;
     }
 
+    public Usuario(String nomb, String apell, String sex, String estado, int ed) {
+        this.nombre = nomb;
+        this.apellidos = apell;
+        this.sexo=sex;
+        this.estadoCivil = estado;
+        this.edad = ed;
+    }
+
     public String getNombre() {
         return nombre;
     }

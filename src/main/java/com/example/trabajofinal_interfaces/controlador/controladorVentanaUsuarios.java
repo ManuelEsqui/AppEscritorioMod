@@ -16,6 +16,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.sql.*;
@@ -66,21 +67,14 @@ public class controladorVentanaUsuarios {
             int id_evento=0;
             eventoSelec=tablaEventos.getSelectionModel().getSelectedItem();
             if(eventoSelec!=null){
-                // Cargar el driver
-                Class.forName(utiles.driver);
-                // Establecemos la conexion con la BD
-                Connection conexion = (Connection) DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
-                Statement sentencia2 = (Statement) conexion.createStatement();
-                //consulta para extraer la id
-                String sql2 = "SELECT id FROM eventos WHERE nombre LIKE '"+eventoSelec.getNombre()+"' AND descripcion LIKE '"+eventoSelec.getDescripcion()+"';";
-                ResultSet resul = sentencia2.executeQuery(sql2);
-                while (resul.next()) {
-                    id_evento=resul.getInt(1);
+                Result result = getResult();
+                while (result.resul().next()) {
+                    id_evento= result.resul().getInt(1);
                 }
-                sentencia2.close();
-                resul.close();
+                result.sentencia2().close();
+                result.resul().close();
                 if (usu!=null && contra!=null){//consulta para extraer la id
-                    Statement sentencia3 = (Statement) conexion.createStatement();
+                    Statement sentencia3 = (Statement) result.conexion().createStatement();
                     String sql3 = "SELECT id FROM personas WHERE user LIKE '"+usu+"' AND passwrd LIKE '"+contra+"';";
                     ResultSet resul2 = sentencia3.executeQuery(sql3);
                     while (resul2.next()) {
@@ -90,48 +84,52 @@ public class controladorVentanaUsuarios {
                     resul2.close();
                     if (id_usuario!=0 && id_evento!=0){//consulta para insertar en tabla intermedia con las id
                         String sql = "INSERT INTO Persona_Evento (id_Persona, id_Evento) VALUES (?, ?);";
-                        PreparedStatement sentencia=(PreparedStatement) conexion.prepareStatement(sql);
+                        PreparedStatement sentencia=(PreparedStatement) result.conexion().prepareStatement(sql);
                         sentencia.setInt(1, id_usuario);
                         sentencia.setInt(2, id_evento);
                         sentencia.executeUpdate();
 
-                        Alert alerta=new Alert(Alert.AlertType.WARNING);
-                        alerta.setTitle("Apuntado");
-                        alerta.setHeaderText(null);
-                        alerta.setContentText("Has sido añadido a la lista de participantes del evento");
-                        alerta.showAndWait();
+                        msgError(Alert.AlertType.WARNING, "Apuntado", "Has sido añadido a la lista de participantes del evento");
 
-                        conexion.close();
+                        result.conexion().close();
                         sentencia.close();
                     }else{
-                        Alert alerta=new Alert(Alert.AlertType.ERROR);
-                        alerta.setTitle("Error");
-                        alerta.setHeaderText(null);
-                        alerta.setContentText("Ha ocurrido un error");
-                        alerta.showAndWait();
+                        msgError(Alert.AlertType.ERROR, "Error", "Ha ocurrido un error");
                     }
                 }else{
-                    Alert alerta=new Alert(Alert.AlertType.ERROR);
-                    alerta.setTitle("Error");
-                    alerta.setHeaderText(null);
-                    alerta.setContentText("Un administrador no puede apuntarse a eventos");
-                    alerta.showAndWait();
+                    msgError(Alert.AlertType.ERROR, "Error", "Un administrador no puede apuntarse a eventos");
                 }
 
             }else{
-                Alert alerta=new Alert(Alert.AlertType.ERROR);
-                alerta.setTitle("Nigun evento seleccionado");
-                alerta.setHeaderText(null);
-                alerta.setContentText("Ningun evento seleccionado");
-                alerta.showAndWait();
+                msgError(Alert.AlertType.ERROR, "Nigun evento seleccionado", "Ningun evento seleccionado");
             }
         }catch (Exception e){
-            Alert alerta=new Alert(Alert.AlertType.ERROR);
-            alerta.setTitle("Error");
-            alerta.setHeaderText(null);
-            alerta.setContentText("Ya estas apuntado a este evento");
-            alerta.showAndWait();
+            msgError(Alert.AlertType.ERROR, "Error", "Ya estas apuntado a este evento");
         }
+    }
+
+    private static void msgError(Alert.AlertType error, String Nigun_evento_seleccionado, String Ningun_evento_seleccionado) {
+        Alert alerta = new Alert(error);
+        alerta.setTitle(Nigun_evento_seleccionado);
+        alerta.setHeaderText(null);
+        alerta.setContentText(Ningun_evento_seleccionado);
+        alerta.showAndWait();
+    }
+
+    private @NotNull Result getResult() throws ClassNotFoundException, SQLException {
+        // Cargar el driver
+        Class.forName(utiles.driver);
+        // Establecemos la conexion con la BD
+        Connection conexion = (Connection) DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
+        Statement sentencia2 = (Statement) conexion.createStatement();
+        //consulta para extraer la id
+        String sql2 = "SELECT id FROM eventos WHERE nombre LIKE '"+eventoSelec.getNombre()+"' AND descripcion LIKE '"+eventoSelec.getDescripcion()+"';";
+        ResultSet resul = sentencia2.executeQuery(sql2);
+        Result result = new Result(conexion, sentencia2, resul);
+        return result;
+    }
+
+    private record Result(Connection conexion, Statement sentencia2, ResultSet resul) {
     }
 
     @FXML
@@ -200,6 +198,28 @@ public class controladorVentanaUsuarios {
         c.setContra(contra);
         stage.close();
         stage.show();
+    }
+
+    public void informaciónDeEvento(ActionEvent actionEvent) throws IOException, SQLException, ClassNotFoundException {
+        int id_evento = 0;
+        eventoSelec=tablaEventos.getSelectionModel().getSelectedItem();
+        if(eventoSelec!=null) {
+            Result result = getResult();
+            while (result.resul().next()) {
+                id_evento = result.resul().getInt(1);
+            }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaInfoEventos.fxml"));
+        Parent root=loader.load();
+        Scene escena = new Scene(root);
+        Stage stage =(Stage) btnInfo.getScene().getWindow();
+        stage.setScene(escena);
+        controladorVentanaInfoEventos c = (controladorVentanaInfoEventos)loader.getController();
+        c.setNombreEvento(id_evento);
+        stage.close();
+        stage.show();
+        }else{
+            msgError(Alert.AlertType.ERROR, "Nigun evento seleccionado", "Ningun evento seleccionado");
+        }
     }
 }
 

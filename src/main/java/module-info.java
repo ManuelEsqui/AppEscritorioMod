@@ -11,6 +11,7 @@ module com.example.trabajofinal_interfaces {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.sql;
+    requires annotations;
 
     opens com.example.trabajofinal_interfaces to javafx.fxml;
     opens com.example.trabajofinal_interfaces.controlador to javafx.fxml;
