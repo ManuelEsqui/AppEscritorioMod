@@ -5,11 +5,17 @@ import com.example.trabajofinal_interfaces.utiles.utiles;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -30,20 +36,38 @@ public class controladorVentanaGestionLocalidades {
     private Label provincia;
 
     @FXML
-    void add(ActionEvent event) {
-
+    void add(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaAgregarEditarLocalidades.fxml"));
+        Parent root=loader.load();
+        Scene escena = new Scene(root);
+        Stage stage =(Stage) menuButton.getScene().getWindow();
+        stage.setScene(escena);
+        ControladorVentanaAgregarEditarLocalidades c = (ControladorVentanaAgregarEditarLocalidades) loader.getController();
+        c.inicializar(true);
+        stage.close();
+        stage.show();
     }
 
     @FXML
     void delete(ActionEvent event) {
-
+        Localidad localidad = localidades.get(listViewLocalidades.getSelectionModel().getSelectedIndex());
     }
 
     @FXML
-    void update(ActionEvent event) {
-
+    void update(ActionEvent event) throws IOException {
+        Localidad localidad = localidades.get(listViewLocalidades.getSelectionModel().getSelectedIndex());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaAgregarEditarLocalidades.fxml"));
+        Parent root=loader.load();
+        Scene escena = new Scene(root);
+        Stage stage =(Stage) menuButton.getScene().getWindow();
+        stage.setScene(escena);
+        ControladorVentanaAgregarEditarLocalidades c = (ControladorVentanaAgregarEditarLocalidades) loader.getController();
+        c.inicializar(false);
+        c.rellenarCampos(localidad.getNombre(),localidad.getProvincia());
+        stage.close();
+        stage.show();
     }
-    private void inicializarLocalidades() throws ClassNotFoundException, SQLException {
+    public void inicializarLocalidades() throws ClassNotFoundException, SQLException {
         localidades = new ArrayList<>();
         localidadesNombre = new ArrayList<>();
         // Cargar el driver
@@ -62,7 +86,12 @@ public class controladorVentanaGestionLocalidades {
         listViewLocalidades.setItems(FXCollections.observableArrayList(localidadesNombre));
     }
 
-    public void edit(ListView.EditEvent<String> stringEditEvent) {
-        //Implementar codigo
+    public void selecionarCiudad(MouseEvent mouseEvent) {
+        String nombre=listViewLocalidades.getSelectionModel().getSelectedItem();
+        for (Localidad localidad : localidades) {
+            if (localidad.getNombre().equals(nombre)) {
+                provincia.setText("Esta en la provincia de: "+localidad.getProvincia());
+            }
+        }
     }
 }

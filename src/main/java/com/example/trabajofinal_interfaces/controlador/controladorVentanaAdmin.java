@@ -141,11 +141,14 @@ public class controladorVentanaAdmin {
         transition.play(); // Iniciar la animación
     }
 
-    public void cambiarVentanaLocalidades(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaGestionLocalidades.fxml"));
+    public void cambiarVentanaLocalidades(ActionEvent actionEvent) throws IOException, SQLException, ClassNotFoundException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaGestionLocalidades.fxml"));
+        Parent root=loader.load();
         Scene escena = new Scene(root);
         Stage stage =(Stage) btnVolver.getScene().getWindow();
         stage.setScene(escena);
+        controladorVentanaGestionLocalidades c = (controladorVentanaGestionLocalidades) loader.getController();
+        c.inicializarLocalidades();
         stage.close();
         stage.show();
     }
