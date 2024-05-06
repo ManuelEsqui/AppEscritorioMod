@@ -54,7 +54,7 @@ public class controladorVentanaGestionLocalidades {
     }
 
     @FXML
-    void update(ActionEvent event) throws IOException {
+    void update(ActionEvent event) throws IOException, SQLException {
         Localidad localidad = localidades.get(listViewLocalidades.getSelectionModel().getSelectedIndex());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaAgregarEditarLocalidades.fxml"));
         Parent root=loader.load();

@@ -3,6 +3,7 @@ package com.example.trabajofinal_interfaces.vista;
 import com.example.trabajofinal_interfaces.HelloApplication;
 import com.example.trabajofinal_interfaces.controlador.controladorGestorPersonas;
 import com.example.trabajofinal_interfaces.controlador.controladorLoginView;
+import com.example.trabajofinal_interfaces.utiles.utiles;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Optional;
 
+import static com.example.trabajofinal_interfaces.utiles.utiles.Alertas;
+
 public class controladorGestorPersonas {
 
     public CheckBox checkAdmin;
@@ -169,13 +171,6 @@ public class controladorGestorPersonas {
 
     }
 
-    private static void Alertas(Alert.AlertType type, String Fallo, String s) {
-        Alert alerta = new Alert(type);
-        alerta.setTitle(Fallo);
-        alerta.setHeaderText(null);
-        alerta.setContentText(s);
-        alerta.showAndWait();
-    }
 
     @FXML
     void eliminarCuenta(ActionEvent event) throws SQLException, ClassNotFoundException {//metodo para eliminar usuarios
@@ -320,12 +315,7 @@ public class controladorGestorPersonas {
     @FXML
     void volver(ActionEvent event) throws IOException {// metodo para volver a la ventana principal
         if(bandera){
-            Parent root = FXMLLoader.load(getClass().getResource("/com/example/trabajofinal_interfaces/vista/LoginView.fxml"));
-            Scene escena = new Scene(root);
-            Stage stage =(Stage) btnVolver.getScene().getWindow();
-            stage.setScene(escena);
-            stage.close();
-            stage.show();
+            new utiles().cambiarVentanaLogin((Stage) btnVolver.getScene().getWindow());
         }else{
             new utiles().cambiarVentanaAdmin((Stage) btnVolver.getScene().getWindow());
         }

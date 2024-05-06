@@ -1,8 +1,10 @@
 package com.example.trabajofinal_interfaces.utiles;
 
+import com.example.trabajofinal_interfaces.controlador.controladorLoginView;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,6 +25,20 @@ public class utiles {
         stage.setScene(escena);
         stage.close();
         stage.show();
+    }
+    public void cambiarVentanaLogin(Stage stage) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/com/example/trabajofinal_interfaces/vista/LoginView.fxml"));
+        Scene escena = new Scene(root);
+        stage.setScene(escena);
+        stage.close();
+        stage.show();
+    }
+    public static void Alertas(Alert.AlertType type, String Fallo, String s) {
+        Alert alerta = new Alert(type);
+        alerta.setTitle(Fallo);
+        alerta.setHeaderText(null);
+        alerta.setContentText(s);
+        alerta.showAndWait();
     }
 
     public static String url="jdbc:mysql://localhost/extreventos";

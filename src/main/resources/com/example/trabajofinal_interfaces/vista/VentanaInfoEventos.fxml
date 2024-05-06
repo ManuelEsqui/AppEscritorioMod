@@ -2,35 +2,74 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="571.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trabajofinal_interfaces.controlador.controladorVentanaInfoEventos">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="654.0" prefWidth="706.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trabajofinal_interfaces.controlador.controladorVentanaInfoEventos">
    <children>
-      <Label layoutX="14.0" layoutY="14.0" text="Participantes del evento:">
+      <Label layoutX="14.0" layoutY="50.0" text="Participantes del evento:">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <HBox layoutY="101.0" prefHeight="470.0" prefWidth="850.0" spacing="64.0">
+      <HBox layoutY="144.0" prefHeight="509.0" prefWidth="705.0">
          <children>
-            <ListView fx:id="listViewNombre" prefHeight="470.0" prefWidth="129.0" />
+            <ListView fx:id="listViewNombre" prefHeight="470.0" prefWidth="142.0" />
+            <Line endX="100.0" startX="99.25244140625" startY="460.29290771484375" />
             <ListView fx:id="listViewApellido" prefHeight="470.0" prefWidth="142.0" />
-            <ListView fx:id="listViewSexo" prefHeight="470.0" prefWidth="116.0" />
-            <ListView fx:id="listViewEdad" prefHeight="470.0" prefWidth="81.0" />
+            <Line endX="-100.0404281616211" endY="469.29290771484375" startX="-100.0" />
+            <ListView fx:id="listViewSexo" prefHeight="470.0" prefWidth="142.0" />
+            <Line endX="-100.0404281616211" endY="470.62628173828125" startX="-100.0" />
+            <ListView fx:id="listViewEdad" prefHeight="470.0" prefWidth="142.0" />
+            <Line endX="-100.04045867919922" endY="507.62628173828125" startX="-100.0" />
             <ListView fx:id="listViewEstado" prefHeight="470.0" prefWidth="127.0" />
          </children>
          <effect>
-            <Glow level="0.39" />
+            <InnerShadow />
          </effect>
       </HBox>
-      <Label layoutX="46.0" layoutY="67.0" text="Nombre" />
-      <Label layoutX="234.0" layoutY="69.0" text="Apellido" />
-      <Label layoutX="438.0" layoutY="70.0" text="Sexo" />
-      <Label layoutX="604.0" layoutY="70.0" text="Edad" />
-      <Label layoutX="753.0" layoutY="69.0" text="Estado civil" />
-      <Label fx:id="total" layoutX="700.0" layoutY="14.0" text="Total de asistentes: X" />
+      <Label layoutX="55.0" layoutY="117.0" text="Nombre" />
+      <Label layoutX="194.0" layoutY="117.0" text="Apellido" />
+      <Label layoutX="338.0" layoutY="117.0" text="Sexo" />
+      <Label layoutX="489.0" layoutY="117.0" text="Edad" />
+      <Label layoutX="610.0" layoutY="117.0" text="Estado civil" />
+      <Label fx:id="total" layoutX="564.0" layoutY="68.0" text="Total de asistentes: X" />
+      <MenuButton layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Volver">
+        <items>
+          <MenuItem mnemonicParsing="false" onAction="#volverPagAnterio" text="Pagina eventos" />
+          <MenuItem mnemonicParsing="false" onAction="#volverLogin" text="Login" />
+        </items>
+         <textFill>
+            <RadialGradient centerX="0.5295203092793257" centerY="0.5315457292911758" focusAngle="54.93" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.13784745335578918" green="0.08752977848052979" blue="0.4649122953414917" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.9385964870452881" green="0.46929824352264404" blue="0.3128654956817627" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill>
+         <effect>
+            <InnerShadow>
+               <color>
+                  <Color red="0.9561403393745422" green="0.70530104637146" blue="0.70530104637146" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </MenuButton>
    </children>
 </AnchorPane>

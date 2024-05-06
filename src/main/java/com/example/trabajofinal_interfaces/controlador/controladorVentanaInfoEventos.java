@@ -3,12 +3,13 @@ package com.example.trabajofinal_interfaces.controlador;
 import com.example.trabajofinal_interfaces.modelo.Usuario;
 import com.example.trabajofinal_interfaces.utiles.utiles;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -85,4 +86,10 @@ public class controladorVentanaInfoEventos {
         resul.close();
     }
 
+    public void volverPagAnterio(ActionEvent actionEvent) {
+    }
+
+    public void volverLogin(ActionEvent actionEvent) throws IOException {
+        new utiles().cambiarVentanaLogin((Stage) listViewApellido.getScene().getWindow());
+    }
 }

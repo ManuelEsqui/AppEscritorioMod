@@ -84,12 +84,7 @@ public class controladorVentanaAdmin {
 
     @FXML
     void VolverLogin(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/example/trabajofinal_interfaces/vista/LoginView.fxml"));
-        Scene escena = new Scene(root);
-        Stage stage =(Stage) btnVolver.getScene().getWindow();
-        stage.setScene(escena);
-        stage.close();
-        stage.show();
+        new utiles().cambiarVentanaLogin((Stage) btnVolver.getScene().getWindow());
     }
     @FXML
     public void CargarDatos(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {

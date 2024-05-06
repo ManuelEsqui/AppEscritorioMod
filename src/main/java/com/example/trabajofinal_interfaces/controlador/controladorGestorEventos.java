@@ -21,6 +21,8 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Arrays;
 
+import static com.example.trabajofinal_interfaces.utiles.utiles.Alertas;
+
 public class controladorGestorEventos {
 
     @FXML
@@ -112,7 +114,10 @@ public class controladorGestorEventos {
                 }
 
             }
-            if (!encontrada) lbError.setText("Localidad no encontrada en la bd");
+            if (!encontrada){
+                Alertas(Alert.AlertType.ERROR, "Error", "Localidad no encontrada en la base de datos, revise si existe y si no es el caso agréguela");
+                return;
+            }
             //Se hace la consulta para añadir el evento a la bd
             String sql = "INSERT INTO eventos (nombre, descripcion, fecha, localidad_id, ubicacion) VALUES (?, ?, ?, ?, ?);";
             PreparedStatement sentencia=(PreparedStatement) conexion.prepareStatement(sql);
@@ -219,7 +224,10 @@ public class controladorGestorEventos {
                 }
 
             }
-            if (!encontrada) lbError.setText("Localidad no encontrada en la bd");
+            if (!encontrada){
+                Alertas(Alert.AlertType.ERROR, "Error", "Localidad no encontrada en la base de datos, revise si existe y si no es el caso agréguela");
+                return;
+            }
             String sql = "UPDATE eventos SET nombre = ?, descripcion = ?, fecha = ?, localidad_id = ?, ubicacion = ? WHERE id = ?;";
             PreparedStatement sentencia=(PreparedStatement) conexion.prepareStatement(sql);
             sentencia.setString(1, nombre);
@@ -240,11 +248,7 @@ public class controladorGestorEventos {
             sentencia2.close();
             resul.close();
         }else {
-            Alert alerta=new Alert(Alert.AlertType.ERROR);
-            alerta.setTitle("Error");
-            alerta.setHeaderText(null);
-            alerta.setContentText("Se deben rellenar todos los datos");
-            alerta.showAndWait();
+            Alertas(Alert.AlertType.ERROR, "Error", "Se deben rellenar todos los datos");
         }
 
     }

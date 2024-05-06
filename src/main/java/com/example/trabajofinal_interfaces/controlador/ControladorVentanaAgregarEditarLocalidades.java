@@ -98,6 +98,7 @@ public class ControladorVentanaAgregarEditarLocalidades {
                 statement.setString(1, txtNombre.getText());
                 statement.setString(2, txtprovincia.getText());
                 statement.setBinaryStream(3, fis, (int) imagenSeleccionada.length());
+                statement.setInt(4, id_loc);
                 statement.executeUpdate();
 
                 System.out.println("Imagen insertada correctamente en la base de datos.");
@@ -123,10 +124,24 @@ public class ControladorVentanaAgregarEditarLocalidades {
         stage.show();
     }
 
-    public void rellenarCampos(String nombre, String provincia) {
+    public void rellenarCampos(String nombre, String provincia) throws SQLException {
         lbAccion.setText("¡Edita la localidad!");
         txtNombre.setText(nombre);
         txtprovincia.setText(provincia);
+        Connection conexion = DriverManager.getConnection(utiles.url,utiles.usuario, utiles.clave);
+        Statement sentencia2 = (Statement) conexion.createStatement();
+        String sql2 = "SELECT * FROM Localidades;";
+        ResultSet resul = sentencia2.executeQuery(sql2);
+
+        // Recorremos el resultado para visualizar cada fila
+        // Se hace un bucle mientras haya registros
+        while (resul.next()) {
+
+            if (resul.getString(2).equalsIgnoreCase(txtNombre.getText())){//Arreglar
+                id_loc=resul.getInt(1);
+            }
+
+        }
 
     }
 
