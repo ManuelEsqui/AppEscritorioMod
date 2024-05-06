@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -19,6 +20,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.*;
+
+import static com.example.trabajofinal_interfaces.utiles.utiles.Alertas;
 
 public class ControladorVentanaAgregarEditarLocalidades {
 
@@ -59,22 +62,30 @@ public class ControladorVentanaAgregarEditarLocalidades {
             try (Connection conexion = DriverManager.getConnection(utiles.url,utiles.usuario, utiles.clave)) {
                 imagenSeleccionada = new File(rutaImagen.getText()); // Ruta de la imagen a subir
                 FileInputStream fis = new FileInputStream(imagenSeleccionada);
-
+                if (txtNombre.getText().isEmpty() && txtprovincia.getText().isEmpty()){
+                    Alertas(Alert.AlertType.ERROR, "Error", "No pueden haber campos vacios");
+                    return;
+                }
                 PreparedStatement statement = conexion.prepareStatement("INSERT INTO localidades (nombre, provincia, imagen) VALUES (?, ?, ?)");
                 statement.setString(1, txtNombre.getText());
                 statement.setString(2, txtprovincia.getText());
                 statement.setBinaryStream(3, fis, (int) imagenSeleccionada.length());
                 statement.executeUpdate();
 
-                System.out.println("Imagen insertada correctamente en la base de datos.");
+                Alertas(Alert.AlertType.INFORMATION, "Añadida con exito", "La localidad ha sido añadida exitosamente");
+                volverVentanaAnterior();
 
             } catch (SQLException e) {
-                System.out.println("Error al conectar a la base de datos: " + e.getMessage());
+                Alertas(Alert.AlertType.ERROR, "Error", "No se pudo conectar a la base de datos");
             } catch (FileNotFoundException e) {
-                System.out.println("No se pudo encontrar la imagen: " + e.getMessage());
+                Alertas(Alert.AlertType.ERROR, "Error", "No se pudo encontrar la imagen");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
             }
 
-        } else{//Editar UPDATE Personas SET nombre = ?, apellidos = ?, sexo = ?, estadoCivil = ?, edad = ?,  localidad_id = ?, admin = ? WHERE user = ? AND passwrd = ?;
+        } else{// Este es el modo para editar las personas
 
             try (Connection conexion = DriverManager.getConnection(utiles.url,utiles.usuario, utiles.clave)) {
                 imagenSeleccionada = new File(rutaImagen.getText()); // Ruta de la imagen
@@ -88,7 +99,7 @@ public class ControladorVentanaAgregarEditarLocalidades {
                 // Se hace un bucle mientras haya registros
                 while (resul.next()) {
 
-                    if (resul.getString(2).equalsIgnoreCase(txtNombre.getText())){//Arreglar
+                    if (resul.getString(2).equalsIgnoreCase(txtNombre.getText())){//Se obtiene el id comparando el nombre de la localidad con la base de datos
                         id_loc=resul.getInt(1);
                     }
 
@@ -101,25 +112,34 @@ public class ControladorVentanaAgregarEditarLocalidades {
                 statement.setInt(4, id_loc);
                 statement.executeUpdate();
 
-                System.out.println("Imagen insertada correctamente en la base de datos.");
+                Alertas(Alert.AlertType.INFORMATION, "Editada con exito", "La localidad ha sido editada exitosamente");
+                volverVentanaAnterior();
 
             } catch (SQLException e) {
-                System.out.println("Error al conectar a la base de datos: " + e.getMessage());
+                Alertas(Alert.AlertType.ERROR, "Error", "No se pudo conectar a la base de datos");
             } catch (FileNotFoundException e) {
-                System.out.println("No se pudo encontrar la imagen: " + e.getMessage());
+                Alertas(Alert.AlertType.ERROR, "Error", "No se pudo encontrar la imagen");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
             }
         }
     }
 
     @FXML
-    void volver(ActionEvent event) throws SQLException, ClassNotFoundException, IOException {
+    void volver(ActionEvent event) throws SQLException, ClassNotFoundException, IOException {//Vuelve a la venatana anterior
+        volverVentanaAnterior();
+    }
+
+    private void volverVentanaAnterior() throws IOException, ClassNotFoundException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaGestionLocalidades.fxml"));
         Parent root=loader.load();
         Scene escena = new Scene(root);
         Stage stage =(Stage) volver.getScene().getWindow();
         stage.setScene(escena);
         controladorVentanaGestionLocalidades c = (controladorVentanaGestionLocalidades) loader.getController();
-        c.inicializarLocalidades();
+        c.inicializarLocalidades();//metdo para refescar la lista
         stage.close();
         stage.show();
     }
