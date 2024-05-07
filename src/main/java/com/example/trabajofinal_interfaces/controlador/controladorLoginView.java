@@ -1,5 +1,6 @@
 package com.example.trabajofinal_interfaces.controlador;
 
+import com.example.trabajofinal_interfaces.modelo.Usuario;
 import com.example.trabajofinal_interfaces.utiles.utiles;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,9 +15,12 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.sql.*;
+
+import static com.example.trabajofinal_interfaces.utiles.utiles.Alertas;
 
 public class controladorLoginView {
     private Stage stage;
@@ -34,6 +38,7 @@ public class controladorLoginView {
     private TextField txtUsuario;
     private String usuario;
     private String contra;
+    Usuario user;
 
 
     @FXML
@@ -64,25 +69,12 @@ public class controladorLoginView {
 
     private void inicioSesion() {
         try {
-            // Cargar el driver
-            Class.forName(utiles.driver);
-
-            // Establecemos la conexion con la BD
-            Connection conexion = (Connection) DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
-
-            // Preparamos la consulta
-            Statement sentencia = (Statement) conexion.createStatement();
             String sql = "SELECT user,passwrd,admin FROM personas;";
-            ResultSet resul = sentencia.executeQuery(sql);
-
-            // Recorremos el resultado para visualizar cada fila
-            // Se hace un bucle mientras haya registros
-            usuario=txtUsuario.getText();
-            contra=txtContrasenia.getText();
+            Consulta result = getConsulta(sql);
             boolean bandera=false;
-            while (resul.next()) {
-                if (usuario.equals(resul.getString(1)) && contra.equals(resul.getString(2))){
-                    if (resul.getBoolean(3)){
+            while (result.resul().next()) {
+                if (usuario.equals(result.resul().getString(1)) && contra.equals(result.resul().getString(2))){
+                    if (result.resul().getBoolean(3)){
                         cambiarVentanaAdmin();
                         bandera=true;
                     }else{
@@ -91,22 +83,40 @@ public class controladorLoginView {
                     }
                 }
             }if (!bandera){
-                Alert alerta=new Alert(Alert.AlertType.WARNING);
-                alerta.setTitle("Incorrecto");
-                alerta.setHeaderText(null);
-                alerta.setContentText("El usuario o la contraseña son incorrectos");
-                alerta.showAndWait();
+                Alertas(Alert.AlertType.ERROR, "Login incorrecto", "Usuario o contraseña icorrectos");
             }
 
-            resul.close(); // Cerrar ResultSet
-            sentencia.close(); // Cerrar Statement
-            conexion.close(); // Cerrar conexi�n
+            result.resul().close(); // Cerrar ResultSet
+            result.sentencia().close(); // Cerrar Statement
+            result.conexion().close(); // Cerrar conexi�n
 
         } catch (ClassNotFoundException cn) {
             cn.printStackTrace();
         } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private @NotNull Consulta getConsulta(String sql) throws ClassNotFoundException, SQLException {
+        // Cargar el driver
+        Class.forName(utiles.driver);
+
+        // Establecemos la conexion con la BD
+        Connection conexion = (Connection) DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
+
+        // Preparamos la consulta
+        Statement sentencia = (Statement) conexion.createStatement();
+        ResultSet resul = sentencia.executeQuery(sql);
+
+        // Recorremos el resultado para visualizar cada fila
+        // Se hace un bucle mientras haya registros
+        usuario=txtUsuario.getText();
+        contra=txtContrasenia.getText();
+        Consulta result = new Consulta(conexion, sentencia, resul);
+        return result;
+    }
+
+    private record Consulta(Connection conexion, Statement sentencia, ResultSet resul) {
     }
 
     private void cambiarVentanaUsuario() throws IOException {
@@ -143,8 +153,36 @@ public class controladorLoginView {
         }
     }
 
-    public void ventanaEditarUsuarios(MouseEvent mouseEvent) {
-
+    public void ventanaEditarUsuarios(MouseEvent mouseEvent) throws IOException, SQLException, ClassNotFoundException {
+        if(txtUsuario.getText().length()<1 || txtContrasenia.getText().length()<1){
+            Alertas(Alert.AlertType.WARNING, "Introduce los datos", "Debes rellenar los campos usuario y contraseña");
+            return;
+        }
+        boolean bandera=false;
+        String sql = "SELECT personas.nombre, apellidos, sexo, estadoCivil, user, passwrd, edad, localidades.nombre, admin FROM personas INNER JOIN localidades ON personas.localidad_id = localidades.id;";
+        Consulta result = getConsulta(sql);
+        while (result.resul().next()) {
+            if (usuario.equals(result.resul().getString(5)) && contra.equals(result.resul().getString(6))){
+                user=new Usuario(result.resul().getString(1), result.resul().getString(2), result.resul().getString(3), result.resul().getString(4), result.resul().getString(5),result.resul().getString(8), result.resul().getString(6), result.resul().getInt(7));
+                if (result.resul().getBoolean(9)){
+                    bandera=true;
+                }
+            }
+        }
+        if (user==null){
+            Alertas(Alert.AlertType.ERROR, "Editar usuarios falló", "Usuario o contraseña icorrectos");
+            return;
+        }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaEdicionUsuarios.fxml"));
+        Parent root=loader.load();
+        Scene escena = new Scene(root);
+        Stage stage =(Stage) txtUsuario.getScene().getWindow();
+        stage.setScene(escena);
+        ControladorVentanaEdicionUsuarios c = (ControladorVentanaEdicionUsuarios) loader.getController();
+        c.setBandera(bandera);
+        c.setUsuario(user);
+        stage.close();
+        stage.show();
     }
 }
 

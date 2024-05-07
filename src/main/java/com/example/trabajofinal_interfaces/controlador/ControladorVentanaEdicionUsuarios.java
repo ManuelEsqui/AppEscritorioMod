@@ -48,6 +48,9 @@ public class ControladorVentanaEdicionUsuarios {
 
     public void setBandera(boolean bandera) {
         this.bandera = bandera;
+        if(this.bandera){
+            checkAdmin.setSelected(true);//ns si va xdd
+        }
     }
 
     public void setUsuario(Usuario usuario) {
