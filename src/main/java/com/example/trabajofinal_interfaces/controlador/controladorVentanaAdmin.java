@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -19,6 +20,8 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.sql.*;
+
+import static com.example.trabajofinal_interfaces.utiles.utiles.Alertas;
 
 public class controladorVentanaAdmin {
 
@@ -69,13 +72,17 @@ public class controladorVentanaAdmin {
     @FXML
     void AdministrarUsuarios(ActionEvent event) throws IOException {
         usuarioselec=tableViewUsuarios.getSelectionModel().getSelectedItem();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/GestorPersonasView.fxml"));
+        if(usuarioselec==null){
+            Alertas(Alert.AlertType.ERROR, "Error", "No has seleccinado ningun usuario");
+            return;
+        }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaEdicionUsuarios.fxml"));
         Parent root=loader.load();
         Scene escena = new Scene(root);
         Stage stage =(Stage) btnVolver.getScene().getWindow();
         stage.setScene(escena);
-        controladorGestorPersonas c = (controladorGestorPersonas) loader.getController();
-        c.inicializarComboBox();
+        ControladorVentanaEdicionUsuarios c = (ControladorVentanaEdicionUsuarios) loader.getController();
+        c.setBandera(true);
         c.setUsuario(usuarioselec);
         stage.close();
         stage.show();

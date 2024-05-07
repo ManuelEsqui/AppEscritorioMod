@@ -9,7 +9,10 @@
 
 .button {
     -fx-pref-width: 150px;
-    -fx-font-size: 14px;
+    -fx-font-size: 16px;
+    -fx-background-radius: 18 18 18 18;
+    -fx-border-radius: 18 18 18 18;
+    -fx-border-width:5;
 }
 
 #LogIn {
@@ -24,4 +27,9 @@
 #ExtrEventos{
     -fx-font-size: 50px;
     -fx-font-family: Centaur;
+}
+
+#miCuenta{
+    -fx-background-color: #8B0000;
+    -fx-text-fill: white;
 }

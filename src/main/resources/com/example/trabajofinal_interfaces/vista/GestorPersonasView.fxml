@@ -31,8 +31,6 @@
       <HBox layoutY="281.0" prefHeight="30.0" prefWidth="648.0" spacing="60.0">
          <children>
             <Button fx:id="btnRegistrarse" mnemonicParsing="false" onAction="#registrarse" text="Registrarse" />
-            <Button fx:id="btnEditar" mnemonicParsing="false" onAction="#editarDatos" text="Editar Datos" />
-            <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#eliminarCuenta" text="Eliminar cuenta" />
             <Button fx:id="btnVolver" mnemonicParsing="false" onAction="#volver" prefHeight="29.0" prefWidth="65.0" text="Volver" />
          </children>
       </HBox>

@@ -5,6 +5,7 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/loginCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trabajofinal_interfaces.controlador.controladorLoginView">
@@ -17,8 +18,13 @@
       <TextField fx:id="txtUsuario" layoutX="221.0" layoutY="175.0" />
       <Label layoutX="207.0" layoutY="149.0" text="Usuario" />
       <Label layoutX="195.0" layoutY="225.0" text="Contraseña" />
-      <Button fx:id="LogIn" layoutX="110.0" layoutY="314.0" mnemonicParsing="false" onAction="#VentanaUsuario" text="Iniciar Sesion" />
-      <Button fx:id="SingUp" layoutX="362.0" layoutY="314.0" mnemonicParsing="false" onAction="#VentanaRegistro" text="Registrarse" />
-      <PasswordField fx:id="txtContrasenia" layoutX="221.0" layoutY="251.0" />
+      <PasswordField fx:id="txtContrasenia" layoutX="221.0" layoutY="251.0" onKeyPressed="#inicioSesionTeclado" />
+      <HBox layoutX="15.0" layoutY="315.0" prefHeight="29.0" prefWidth="569.0" spacing="60.0">
+         <children>
+            <Button fx:id="LogIn" mnemonicParsing="false" onAction="#VentanaUsuario" text="Iniciar Sesion" />
+            <Button fx:id="miCuenta" mnemonicParsing="false" onMouseClicked="#ventanaEditarUsuarios" prefHeight="22.0" prefWidth="133.0" text="Mi cuenta" />
+            <Button fx:id="SingUp" mnemonicParsing="false" onAction="#VentanaRegistro" text="Registrarse" />
+         </children>
+      </HBox>
    </children>
 </AnchorPane>

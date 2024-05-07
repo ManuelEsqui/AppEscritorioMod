@@ -2,6 +2,7 @@ package com.example.trabajofinal_interfaces.controlador;
 
 import com.example.trabajofinal_interfaces.utiles.utiles;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,6 +10,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -55,7 +59,10 @@ public class controladorLoginView {
 
     @FXML
     void VentanaUsuario(ActionEvent event) {
+        inicioSesion();
+    }
 
+    private void inicioSesion() {
         try {
             // Cargar el driver
             Class.forName(utiles.driver);
@@ -100,7 +107,6 @@ public class controladorLoginView {
         } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
-
     }
 
     private void cambiarVentanaUsuario() throws IOException {
@@ -128,6 +134,17 @@ public class controladorLoginView {
 
     public void setStage(Stage stage) {
         this.stage=stage;
+    }
+
+
+    public void inicioSesionTeclado(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            inicioSesion();
+        }
+    }
+
+    public void ventanaEditarUsuarios(MouseEvent mouseEvent) {
+
     }
 }
 
