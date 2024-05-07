@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane prefHeight="315.0" prefWidth="648.0" stylesheets="@../css/GestorPersonasCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trabajofinal_interfaces.controlador.VentanaEdicionUsuarios">
+<AnchorPane prefHeight="315.0" prefWidth="648.0" stylesheets="@../css/GestorPersonasCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trabajofinal_interfaces.controlador.ControladorVentanaEdicionUsuarios">
     <children>
         <TextField fx:id="txtNombre" layoutX="33.0" layoutY="34.0" />
         <TextField fx:id="txtApellidos" layoutX="34.0" layoutY="83.0" />
