@@ -149,7 +149,7 @@ public class ControladorVentanaAgregarEditarLocalidades {
         txtNombre.setText(nombre);
         txtprovincia.setText(provincia);
         Connection conexion = DriverManager.getConnection(utiles.url,utiles.usuario, utiles.clave);
-        Statement sentencia2 = (Statement) conexion.createStatement();
+        Statement sentencia2 =conexion.createStatement();
         String sql2 = "SELECT * FROM Localidades;";
         ResultSet resul = sentencia2.executeQuery(sql2);
 
@@ -157,8 +157,9 @@ public class ControladorVentanaAgregarEditarLocalidades {
         // Se hace un bucle mientras haya registros
         while (resul.next()) {
 
-            if (resul.getString(2).equalsIgnoreCase(txtNombre.getText())){//Arreglar
+            if (resul.getString(2).equalsIgnoreCase(txtNombre.getText())){
                 id_loc=resul.getInt(1);
+                //imagenPreview.setImage((Image) resul.getBlob(4));
             }
 
         }

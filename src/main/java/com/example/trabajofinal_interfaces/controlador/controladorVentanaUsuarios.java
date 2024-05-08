@@ -53,8 +53,9 @@ public class controladorVentanaUsuarios {
     int id_usuario=0;
     private Evento eventoSelec;
 
-    public void setContra(String contra) {
+    public void setContra(String contra) throws SQLException, ClassNotFoundException {
         this.contra = contra;
+        init();
     }
 
     public void setUsu(String usu) {
@@ -134,6 +135,10 @@ public class controladorVentanaUsuarios {
 
     @FXML
     void refresh(ActionEvent event) throws SQLException, ClassNotFoundException {
+        init();
+    }
+
+    private void init() throws ClassNotFoundException, SQLException {
         inicializarTableView();
         this.lista=listAll();
         this.tablaEventos.setItems(lista);

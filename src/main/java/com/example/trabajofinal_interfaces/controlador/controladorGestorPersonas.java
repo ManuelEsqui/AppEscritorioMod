@@ -193,7 +193,7 @@ public class controladorGestorPersonas {
     }
 
     @FXML
-    void volver(ActionEvent event) throws IOException {// metodo para volver a la ventana principal
+    void volver(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {// metodo para volver a la ventana principal
         if(bandera){
             new utiles().cambiarVentanaLogin((Stage) btnVolver.getScene().getWindow());
         }else{

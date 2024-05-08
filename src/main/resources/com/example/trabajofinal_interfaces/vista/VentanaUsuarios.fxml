@@ -3,28 +3,33 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.Blend?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="500.0" prefWidth="745.0" stylesheets="@../css/VentanaUsuariosCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trabajofinal_interfaces.controlador.controladorVentanaUsuarios">
    <children>
-      <TableView fx:id="tablaEventos" layoutX="3.0" layoutY="33.0" prefHeight="295.0" prefWidth="691.0">
+      <TableView fx:id="tablaEventos" layoutY="70.0" prefHeight="295.0" prefWidth="745.0">
         <columns>
-          <TableColumn fx:id="columnaNombre" prefWidth="96.00003290176392" text="Nombre" />
-          <TableColumn fx:id="columnaDescripcion" prefWidth="219.9999771118164" text="Descripcion" />
-            <TableColumn fx:id="columnaLocalidad" prefWidth="102.66668701171875" text="Localidad" />
-            <TableColumn fx:id="columnaUbicacion" prefWidth="180.66665649414062" text="Ubicacion" />
-            <TableColumn fx:id="columnaFecha" prefWidth="92.00006103515625" text="Fecha" />
+          <TableColumn fx:id="columnaNombre" prefWidth="104.00001525878906" text="Nombre" />
+          <TableColumn fx:id="columnaDescripcion" prefWidth="212.66665649414062" text="Descripcion" />
+            <TableColumn fx:id="columnaLocalidad" prefWidth="115.33331298828125" text="Localidad" />
+            <TableColumn fx:id="columnaUbicacion" prefWidth="190.0" text="Ubicacion" />
+            <TableColumn fx:id="columnaFecha" prefWidth="121.33331298828125" text="Fecha" />
         </columns>
          <effect>
             <InnerShadow />
          </effect>
       </TableView>
-      <ButtonBar layoutX="3.0" layoutY="400.0" prefHeight="50.0" prefWidth="655.0">
+      <ButtonBar layoutX="48.0" layoutY="401.0" prefHeight="50.0" prefWidth="655.0">
         <buttons>
           <Button mnemonicParsing="false" onAction="#informaciónDeEvento" prefHeight="25.0" text="Info de evento">
                <cursor>
@@ -46,5 +51,26 @@
             <DropShadow />
          </effect>
       </ButtonBar>
+      <Label layoutX="282.0" layoutY="23.0" text="Todos los eventos">
+         <font>
+            <Font name="Arial Italic" size="23.0" />
+         </font>
+         <textFill>
+            <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" green="0.29320988059043884" blue="0.29320988059043884" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.3068108856678009" green="0.005902100820094347" blue="0.9561403393745422" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill>
+      </Label>
    </children>
 </AnchorPane>

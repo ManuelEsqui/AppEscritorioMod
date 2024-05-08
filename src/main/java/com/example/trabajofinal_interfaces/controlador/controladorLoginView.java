@@ -39,6 +39,7 @@ public class controladorLoginView {
     private String usuario;
     private String contra;
     Usuario user;
+    utiles u = new utiles();
 
 
     @FXML
@@ -75,7 +76,8 @@ public class controladorLoginView {
             while (result.resul().next()) {
                 if (usuario.equals(result.resul().getString(1)) && contra.equals(result.resul().getString(2))){
                     if (result.resul().getBoolean(3)){
-                        cambiarVentanaAdmin();
+                        Stage stage =(Stage) LogIn.getScene().getWindow();
+                        u.cambiarVentanaAdmin(stage);
                         bandera=true;
                     }else{
                         cambiarVentanaUsuario();
@@ -119,7 +121,7 @@ public class controladorLoginView {
     private record Consulta(Connection conexion, Statement sentencia, ResultSet resul) {
     }
 
-    private void cambiarVentanaUsuario() throws IOException {
+    private void cambiarVentanaUsuario() throws IOException, SQLException, ClassNotFoundException {
       //  Parent root = FXMLLoader.load(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaUsuarios.fxml"));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaUsuarios.fxml"));
         Parent root=loader.load();
@@ -129,15 +131,6 @@ public class controladorLoginView {
         controladorVentanaUsuarios c = (controladorVentanaUsuarios) loader.getController();
         c.setUsu(usuario);
         c.setContra(contra);
-        stage.close();
-        stage.show();
-    }
-
-    private void cambiarVentanaAdmin() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaAdmin.fxml"));
-        Scene escena = new Scene(root);
-        Stage stage =(Stage) LogIn.getScene().getWindow();
-        stage.setScene(escena);
         stage.close();
         stage.show();
     }

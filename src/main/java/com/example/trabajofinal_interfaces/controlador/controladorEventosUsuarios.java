@@ -92,7 +92,7 @@ public class controladorEventosUsuarios {
     }
 
     @FXML
-    void volverVentanaUsuarios(ActionEvent event) throws IOException {
+    void volverVentanaUsuarios(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaUsuarios.fxml"));
         Parent root=loader.load();
         Scene escena = new Scene(root);

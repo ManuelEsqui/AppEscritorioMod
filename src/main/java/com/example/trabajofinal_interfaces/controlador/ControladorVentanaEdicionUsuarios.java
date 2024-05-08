@@ -206,7 +206,7 @@ public class ControladorVentanaEdicionUsuarios {
     }
 
     @FXML
-    void volver(ActionEvent event) throws IOException {
+    void volver(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {
         if(!bandera){
             new utiles().cambiarVentanaLogin((Stage) txtApellidos.getScene().getWindow());
         }else{

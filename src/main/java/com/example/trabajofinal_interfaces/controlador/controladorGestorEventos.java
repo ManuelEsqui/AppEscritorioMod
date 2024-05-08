@@ -1,7 +1,6 @@
 package com.example.trabajofinal_interfaces.controlador;
 
 import com.example.trabajofinal_interfaces.modelo.Evento;
-import com.example.trabajofinal_interfaces.modelo.Usuario;
 import com.example.trabajofinal_interfaces.utiles.utiles;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,9 +16,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.*;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Arrays;
 
 import static com.example.trabajofinal_interfaces.utiles.utiles.Alertas;
 
@@ -78,6 +75,7 @@ public class controladorGestorEventos {
     private TextField txtId;
     int idEvento;
     private Evento eventoSelec;
+    private utiles u=new utiles();
 
     @FXML
     void AddEvento(ActionEvent event) throws ClassNotFoundException, SQLException, ParseException {//metodo para añadir  un evento
@@ -254,18 +252,18 @@ public class controladorGestorEventos {
     }
 
     private void rellenarCampos() {
-        String nombre;
-        String idString;
         eventoSelec=TableViewEventos.getSelectionModel().getSelectedItem();
         txtId.setText(""+eventoSelec.getId());
         txtEditNombre.setText(eventoSelec.getNombre());
-        nombre=txtEditNombre.getText();
-        idString=txtId.getText();
     }
 
     @FXML
     void buscarEvento(ActionEvent event) throws SQLException, ClassNotFoundException {
         String nombreEvento=txtBuscar.getText();
+        init(nombreEvento);
+    }
+
+    public void init(String nombreEvento) throws SQLException, ClassNotFoundException {
         inicializarTableView();
         this.lista=listAll(nombreEvento);
         this.TableViewEventos.setItems(lista);
@@ -312,13 +310,9 @@ public class controladorGestorEventos {
     }
 
     @FXML
-    void VentanaPersonas(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaAdmin.fxml"));
-        Scene escena = new Scene(root);
+    void VentanaAdminPrincipal(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {
         Stage stage =(Stage) BtnVolver.getScene().getWindow();
-        stage.setScene(escena);
-        stage.close();
-        stage.show();
+        u.cambiarVentanaAdmin(stage);
     }
 
     @FXML

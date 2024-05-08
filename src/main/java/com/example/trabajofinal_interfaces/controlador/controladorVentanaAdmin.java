@@ -58,13 +58,21 @@ public class controladorVentanaAdmin {
     private ObservableList lista;
     private Usuario usuarioselec;
 
-    @FXML
-    void AdministrarEventos(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/example/trabajofinal_interfaces/vista/GestorEventos.fxml"));
+    public void init() throws SQLException, ClassNotFoundException {
+        inicializarTableView();
+        this.lista=listAll();
+        this.tableViewUsuarios.setItems(lista);
+    }
 
+    @FXML
+    void AdministrarEventos(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/GestorEventos.fxml"));
+        Parent root=loader.load();
         Scene escena = new Scene(root);
         Stage stage =(Stage) btnVolver.getScene().getWindow();
         stage.setScene(escena);
+        controladorGestorEventos controladorGestorEventos = loader.getController();
+        controladorGestorEventos.init("");
         stage.close();
         stage.show();
     }
@@ -95,17 +103,18 @@ public class controladorVentanaAdmin {
     }
     @FXML
     public void CargarDatos(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
-        inicializarTableView();
-        this.lista=listAll();
-        this.tableViewUsuarios.setItems(lista);
+//        inicializarTableView();
+//        this.lista=listAll();
+//        this.tableViewUsuarios.setItems(lista);
+        init();
     }
     public ObservableList<Usuario> listAll() throws ClassNotFoundException, SQLException {
         ObservableList<Usuario> listUser= FXCollections.observableArrayList();
         // Cargar el driver
         Class.forName(utiles.driver);
         // Establecemos la conexion con la BD
-        Connection conexion = (Connection) DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
-        Statement sentencia2 = (Statement) conexion.createStatement();
+        Connection conexion = DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
+        Statement sentencia2 = conexion.createStatement();
         String sql2 = "SELECT personas.nombre, apellidos, sexo, estadoCivil, user, passwrd, edad, localidades.nombre FROM personas INNER JOIN localidades ON personas.localidad_id = localidades.id;";
         ResultSet resul = sentencia2.executeQuery(sql2);
         while (resul.next()) {// Extraer los datos de la base de datos

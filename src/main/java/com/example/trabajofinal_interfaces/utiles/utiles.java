@@ -1,6 +1,8 @@
 package com.example.trabajofinal_interfaces.utiles;
 
 import com.example.trabajofinal_interfaces.controlador.controladorLoginView;
+import com.example.trabajofinal_interfaces.controlador.controladorVentanaAdmin;
+import com.example.trabajofinal_interfaces.controlador.controladorVentanaGestionLocalidades;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -8,6 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class utiles {
 
@@ -19,10 +22,13 @@ public class utiles {
         stage.show();
     }
 
-    public void cambiarVentanaAdmin(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaAdmin.fxml"));
+    public void cambiarVentanaAdmin(Stage stage) throws IOException, SQLException, ClassNotFoundException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaAdmin.fxml"));
+        Parent root=loader.load();
         Scene escena = new Scene(root);
         stage.setScene(escena);
+        controladorVentanaAdmin c = loader.getController();
+        c.init();
         stage.close();
         stage.show();
     }
