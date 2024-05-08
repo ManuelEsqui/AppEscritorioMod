@@ -1,22 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="685.0" stylesheets="@../css/EventosUsuariosCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trabajofinal_interfaces.controlador.controladorEventosUsuarios">
+<AnchorPane prefHeight="452.0" prefWidth="767.0" stylesheets="@../css/EventosUsuariosCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trabajofinal_interfaces.controlador.controladorEventosUsuarios">
    <children>
-      <TableView fx:id="tablaEventos" layoutY="57.0" prefHeight="200.0" prefWidth="685.0">
+      <TableView fx:id="tablaEventos" layoutX="20.0" layoutY="76.0" prefHeight="252.0" prefWidth="728.0">
         <columns>
           <TableColumn fx:id="ColumnaNombre" prefWidth="121.60000765323639" text="Nombre" />
-          <TableColumn fx:id="columnaDescripcion" prefWidth="287.2000045776367" text="Descripcion" />
-            <TableColumn fx:id="columnaLocalidad" prefWidth="92.79998779296875" text="Localidad" />
-            <TableColumn fx:id="columnaUbicacion" prefWidth="115.20010375976562" text="Ubicacion" />
-            <TableColumn fx:id="columnaFecha" prefWidth="70.39990234375" text="Fecha" />
+          <TableColumn fx:id="columnaDescripcion" prefWidth="316.0" text="Descripcion" />
+            <TableColumn fx:id="columnaLocalidad" prefWidth="99.0" text="Localidad" />
+            <TableColumn fx:id="columnaUbicacion" prefWidth="106.0" text="Ubicacion" />
+            <TableColumn fx:id="columnaFecha" prefWidth="84.0" text="Fecha" />
         </columns>
       </TableView>
-      <Button fx:id="volver" layoutX="477.0" layoutY="306.0" mnemonicParsing="false" onAction="#volverVentanaUsuarios" text="Volver" />
-      <Button fx:id="desapuntarse" layoutX="138.0" layoutY="306.0" mnemonicParsing="false" onAction="#delete" text="Desapuntarse" />
+      <Button fx:id="volver" layoutX="533.0" layoutY="360.0" mnemonicParsing="false" onAction="#volverVentanaUsuarios" text="Volver" />
+      <Button fx:id="desapuntarse" layoutX="136.0" layoutY="360.0" mnemonicParsing="false" onAction="#delete" text="Desapuntarse" />
+      <Label fx:id="texto" layoutX="284.0" layoutY="14.0" text="Mis eventoos">
+         <font>
+            <Font name="System Bold Italic" size="33.0" />
+         </font>
+         <textFill>
+            <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8999999761581421" blue="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.3398919701576233" green="0.32870370149612427" blue="1.0" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill>
+      </Label>
    </children>
 </AnchorPane>

@@ -12,11 +12,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.sql.*;
 import java.text.ParseException;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
 
 import static com.example.trabajofinal_interfaces.utiles.utiles.Alertas;
 
@@ -76,6 +78,7 @@ public class controladorGestorEventos {
     int idEvento;
     private Evento eventoSelec;
     private utiles u=new utiles();
+    ArrayList<Evento> arrayEventos=new ArrayList<>();
 
     @FXML
     void AddEvento(ActionEvent event) throws ClassNotFoundException, SQLException, ParseException {//metodo para añadir  un evento
@@ -125,17 +128,12 @@ public class controladorGestorEventos {
             sentencia.setInt(4, id_loc);
             sentencia.setString(5,ubicacion);
             sentencia.executeUpdate();
-            Alert alerta=new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Introducido");
-            alerta.setHeaderText(null);
-            alerta.setContentText("Evento "+nombre+" introducido correctamente");
-            alerta.showAndWait();
+            sentencia.close();
+            resul.close();
+            init("");
+            Alertas(Alert.AlertType.INFORMATION,"Evento introducido","El evento se ha introducido correctamente");
         }else{
-            Alert alerta=new Alert(Alert.AlertType.ERROR);
-            alerta.setTitle("Error");
-            alerta.setHeaderText(null);
-            alerta.setContentText("Se deben rellenar todos los datos");
-            alerta.showAndWait();
+            Alertas(Alert.AlertType.ERROR, "No se pudo introducir", "Se deben rellenar todos los campos para insertar el evento correctamente");
         }
 
 
@@ -164,10 +162,9 @@ public class controladorGestorEventos {
                 alerta.setContentText("Evento eliminado");
                 alerta.showAndWait();
             }
-
-
             conexion.close();
             sentencia.close();
+            init("");
         }else {
             Alert alerta=new Alert(Alert.AlertType.ERROR);
             alerta.setTitle("Error");
@@ -234,11 +231,10 @@ public class controladorGestorEventos {
             alerta.setHeaderText(null);
             alerta.setContentText("Evento actualizado con exito");
             alerta.showAndWait();
-
-
             sentencia.close();
             sentencia2.close();
             resul.close();
+            init("");
         }else {
             Alertas(Alert.AlertType.ERROR, "Error", "Se deben rellenar todos los datos");
         }
@@ -249,19 +245,23 @@ public class controladorGestorEventos {
     private void rellenarCampos() {
         eventoSelec=TableViewEventos.getSelectionModel().getSelectedItem();
         txtId.setText(""+eventoSelec.getId());
-        txtEditNombre.setText(eventoSelec.getNombre());
-    }
-
-    @FXML
-    void buscarEvento(ActionEvent event) throws SQLException, ClassNotFoundException {
-        String nombreEvento=txtBuscar.getText();
-        init(nombreEvento);
+        for (Evento e:arrayEventos){
+            if (eventoSelec.getId()==e.getId()){
+                txtEditNombre.setText(e.getNombre());
+                txtEditDescripcion.setText(e.getDescripcion());
+                txtEditUbicacion.setText(e.getUbicacion());
+                txtEditLocalidad.setText(e.getLocalidad());
+                //EditFecha.setValue(e.getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                EditFecha.setValue(Instant.ofEpochMilli(e.getFecha().getTime()).atZone(ZoneId.systemDefault()).toLocalDate());
+                break;
+            }
+        }
     }
 
     public void init(String nombreEvento) throws SQLException, ClassNotFoundException {
-        inicializarTableView();
-        this.lista=listAll(nombreEvento);
-        this.TableViewEventos.setItems(lista);
+        inicializarTableView();//prepara la tableview
+        this.lista=listAll(nombreEvento);//saca los datos
+        this.TableViewEventos.setItems(lista);//inserta los datos en la tabla
     }
 
     private ObservableList listAll(String nombreEvento) throws SQLException, ClassNotFoundException {
@@ -269,18 +269,20 @@ public class controladorGestorEventos {
         // Cargar el driver
         Class.forName(utiles.driver);
         // Establecemos la conexion con la BD
-        Connection conexion = (Connection) DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
-        Statement sentencia2 = (Statement) conexion.createStatement();
-        String sql2="SELECT * from eventos;";
+        Connection conexion = DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
+        Statement sentencia2 = conexion.createStatement();
+        String sql2="SELECT eventos.id, eventos.nombre, descripcion, fecha, ubicacion, localidades.nombre FROM eventos INNER JOIN localidades ON eventos.localidad_id = localidades.id;";
+        boolean bandera=true;//si esta bandera esta activada se resfresca el array que contiene todos los eventos
         if (nombreEvento.length()>=1){
-            sql2 = "SELECT * from eventos WHERE nombre like '"+nombreEvento+"%';";
+            sql2 = "SELECT * from eventos WHERE nombre like '%"+nombreEvento+"%';";
+            bandera=false;//aqui se desactiva para que no se registren eventos con este formato
         }
         ResultSet resul = sentencia2.executeQuery(sql2);
         while (resul.next()) {
             int id=resul.getInt(1);
             String nomb=resul.getNString(2);
-            listUser.add(new Evento(id,nomb));
-            //arrayEventos.add(new Evento(id,nomb,resul.getNString(3),resul.getNString(5),resul.getDate(4),resul.getBytes(6)));
+            listUser.add(new Evento(id,nomb));//se inicia la lista visible
+            if(bandera) arrayEventos.add(new Evento(id,nomb,resul.getString(3),resul.getString(6), resul.getString(5),resul.getDate(4)));//se inicia el array que tiene los datos
         }
         conexion.close();
         sentencia2.close();
@@ -321,5 +323,9 @@ public class controladorGestorEventos {
         stage.show();
     }
 
+    public void buscarEvento(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+        String nombreEvento=txtBuscar.getText();
+        init(nombreEvento);
+    }
 }
 

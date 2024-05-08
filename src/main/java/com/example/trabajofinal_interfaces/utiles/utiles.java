@@ -1,5 +1,6 @@
 package com.example.trabajofinal_interfaces.utiles;
 
+import com.example.trabajofinal_interfaces.controlador.controladorGestorEventos;
 import com.example.trabajofinal_interfaces.controlador.controladorLoginView;
 import com.example.trabajofinal_interfaces.controlador.controladorVentanaAdmin;
 import com.example.trabajofinal_interfaces.controlador.controladorVentanaGestionLocalidades;
@@ -14,10 +15,13 @@ import java.sql.SQLException;
 
 public class utiles {
 
-    public void cambiarVentanaAdminEventos(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/example/trabajofinal_interfaces/vista/GestorEventos.fxml"));
+    public void cambiarVentanaAdminEventos(Stage stage) throws IOException, SQLException, ClassNotFoundException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/GestorEventos.fxml"));
+        Parent root=loader.load();
         Scene escena = new Scene(root);
         stage.setScene(escena);
+        controladorGestorEventos c= loader.getController();
+        c.init("");
         stage.close();
         stage.show();
     }

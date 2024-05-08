@@ -177,7 +177,7 @@ public class controladorVentanaUsuarios {
     }
 
     @FXML
-    void volverLogin(ActionEvent event) throws IOException {
+    void volverLogin(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {
         if (usu!=null && contra!=null){
             Parent root = FXMLLoader.load(getClass().getResource("/com/example/trabajofinal_interfaces/vista/LoginView.fxml"));
             Scene escena = new Scene(root);

@@ -138,7 +138,7 @@ public class controladorVentanaGestionLocalidades {
         utiles.cambiarVentanaAdmin(stage);
     }
 
-    public void ventanaEventos(ActionEvent actionEvent) throws IOException {
+    public void ventanaEventos(ActionEvent actionEvent) throws IOException, SQLException, ClassNotFoundException {
         Stage stage = (Stage) menuButton.getScene().getWindow();
         utiles.cambiarVentanaAdminEventos(stage);
     }
