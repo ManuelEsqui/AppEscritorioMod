@@ -163,22 +163,21 @@ public class ControladorVentanaEdicionUsuarios {
                 sentencia.close();
                 sentencia2.close();
                 resul.close();
+                volver();
             }else{
                 Alertas(Alert.AlertType.ERROR, "Error", "Se deben añadir todos los datos");
             }
             conexion.close();
 
 
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (ClassNotFoundException | IOException | SQLException e) {
+            Alertas(Alert.AlertType.ERROR, "Error", "Ha ocurrido un error inesperado al modificar el usuario");
         }
 
 
     }
     @FXML
-    void eliminarCuenta(ActionEvent event) throws SQLException, ClassNotFoundException {//metodo para eliminar usuarios
+    void eliminarCuenta(ActionEvent event) throws SQLException, ClassNotFoundException, IOException {//metodo para eliminar usuarios
         // Cargar el driver
         Class.forName(utiles.driver);
 
@@ -196,6 +195,7 @@ public class ControladorVentanaEdicionUsuarios {
             Alertas(Alert.AlertType.ERROR, "Fallo", "No ha sido posible eliminar la cuenta, puede deberse a que la cuenta ya no existe");
         }else{
             Alertas(Alert.AlertType.INFORMATION, "Tu cuenta se ha eliminado con éxito", "Has eliminado la cuenta de: "+usuario.getUser());
+            volver();
         }
 
 
@@ -206,7 +206,7 @@ public class ControladorVentanaEdicionUsuarios {
     }
 
     @FXML
-    void volver(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {
+    void volver() throws IOException, SQLException, ClassNotFoundException {
         if(!bandera){
             new utiles().cambiarVentanaLogin((Stage) txtApellidos.getScene().getWindow());
         }else{

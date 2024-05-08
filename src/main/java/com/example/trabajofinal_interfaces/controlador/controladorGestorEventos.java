@@ -299,7 +299,6 @@ public class controladorGestorEventos {
     @FXML
     void VentanaLogin(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/com/example/trabajofinal_interfaces/vista/LoginView.fxml"));
-
         Scene escena = new Scene(root);
         Stage stage =(Stage) BtnVolver.getScene().getWindow();
         stage.setScene(escena);
@@ -314,11 +313,14 @@ public class controladorGestorEventos {
     }
 
     @FXML
-    void VentanaUsuarios(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaUsuarios.fxml"));
+    void VentanaUsuarios(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaUsuarios.fxml"));
+        Parent root=loader.load();
         Scene escena = new Scene(root);
         Stage stage =(Stage) BtnVolver.getScene().getWindow();
         stage.setScene(escena);
+        controladorVentanaUsuarios c=loader.getController();
+        c.init();
         stage.close();
         stage.show();
     }

@@ -138,7 +138,7 @@ public class controladorVentanaUsuarios {
         init();
     }
 
-    private void init() throws ClassNotFoundException, SQLException {
+    public void init() throws ClassNotFoundException, SQLException {
         inicializarTableView();
         this.lista=listAll();
         this.tablaEventos.setItems(lista);

@@ -28,7 +28,7 @@
       <Label fx:id="lbError" layoutX="347.0" layoutY="337.0" prefHeight="20.0" prefWidth="182.0" />
       <PasswordField fx:id="txtContrasenia" layoutX="394.0" layoutY="83.0" prefHeight="30.0" prefWidth="206.0" />
       <ComboBox fx:id="cbSexo" layoutX="30.0" layoutY="136.0" prefHeight="26.0" prefWidth="200.0" />
-      <HBox layoutY="281.0" prefHeight="30.0" prefWidth="648.0" spacing="60.0">
+      <HBox alignment="TOP_CENTER" layoutY="290.0" prefHeight="30.0" prefWidth="648.0" spacing="60.0">
          <children>
             <Button fx:id="btnRegistrarse" mnemonicParsing="false" onAction="#registrarse" text="Registrarse" />
             <Button fx:id="btnVolver" mnemonicParsing="false" onAction="#volver" prefHeight="29.0" prefWidth="65.0" text="Volver" />

@@ -6,15 +6,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.*;
-import java.util.Optional;
 
 import static com.example.trabajofinal_interfaces.utiles.utiles.Alertas;
 
@@ -173,27 +169,24 @@ public class controladorGestorPersonas {
                 sentencia.setInt(9, id_loc);
                 sentencia.executeUpdate();
                 Alertas(Alert.AlertType.INFORMATION, "Añadido", "Persona añadida con exito");
-
-
                 sentencia.close();
                 sentencia2.close();
                 resul.close();
+                volver();
             }else{
                 Alertas(Alert.AlertType.ERROR, "Error", "Se deben rellenar todos los datos");
             }
             conexion.close();
 
 
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        } catch (ClassNotFoundException | SQLException | IOException e) {
+            Alertas(Alert.AlertType.ERROR, "Error", "Ha ocurrido un error inesperado");
         }
 
     }
 
     @FXML
-    void volver(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {// metodo para volver a la ventana principal
+    void volver() throws IOException, SQLException, ClassNotFoundException {// metodo para volver a la ventana principal
         if(bandera){
             new utiles().cambiarVentanaLogin((Stage) btnVolver.getScene().getWindow());
         }else{
