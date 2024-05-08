@@ -2,6 +2,8 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.effect.InnerShadow?>
@@ -11,23 +13,34 @@
 
 <AnchorPane prefHeight="469.0" prefWidth="678.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trabajofinal_interfaces.controlador.controladorVentanaGestionLocalidades">
    <children>
-      <ListView fx:id="listViewLocalidades" editable="true" layoutY="93.0" onMouseClicked="#selecionarCiudad" prefHeight="223.0" prefWidth="235.0" />
-      <Label fx:id="provincia" layoutY="51.0" prefHeight="41.0" prefWidth="235.0" text="Esta en la provincia de: ____________">
+      <ListView fx:id="listViewLocalidades" editable="true" layoutY="81.0" onMouseClicked="#selecionarCiudad" prefHeight="283.0" prefWidth="235.0" />
+      <Label fx:id="provincia" layoutY="40.0" prefHeight="41.0" prefWidth="235.0" text="Esta en la provincia de: ____________">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <MenuButton fx:id="menuButton" layoutX="52.0" layoutY="320.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="103.0" text="Acciones">
+      <MenuButton fx:id="menuButton" layoutX="66.0" layoutY="380.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="103.0" text="Acciones">
         <items>
           <MenuItem mnemonicParsing="false" onAction="#delete" text="borrar" />
           <MenuItem mnemonicParsing="false" onAction="#update" text="editar" />
             <MenuItem mnemonicParsing="false" onAction="#add" text="insertar" />
         </items>
       </MenuButton>
-      <ImageView fx:id="imagen" fitHeight="195.0" fitWidth="275.0" layoutX="355.0" layoutY="107.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imagen" fitHeight="257.0" fitWidth="376.0" layoutX="286.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true">
          <effect>
             <InnerShadow />
          </effect>
       </ImageView>
+      <MenuBar layoutY="1.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Atras">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#volver" text="Ventana principal" />
+              <MenuItem mnemonicParsing="false" onAction="#ventanaEventos" text="Ventana de Eventos" />
+              <MenuItem mnemonicParsing="false" onAction="#volverLogIn" text="Ventana de registro" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
    </children>
 </AnchorPane>

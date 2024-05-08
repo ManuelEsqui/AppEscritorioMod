@@ -139,13 +139,6 @@ public class controladorLoginView {
         this.stage=stage;
     }
 
-
-    public void inicioSesionTeclado(KeyEvent event) {
-        if (event.getCode() == KeyCode.ENTER) {
-            inicioSesion();
-        }
-    }
-
     public void ventanaEditarUsuarios(MouseEvent mouseEvent) throws IOException, SQLException, ClassNotFoundException {
         if(txtUsuario.getText().length()<1 || txtContrasenia.getText().length()<1){
             Alertas(Alert.AlertType.WARNING, "Introduce los datos", "Debes rellenar los campos usuario y contraseña");
@@ -176,6 +169,12 @@ public class controladorLoginView {
         c.setUsuario(user);
         stage.close();
         stage.show();
+    }
+    @FXML
+    void si(KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER) {
+            inicioSesion();
+        }
     }
 }
 

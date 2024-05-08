@@ -5,6 +5,9 @@ import com.example.trabajofinal_interfaces.utiles.utiles;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
@@ -34,10 +37,18 @@ public class controladorVentanaInfoEventos {
     private ArrayList<String> arraySexo=new ArrayList<>();
     private ArrayList<String> arrayEstado=new ArrayList<>();
     private int idEvento;
+    private String contra, usu;
 
     public void setNombreEvento(int id) throws SQLException, ClassNotFoundException {
         this.idEvento = id;
         initListView();
+    }
+    public void setContra(String contra) {
+        this.contra = contra;
+    }
+
+    public void setUsu(String usu) {
+        this.usu = usu;
     }
 
     private void initListView() throws SQLException, ClassNotFoundException {
@@ -86,10 +97,33 @@ public class controladorVentanaInfoEventos {
         resul.close();
     }
 
-    public void volverPagAnterio(ActionEvent actionEvent) {
+    public void volverPagAnterio(ActionEvent actionEvent) throws IOException, SQLException, ClassNotFoundException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaUsuarios.fxml"));
+        Parent root=loader.load();
+        Scene escena = new Scene(root);
+        Stage stage =(Stage) listViewApellido.getScene().getWindow();
+        stage.setScene(escena);
+        controladorVentanaUsuarios c = loader.getController();
+        c.setUsu(usu);
+        c.setContra(contra);
+        stage.close();
+        stage.show();
     }
 
     public void volverLogin(ActionEvent actionEvent) throws IOException {
         new utiles().cambiarVentanaLogin((Stage) listViewApellido.getScene().getWindow());
+    }
+
+    public void volverMisEventos(ActionEvent actionEvent) throws SQLException, ClassNotFoundException, IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/EventosUsuarios.fxml"));
+        Parent root=loader.load();
+        Scene escena = new Scene(root);
+        Stage stage =(Stage) listViewSexo.getScene().getWindow();
+        stage.setScene(escena);
+        controladorEventosUsuarios c = loader.getController();
+        c.setUsu(usu);
+        c.setContra(contra);
+        stage.close();
+        stage.show();
     }
 }

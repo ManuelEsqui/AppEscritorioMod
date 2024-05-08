@@ -12,6 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -37,6 +38,7 @@ public class controladorVentanaGestionLocalidades {
 
     @FXML
     private Label provincia;
+    utiles utiles = new utiles();
 
     @FXML
     void add(ActionEvent event) throws IOException {
@@ -111,10 +113,12 @@ public class controladorVentanaGestionLocalidades {
         String sql2 = "SELECT * FROM Localidades;";
         ResultSet resul = sentencia2.executeQuery(sql2);
         while (resul.next()) {
-            //int cont=0;
-            localidades.add(new Localidad(resul.getString(2), resul.getString(3)));
-            //localidadesNombre.add(localidades.get(cont).getNombre());
-            localidadesNombre.add(resul.getString(2));
+
+                byte[] imagenBytes = resul.getBytes(4);
+                Image imagen = new Image(new java.io.ByteArrayInputStream(imagenBytes));
+                localidades.add(new Localidad(resul.getString(2), resul.getString(3), imagen));
+                //localidadesNombre.add(localidades.get(cont).getNombre());
+                localidadesNombre.add(resul.getString(2));
         }
         listViewLocalidades.setItems(FXCollections.observableArrayList(localidadesNombre));
     }
@@ -124,7 +128,23 @@ public class controladorVentanaGestionLocalidades {
         for (Localidad localidad : localidades) {
             if (localidad.getNombre().equals(nombre)) {
                 provincia.setText("Esta en la provincia de: "+localidad.getProvincia());
+                imagen.setImage(localidad.getImage());
             }
         }
+    }
+
+    public void volver(ActionEvent actionEvent) throws SQLException, IOException, ClassNotFoundException {
+        Stage stage = (Stage) menuButton.getScene().getWindow();
+        utiles.cambiarVentanaAdmin(stage);
+    }
+
+    public void ventanaEventos(ActionEvent actionEvent) throws IOException {
+        Stage stage = (Stage) menuButton.getScene().getWindow();
+        utiles.cambiarVentanaAdminEventos(stage);
+    }
+
+    public void volverLogIn(ActionEvent actionEvent) throws IOException {
+        Stage stage = (Stage) menuButton.getScene().getWindow();
+        utiles.cambiarVentanaLogin(stage);
     }
 }

@@ -142,16 +142,14 @@ public class controladorGestorEventos {
     }
     @FXML
     void DeleteEvento(ActionEvent event) throws SQLException, ClassNotFoundException {//metodo para eliminar el evento
-        eventoSelec=TableViewEventos.getSelectionModel().getSelectedItem();
-        txtId.setText(""+eventoSelec.getId());
-        String sid=txtId.getText();
 
+        String sid=txtId.getText();
         if (!(sid.length()<1)){
             idEvento=Integer.parseInt(sid);
             Class.forName(utiles.driver);
 
             // Establecemos la conexion con la BD
-            Connection conexion = (Connection) DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
+            Connection conexion = DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
             String sql = "DELETE FROM eventos WHERE id = ?;";
             PreparedStatement sentencia=(PreparedStatement) conexion.prepareStatement(sql);
             sentencia.setInt(1, idEvento);
@@ -185,10 +183,6 @@ public class controladorGestorEventos {
 
         String nombre=txtEditNombre.getText();
         String idString=txtId.getText();
-        if (nombre.length()<1 || idString.length()<1){
-            rellenarCampos();
-            return;
-        }
         String descripcion=txtEditDescripcion.getText();
         String ubicacion=txtEditUbicacion.getText();
         String localidad=txtEditLocalidad.getText();
@@ -251,6 +245,7 @@ public class controladorGestorEventos {
 
     }
 
+    @FXML
     private void rellenarCampos() {
         eventoSelec=TableViewEventos.getSelectionModel().getSelectedItem();
         txtId.setText(""+eventoSelec.getId());
@@ -276,15 +271,16 @@ public class controladorGestorEventos {
         // Establecemos la conexion con la BD
         Connection conexion = (Connection) DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
         Statement sentencia2 = (Statement) conexion.createStatement();
-        String sql2="SELECT id,nombre from eventos;";
-        if (nombreEvento.length()>1){
-            sql2 = "SELECT id,nombre from eventos WHERE nombre = '"+nombreEvento+"';";
+        String sql2="SELECT * from eventos;";
+        if (nombreEvento.length()>=1){
+            sql2 = "SELECT * from eventos WHERE nombre like '"+nombreEvento+"%';";
         }
         ResultSet resul = sentencia2.executeQuery(sql2);
         while (resul.next()) {
             int id=resul.getInt(1);
             String nomb=resul.getNString(2);
             listUser.add(new Evento(id,nomb));
+            //arrayEventos.add(new Evento(id,nomb,resul.getNString(3),resul.getNString(5),resul.getDate(4),resul.getBytes(6)));
         }
         conexion.close();
         sentencia2.close();

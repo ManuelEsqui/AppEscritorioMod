@@ -91,23 +91,41 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="371.0" prefWidth="684.0">
                      <children>
-                        <TableView fx:id="TableViewEventos" layoutX="560.0" layoutY="27.0" prefHeight="384.0" prefWidth="203.0">
+                        <TableView fx:id="TableViewEventos" layoutX="560.0" layoutY="27.0" onMouseClicked="#rellenarCampos" prefHeight="384.0" prefWidth="203.0">
                           <columns>
                             <TableColumn fx:id="ColumnaId" prefWidth="64.66668701171875" text="ID" />
                             <TableColumn fx:id="ColumnaNombre" prefWidth="136.6666463216146" text="Nombre" />
                           </columns>
                         </TableView>
                         <DatePicker fx:id="EditFecha" layoutX="53.0" layoutY="333.0" />
-                        <Label layoutX="57.0" layoutY="144.0" text="Nombre:" />
-                        <Label layoutX="331.0" layoutY="207.0" text="Descripcion:" />
-                        <Label layoutX="53.0" layoutY="313.0" text="Fecha:" />
-                        <Label layoutX="52.0" layoutY="197.0" text="Ubicación:" />
-                        <Label layoutX="53.0" layoutY="252.0" text="Localidad:" />
+                        <Label layoutX="57.0" layoutY="144.0" text="Nombre:">
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font></Label>
+                        <Label layoutX="331.0" layoutY="207.0" text="Descripcion:">
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font></Label>
+                        <Label layoutX="53.0" layoutY="313.0" text="Fecha:">
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font></Label>
+                        <Label layoutX="52.0" layoutY="197.0" text="Ubicación:">
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font></Label>
+                        <Label layoutX="53.0" layoutY="252.0" text="Localidad:">
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font></Label>
                         <TextField fx:id="txtEditLocalidad" layoutX="53.0" layoutY="272.0" prefHeight="26.0" prefWidth="175.0" />
                         <TextArea fx:id="txtEditDescripcion" layoutX="331.0" layoutY="225.0" prefHeight="143.0" prefWidth="211.0" />
                         <TextField fx:id="txtEditUbicacion" layoutX="53.0" layoutY="217.0" prefHeight="26.0" prefWidth="175.0" />
                         <TextField fx:id="txtEditNombre" layoutX="53.0" layoutY="159.0" prefHeight="26.0" prefWidth="175.0" />
-                        <Label layoutX="331.0" layoutY="144.0" text="ID:" />
+                        <Label layoutX="331.0" layoutY="144.0" text="ID:">
+                           <font>
+                              <Font name="System Italic" size="12.0" />
+                           </font></Label>
                         <TextField fx:id="txtId" layoutX="331.0" layoutY="159.0" />
                         <Label fx:id="lbError" layoutX="286.0" layoutY="312.0" />
                         <Button layoutX="363.0" layoutY="385.0" mnemonicParsing="false" onAction="#DeleteEvento" text="Eliminar" />

@@ -159,7 +159,9 @@ public class ControladorVentanaAgregarEditarLocalidades {
 
             if (resul.getString(2).equalsIgnoreCase(txtNombre.getText())){
                 id_loc=resul.getInt(1);
-                //imagenPreview.setImage((Image) resul.getBlob(4));
+                byte[] imagenBytes = resul.getBytes(4);
+                Image imagen = new Image(new java.io.ByteArrayInputStream(imagenBytes));
+                imagenPreview.setImage(imagen);
             }
 
         }

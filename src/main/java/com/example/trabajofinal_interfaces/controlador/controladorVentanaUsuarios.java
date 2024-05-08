@@ -198,7 +198,7 @@ public class controladorVentanaUsuarios {
         Scene escena = new Scene(root);
         Stage stage =(Stage) btnInfo.getScene().getWindow();
         stage.setScene(escena);
-        controladorEventosUsuarios c = (controladorEventosUsuarios) loader.getController();
+        controladorEventosUsuarios c = loader.getController();
         c.setUsu(usu);
         c.setContra(contra);
         stage.close();
@@ -220,6 +220,8 @@ public class controladorVentanaUsuarios {
         stage.setScene(escena);
         controladorVentanaInfoEventos c = (controladorVentanaInfoEventos)loader.getController();
         c.setNombreEvento(id_evento);
+        c.setUsu(usu);
+        c.setContra(contra);
         stage.close();
         stage.show();
         }else{

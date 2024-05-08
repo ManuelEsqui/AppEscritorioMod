@@ -2,14 +2,12 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.RadialGradient?>
-<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
@@ -42,34 +40,16 @@
       <Label layoutX="489.0" layoutY="117.0" text="Edad" />
       <Label layoutX="610.0" layoutY="117.0" text="Estado civil" />
       <Label fx:id="total" layoutX="564.0" layoutY="68.0" text="Total de asistentes: X" />
-      <MenuButton layoutX="14.0" layoutY="14.0" mnemonicParsing="false" text="Volver">
-        <items>
-          <MenuItem mnemonicParsing="false" onAction="#volverPagAnterio" text="Pagina eventos" />
-          <MenuItem mnemonicParsing="false" onAction="#volverLogin" text="Login" />
-        </items>
-         <textFill>
-            <RadialGradient centerX="0.5295203092793257" centerY="0.5315457292911758" focusAngle="54.93" radius="0.5">
-               <stops>
-                  <Stop>
-                     <color>
-                        <Color red="0.13784745335578918" green="0.08752977848052979" blue="0.4649122953414917" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="0.9385964870452881" green="0.46929824352264404" blue="0.3128654956817627" />
-                     </color>
-                  </Stop>
-               </stops>
-            </RadialGradient>
-         </textFill>
-         <effect>
-            <InnerShadow>
-               <color>
-                  <Color red="0.9561403393745422" green="0.70530104637146" blue="0.70530104637146" />
-               </color>
-            </InnerShadow>
-         </effect>
-      </MenuButton>
+      <MenuBar layoutY="2.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Navegar">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#volverLogin" text="Volver al inicio" />
+                  <MenuItem mnemonicParsing="false" onAction="#volverPagAnterio" text="Volver a seleccion de eventos" />
+                  <MenuItem mnemonicParsing="false" onAction="#volverMisEventos" text="Ver mis eventos" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
    </children>
 </AnchorPane>

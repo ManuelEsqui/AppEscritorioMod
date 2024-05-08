@@ -1,7 +1,18 @@
 package com.example.trabajofinal_interfaces.modelo;
 
+import javafx.scene.image.Image;
+
 public class Localidad {
     private String nombre,provincia;
+    private Image image;
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
 
     public String getNombre() {
         return nombre;
@@ -23,6 +34,11 @@ public class Localidad {
         this.nombre = nombre;
         this.provincia = provincia;
 
+    }
+    public Localidad(String nombre, String provincia, Image image) {
+        this.nombre = nombre;
+        this.provincia = provincia;
+        this.image = image;
     }
 
     @Override

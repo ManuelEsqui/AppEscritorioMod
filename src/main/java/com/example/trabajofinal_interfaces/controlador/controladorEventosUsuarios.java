@@ -98,7 +98,7 @@ public class controladorEventosUsuarios {
         Scene escena = new Scene(root);
         Stage stage =(Stage) volver.getScene().getWindow();
         stage.setScene(escena);
-        controladorVentanaUsuarios c = (controladorVentanaUsuarios) loader.getController();
+        controladorVentanaUsuarios c = loader.getController();
         c.setUsu(usu);
         c.setContra(contra);
         stage.close();
