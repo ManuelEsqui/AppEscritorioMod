@@ -81,7 +81,7 @@ public class controladorGestorEventos {
     ArrayList<Evento> arrayEventos=new ArrayList<>();
 
     @FXML
-    void AddEvento(ActionEvent event) throws ClassNotFoundException, SQLException, ParseException {//metodo para añadir  un evento
+    void AddEvento(ActionEvent event) throws ClassNotFoundException, SQLException, ParseException, IOException {//metodo para añadir  un evento
         Class.forName(utiles.driver);
         // Establecemos la conexion con la BD
         Connection conexion = (Connection) DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
@@ -132,12 +132,34 @@ public class controladorGestorEventos {
             resul.close();
             init("");
             Alertas(Alert.AlertType.INFORMATION,"Evento introducido","El evento se ha introducido correctamente");
+            cogerIdEvento(date);
         }else{
             Alertas(Alert.AlertType.ERROR, "No se pudo introducir", "Se deben rellenar todos los campos para insertar el evento correctamente");
         }
 
 
     }
+
+    private void cogerIdEvento(Date date) throws IOException {
+        for (Evento evento : arrayEventos){
+            String nombre = txtAddNombre.getText();
+            String descripcion = txtDescripcion.getText();
+            String ubicacion = txtAddUbicacion.getText();
+            if(evento.getNombre().equals(nombre) && evento.getDescripcion().equals(descripcion) && evento.getUbicacion().equals(ubicacion) && date.equals(evento.getFecha())){
+                int id=evento.getId();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaEleccion.fxml"));
+                Parent root=loader.load();
+                Scene escena = new Scene(root);
+                Stage stage =(Stage) BtnVolver.getScene().getWindow();
+                stage.setScene(escena);
+                ControladorVentanaEleccion c= loader.getController();
+                c.setId(id);
+                stage.close();
+                stage.show();
+            }
+        }
+    }
+
     @FXML
     void DeleteEvento(ActionEvent event) throws SQLException, ClassNotFoundException {//metodo para eliminar el evento
 

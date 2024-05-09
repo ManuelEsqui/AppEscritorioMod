@@ -159,7 +159,7 @@ public class controladorVentanaAdmin {
         Scene escena = new Scene(root);
         Stage stage =(Stage) btnVolver.getScene().getWindow();
         stage.setScene(escena);
-        controladorVentanaGestionLocalidades c = (controladorVentanaGestionLocalidades) loader.getController();
+        controladorVentanaGestionLocalidades c = loader.getController();
         c.inicializarLocalidades();
         stage.close();
         stage.show();
