@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -89,7 +90,7 @@ public class controladorVentanaAdmin {
         Scene escena = new Scene(root);
         Stage stage =(Stage) btnVolver.getScene().getWindow();
         stage.setScene(escena);
-        ControladorVentanaEdicionUsuarios c = (ControladorVentanaEdicionUsuarios) loader.getController();
+        ControladorVentanaEdicionUsuarios c = loader.getController();
         c.setBandera(true);
         c.setUsuario(usuarioselec);
         stage.close();
@@ -160,6 +161,18 @@ public class controladorVentanaAdmin {
         stage.setScene(escena);
         controladorVentanaGestionLocalidades c = (controladorVentanaGestionLocalidades) loader.getController();
         c.inicializarLocalidades();
+        stage.close();
+        stage.show();
+    }
+
+    public void crearUsu(MouseEvent mouseEvent) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/GestorPersonasView.fxml"));
+        Parent root=loader.load();
+        Scene escena = new Scene(root);
+        Stage stage =(Stage) btnVolver.getScene().getWindow();
+        stage.setScene(escena);
+        controladorGestorPersonas c= loader.getController();
+        c.inicializarComboBox(false);//Se pasa una bandera para que se active o se desactive el check administrador
         stage.close();
         stage.show();
     }

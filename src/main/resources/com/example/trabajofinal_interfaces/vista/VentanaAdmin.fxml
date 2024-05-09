@@ -11,9 +11,9 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="550.0" prefWidth="1030.0" stylesheets="@../css/VentanaAdminCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trabajofinal_interfaces.controlador.controladorVentanaAdmin">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="1070.0" stylesheets="@../css/VentanaAdminCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trabajofinal_interfaces.controlador.controladorVentanaAdmin">
    <children>
-      <TableView fx:id="tableViewUsuarios" editable="true" layoutX="23.0" layoutY="117.0" prefHeight="404.0" prefWidth="985.0">
+      <TableView fx:id="tableViewUsuarios" editable="true" layoutX="41.0" layoutY="132.0" prefHeight="404.0" prefWidth="985.0">
         <columns>
           <TableColumn fx:id="ColumnaNombre" prefWidth="75.0" text="Nombre" />
           <TableColumn fx:id="ColumnaApellido" prefWidth="75.0" text="Apellidos" />
@@ -28,7 +28,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Label layoutX="290.0" layoutY="7.0" text="Ventana de administradores">
+      <Label layoutX="312.0" layoutY="6.0" text="Ventana de administradores">
          <font>
             <Font size="36.0" />
          </font>
@@ -49,11 +49,12 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <HBox alignment="TOP_CENTER" layoutX="-1.0" layoutY="60.0" prefHeight="45.0" prefWidth="1030.0" spacing="45.0">
+      <HBox alignment="TOP_CENTER" layoutX="-1.0" layoutY="60.0" prefHeight="45.0" prefWidth="1070.0" spacing="30.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#cambiarVentanaLocalidades" prefHeight="58.0" prefWidth="178.0" text="Gestionar localidades" />
-            <Button mnemonicParsing="false" onAction="#AdministrarEventos" prefHeight="69.0" text="Gestionar eventos" />
-            <Button mnemonicParsing="false" onAction="#AdministrarUsuarios" prefHeight="45.0" prefWidth="190.0" text="Administrar usuarios" />
+            <Button mnemonicParsing="false" onAction="#cambiarVentanaLocalidades" prefHeight="58.0" prefWidth="178.0" text="Gestion localidades" />
+            <Button mnemonicParsing="false" onAction="#AdministrarEventos" prefHeight="69.0" text="Gestion eventos" />
+            <Button mnemonicParsing="false" onAction="#AdministrarUsuarios" prefHeight="79.0" prefWidth="190.0" text="Gestion usuario" />
+            <Button mnemonicParsing="false" onMouseClicked="#crearUsu" prefHeight="64.0" prefWidth="141.0" text="Crear usuario" />
             <Button mnemonicParsing="false" onAction="#CargarDatos" prefHeight="54.0" text="Refrescar" />
             <Button fx:id="btnVolver" mnemonicParsing="false" onAction="#VolverLogin" prefHeight="70.0" prefWidth="151.0" text="Volver" />
          </children>

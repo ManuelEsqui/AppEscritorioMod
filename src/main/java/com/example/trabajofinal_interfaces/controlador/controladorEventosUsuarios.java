@@ -9,16 +9,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.*;
 import java.util.Date;
+import java.util.Optional;
+
+import static com.example.trabajofinal_interfaces.utiles.utiles.Alertas;
 
 public class controladorEventosUsuarios {
 
@@ -108,27 +108,25 @@ public class controladorEventosUsuarios {
     public void delete(ActionEvent actionEvent) throws ClassNotFoundException, SQLException {
         evento=tablaEventos.getSelectionModel().getSelectedItem();
         if (evento!=null) {
-            // Cargar el driver
-            Class.forName(utiles.driver);
-            // Establecemos la conexion con la BD
-            Connection conexion = (Connection) DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
-            Statement sentencia=(Statement) conexion.createStatement();
-            String sql="DELETE pe FROM persona_evento pe INNER JOIN personas p ON pe.id_Persona = p.id INNER JOIN eventos e ON pe.id_Evento=e.id WHERE p.user like '"+usu+"' AND e.nombre like '"+evento.getNombre()+"';";
-            sentencia.executeUpdate(sql);
-            this.lista=listAll();
-            this.tablaEventos.setItems(lista);
-            Alert alerta=new Alert(Alert.AlertType.INFORMATION);
-            alerta.setTitle("Eliminado");
-            alerta.setHeaderText(null);
-            alerta.setContentText("Has sido eliminado del evento seleccionado");
-            alerta.showAndWait();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Eliminar del Evento");
+            alert.setHeaderText("Eliminar");
+            alert.setContentText("¿Estas seguro de que quieres ser eleiminado de la lista \nde participantes del evento?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                // Cargar el driver
+                Class.forName(utiles.driver);
+                // Establecemos la conexion con la BD
+                Connection conexion = DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
+                Statement sentencia = conexion.createStatement();
+                String sql="DELETE pe FROM persona_evento pe INNER JOIN personas p ON pe.id_Persona = p.id INNER JOIN eventos e ON pe.id_Evento=e.id WHERE p.user like '"+usu+"' AND e.nombre like '"+evento.getNombre()+"';";
+                sentencia.executeUpdate(sql);
+                this.lista=listAll();
+                this.tablaEventos.setItems(lista);
+            }
 
         }else{
-            Alert alerta=new Alert(Alert.AlertType.ERROR);
-            alerta.setTitle("Error");
-            alerta.setHeaderText(null);
-            alerta.setContentText("Debes de seleccionar un evento para borrarte");
-            alerta.showAndWait();
+            Alertas(Alert.AlertType.ERROR, "Selecciona un evento", "Debes seleccionar un evento para eliminarte");
         }
 
     }

@@ -50,45 +50,17 @@ public class controladorGestorPersonas {
 
     @FXML
     private ComboBox<String> cbSexo;
-    private utiles ut = new utiles();
     boolean bandera=true;
 
     @FXML
     private TextField txtUsuario;
     private String nombre,apellidos,sexo,estadoCivil,user,passwrd,localidad;
     private int edad;
-    private Usuario usuario;
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-        rellenarCampos();
-        activarCheck();
-        bandera = false;
-    }
 
     private void activarCheck() {
         checkAdmin.setDisable(false);
     }
-
-    private void rellenarCampos() {
-        if(usuario!=null){
-            txtNombre.setText(usuario.getNombre());
-            txtApellidos.setText(usuario.getApellidos());
-            txtEdad.setText(usuario.getEdad()+"");
-            cbSexo.setValue(usuario.getSexo());
-            txtEstadoCivil.setText(usuario.getEstadoCivil());
-            txtUsuario.setText(usuario.getUser());
-            txtContrasenia.setText(usuario.getPasswrd());
-            txtLocalidad.setText(usuario.getLocalidad());
-        }
-    }
-
-
-
-
-
-
-    @FXML
+   @FXML
     void registrarse(ActionEvent event) {//metodo para introducir nuevos usuarios
 
         try {
@@ -195,10 +167,14 @@ public class controladorGestorPersonas {
 
     }
 
-    public void inicializarComboBox() {
+    public void inicializarComboBox(boolean bandera) {
         ObservableList<String> tiposSexo = FXCollections.observableArrayList();
         tiposSexo.addAll("Hombre","Mujer","Otro");
         cbSexo.setItems(tiposSexo);
+        this.bandera=bandera;
+        if (!bandera){
+            activarCheck();
+        }
     }
 
 }

@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.Optional;
 
 import static com.example.trabajofinal_interfaces.utiles.utiles.Alertas;
 
@@ -124,6 +125,14 @@ public class ControladorVentanaEdicionUsuarios {
                 comprobador=false;
             }else{
                 comprobador= true;
+                if (checkAdmin.isSelected()){
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Confirmar");
+                    alert.setHeaderText("Hacer admin");
+                    alert.setContentText("¿Estas seguro de que quieres hacer administrador\na este usuario");
+                    Optional<ButtonType> result = alert.showAndWait();
+                    if (result.get() != ButtonType.OK) checkAdmin.setSelected(false);
+                }
             }
 
             if (comprobador){
@@ -178,9 +187,14 @@ public class ControladorVentanaEdicionUsuarios {
     }
     @FXML
     void eliminarCuenta(ActionEvent event) throws SQLException, ClassNotFoundException, IOException {//metodo para eliminar usuarios
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Eliminar");
+        alert.setHeaderText("Eliminar cuenta");
+        alert.setContentText("¿Estas seguro de que quieres ser eliminado de la base\nde datos? La proxima vez que inicies sesión no podras\nacceder con esta cuenta");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() != ButtonType.OK) return;
         // Cargar el driver
         Class.forName(utiles.driver);
-
         // Establecemos la conexion con la BD
         Connection conexion = (Connection) DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
         //Se hace la consulta para eliminar segun el usuario y la contraseña
