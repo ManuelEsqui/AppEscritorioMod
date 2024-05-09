@@ -16,6 +16,9 @@
     -fx-font-size: 14px; /* Tamaño de fuente */
     -fx-padding: 8px 16px; /* Espaciado interno */
 }
+.button:hover {
+    -fx-background-color: #FF6347; /* Background color change on hover */
+}
 
 /* Estilos para el botón de volver */
 #volver {

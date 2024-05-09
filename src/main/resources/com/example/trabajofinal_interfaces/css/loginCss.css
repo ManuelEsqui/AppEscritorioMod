@@ -5,6 +5,8 @@
 .text-field {
     -fx-pref-width: 200px;
     -fx-font-size: 14px;
+    -fx-border-radius: 18 18 18 18;
+    -fx-background-radius: 18 18 18 18;
 }
 
 .button {
@@ -13,6 +15,9 @@
     -fx-background-radius: 18 18 18 18;
     -fx-border-radius: 18 18 18 18;
     -fx-border-width:5;
+}
+.button:hover, #LogIn:hover, #SingUp:hover, #ExtrEvento:hover, #miCuenta:hover {
+    -fx-background-color: #720AAA; /* Background color change on hover */
 }
 
 #LogIn {

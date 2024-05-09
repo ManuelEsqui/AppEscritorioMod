@@ -13,9 +13,12 @@
     -fx-border-radius: 18 18 18 18;
     -fx-border-width:5;
 }
+.button:pressed {
+    -fx-background-color: #000000; /* Background color change on hover */
+}
 
 .tab-pane {
-    -fx-background-color: #F0F0F0; /* Light gray */
+    -fx-background-color: #F0D0F0;
 }
 
 .tab {

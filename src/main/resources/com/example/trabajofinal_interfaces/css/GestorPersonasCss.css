@@ -16,6 +16,12 @@
     -fx-border-radius: 18 18 18 18;
     -fx-border-width:5;
 }
+.button:hover {
+    -fx-background-color: #FF6347; /* Background color change on hover */
+}
+.button:pressed {
+    -fx-background-color: #000000; /* Background color change on hover */
+}
 
 #btnRegistrarse {
     -fx-background-color: #F39C12;
