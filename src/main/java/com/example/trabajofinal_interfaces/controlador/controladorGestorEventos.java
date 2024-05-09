@@ -155,6 +155,7 @@ public class controladorGestorEventos {
                 ControladorVentanaEleccion c= loader.getController();
                 c.setId(id);
                 stage.close();
+                stage.setResizable(false);
                 stage.show();
             }
         }
@@ -325,6 +326,7 @@ public class controladorGestorEventos {
         Stage stage =(Stage) BtnVolver.getScene().getWindow();
         stage.setScene(escena);
         stage.close();
+        stage.setResizable(false);
         stage.show();
     }
 

@@ -22,6 +22,7 @@ public class utiles {
         stage.setScene(escena);
         controladorGestorEventos c= loader.getController();
         c.init("");
+        stage.setResizable(false);
         stage.close();
         stage.show();
     }
@@ -34,6 +35,7 @@ public class utiles {
         controladorVentanaAdmin c = loader.getController();
         c.init();
         stage.close();
+        stage.setResizable(false);
         stage.show();
     }
     public void cambiarVentanaLogin(Stage stage) throws IOException {
@@ -41,6 +43,7 @@ public class utiles {
         Scene escena = new Scene(root);
         stage.setScene(escena);
         stage.close();
+        stage.setResizable(false);
         stage.show();
     }
     public static void Alertas(Alert.AlertType type, String Fallo, String s) {

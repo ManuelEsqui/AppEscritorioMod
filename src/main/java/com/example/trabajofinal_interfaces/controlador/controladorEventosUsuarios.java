@@ -102,6 +102,7 @@ public class controladorEventosUsuarios {
         c.setUsu(usu);
         c.setContra(contra);
         stage.close();
+        stage.setResizable(false);
         stage.show();
     }
 

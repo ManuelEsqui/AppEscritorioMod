@@ -24,6 +24,7 @@ public class Login extends Application {
         Parent root=loader.load();
         Scene scene=new Scene(root);
         stage.setScene(scene);
+        stage.setResizable(false);
         //controladorGestorPersonas controller=loader.getController();
         controladorLoginView controller=loader.getController();
         controller.setStage(stage);
