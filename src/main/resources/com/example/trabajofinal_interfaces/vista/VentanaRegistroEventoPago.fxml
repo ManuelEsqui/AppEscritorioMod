@@ -53,10 +53,10 @@
       <TextArea fx:id="txtDescripcion" layoutX="55.0" layoutY="391.0" prefHeight="219.0" prefWidth="200.0" promptText="Descripción" />
       <VBox layoutX="408.0" layoutY="153.0" prefHeight="295.0" prefWidth="100.0" spacing="80.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="Insertar" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="122.0" text="Editar Eventos" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="128.0" text="Localidades" />
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" text="Vista eventos" />
+            <Button mnemonicParsing="false" onAction="#insertarEvento" prefHeight="25.0" prefWidth="113.0" text="Insertar" />
+            <Button mnemonicParsing="false" onAction="#ventanaEditarEventos" prefHeight="25.0" prefWidth="122.0" text="Editar Eventos" />
+            <Button mnemonicParsing="false" onAction="#ventanaLocalidades" prefHeight="25.0" prefWidth="128.0" text="Localidades" />
+            <Button mnemonicParsing="false" onAction="#ventanaVistaEventos" prefHeight="25.0" prefWidth="156.0" text="Vista eventos" />
          </children>
       </VBox>
       <ComboBox fx:id="cbLocalidades" layoutX="54.0" layoutY="333.0" prefHeight="25.0" prefWidth="174.0" promptText="Localidad" />

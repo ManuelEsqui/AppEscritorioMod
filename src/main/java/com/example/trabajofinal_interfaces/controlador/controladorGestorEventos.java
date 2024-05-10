@@ -81,84 +81,17 @@ public class controladorGestorEventos {
     ArrayList<Evento> arrayEventos=new ArrayList<>();
 
     @FXML
-    void AddEvento(ActionEvent event) throws ClassNotFoundException, SQLException, ParseException, IOException {//metodo para añadir  un evento
-        Class.forName(utiles.driver);
-        // Establecemos la conexion con la BD
-        Connection conexion = (Connection) DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
-
-        String nombre = txtAddNombre.getText();
-        String descripcion = txtDescripcion.getText();
-        String ubicacion = txtAddUbicacion.getText();
-        String localidad = txtAddLocalidad.getText();
-        LocalDate datelocal = AddFecha.getValue();
-        boolean bandera;
-        if (nombre.length()<1 || descripcion.length()<1 || ubicacion.length()<1 || localidad.length()<1 || datelocal==null){
-            bandera=false;
-        }else {
-            bandera=true;
-        }
-        if (bandera) {
-            Date date = Date.valueOf(datelocal);
-            int id_loc=6;
-            Statement sentencia2 = (Statement) conexion.createStatement();
-            String sql2 = "SELECT * FROM Localidades;";
-            ResultSet resul = sentencia2.executeQuery(sql2);
-
-            // Recorremos el resultado para visualizar cada fila
-            // Se hace un bucle mientras haya registros
-            boolean encontrada=false;
-            while (resul.next()) {
-
-                if (resul.getString(2).equalsIgnoreCase(localidad)){
-                    id_loc=resul.getInt(1);
-                    encontrada=true;
-                }
-
-            }
-            if (!encontrada){
-                Alertas(Alert.AlertType.ERROR, "Error", "Localidad no encontrada en la base de datos, revise si existe y si no es el caso agréguela");
-                return;
-            }
-            //Se hace la consulta para añadir el evento a la bd
-            String sql = "INSERT INTO eventos (nombre, descripcion, fecha, localidad_id, ubicacion) VALUES (?, ?, ?, ?, ?);";
-            PreparedStatement sentencia=(PreparedStatement) conexion.prepareStatement(sql);
-            sentencia.setString(1, nombre);
-            sentencia.setString(2,descripcion);
-            sentencia.setDate(3,date);
-            sentencia.setInt(4, id_loc);
-            sentencia.setString(5,ubicacion);
-            sentencia.executeUpdate();
-            sentencia.close();
-            resul.close();
-            init("");
-            Alertas(Alert.AlertType.INFORMATION,"Evento introducido","El evento se ha introducido correctamente");
-            cogerIdEvento(date);
-        }else{
-            Alertas(Alert.AlertType.ERROR, "No se pudo introducir", "Se deben rellenar todos los campos para insertar el evento correctamente");
-        }
-
-
-    }
-
-    private void cogerIdEvento(Date date) throws IOException {
-        for (Evento evento : arrayEventos){
-            String nombre = txtAddNombre.getText();
-            String descripcion = txtDescripcion.getText();
-            String ubicacion = txtAddUbicacion.getText();
-            if(evento.getNombre().equals(nombre) && evento.getDescripcion().equals(descripcion) && evento.getUbicacion().equals(ubicacion) && date.equals(evento.getFecha())){
-                int id=evento.getId();
+    void AddEvento() throws IOException {//metodo para añadir  un evento
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaEleccion.fxml"));
                 Parent root=loader.load();
                 Scene escena = new Scene(root);
                 Stage stage =(Stage) BtnVolver.getScene().getWindow();
                 stage.setScene(escena);
-                ControladorVentanaEleccion c= loader.getController();
-                c.setId(id);
                 stage.close();
                 stage.setResizable(false);
                 stage.show();
-            }
-        }
+
+
     }
 
     @FXML

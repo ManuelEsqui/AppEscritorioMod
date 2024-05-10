@@ -13,17 +13,11 @@ import java.sql.SQLException;
 
 public class ControladorVentanaEleccion {
 
-    private int id;
-
     @FXML
     private Button btnEventoGratis;
 
     @FXML
     private Button btnEventoPago;
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @FXML
     void registroEventoGratis(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {
@@ -33,7 +27,7 @@ public class ControladorVentanaEleccion {
         Stage stage =(Stage) btnEventoGratis.getScene().getWindow();
         stage.setScene(escena);
         ControladorVentanaRegistroEventoGratis c = loader.getController();
-        c.setId(id);
+        c.init();
         stage.close();
         stage.show();
     }
@@ -46,7 +40,7 @@ public class ControladorVentanaEleccion {
         Stage stage =(Stage) btnEventoPago.getScene().getWindow();
         stage.setScene(escena);
         ControladorVentanaRegistroEventoPago c = loader.getController();
-        c.setId(id);
+        c.init();
         stage.close();
         stage.show();
     }
