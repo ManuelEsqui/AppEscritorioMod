@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class ControladorVentanaEleccion {
 
@@ -38,7 +39,7 @@ public class ControladorVentanaEleccion {
     }
 
     @FXML
-    void registroEventoPago(ActionEvent event) throws IOException {
+    void registroEventoPago(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaRegistroEventoPago.fxml"));
         Parent root=loader.load();
         Scene escena = new Scene(root);

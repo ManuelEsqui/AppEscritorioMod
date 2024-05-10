@@ -59,14 +59,14 @@ public class controladorVentanaAdmin {
     private ObservableList lista;
     private Usuario usuarioselec;
 
-    public void init() throws SQLException, ClassNotFoundException {
+    public void init() throws SQLException, ClassNotFoundException {//inicializa la tabla de los usuarios
         inicializarTableView();
         this.lista=listAll();
         this.tableViewUsuarios.setItems(lista);
     }
 
     @FXML
-    void AdministrarEventos(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {
+    void AdministrarEventos(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {//Cambia a la ventana de evenstos
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/GestorEventos.fxml"));
         Parent root=loader.load();
         Scene escena = new Scene(root);
@@ -79,7 +79,7 @@ public class controladorVentanaAdmin {
     }
 
     @FXML
-    void AdministrarUsuarios(ActionEvent event) throws IOException {
+    void AdministrarUsuarios(ActionEvent event) throws IOException {//Cambia a la ventana de editar usuarios
         usuarioselec=tableViewUsuarios.getSelectionModel().getSelectedItem();
         if(usuarioselec==null){
             Alertas(Alert.AlertType.ERROR, "Error", "No has seleccinado ningun usuario");
@@ -116,7 +116,7 @@ public class controladorVentanaAdmin {
         // Establecemos la conexion con la BD
         Connection conexion = DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
         Statement sentencia2 = conexion.createStatement();
-        String sql2 = "SELECT personas.nombre, apellidos, sexo, estadoCivil, user, passwrd, edad, localidades.nombre FROM personas INNER JOIN localidades ON personas.localidad_id = localidades.id;";
+        String sql2 = "SELECT personas.nombre, apellidos, sexo, estadoCivil, user, passwrd, edad, localidades.nombre FROM personas INNER JOIN localidades ON personas.localidad_id = localidades.id;";//Selecciona los datos de todas las personas
         ResultSet resul = sentencia2.executeQuery(sql2);
         while (resul.next()) {// Extraer los datos de la base de datos
             String nomb=resul.getNString(1);
@@ -127,7 +127,7 @@ public class controladorVentanaAdmin {
             String pass= resul.getNString(6);
             int ed=resul.getInt(7);
             String locID=resul.getString(8);
-            listUser.add(new Usuario(nomb,apell,sex,estado,usu,locID,pass,ed));
+            listUser.add(new Usuario(nomb,apell,sex,estado,usu,locID,pass,ed));//Añade las personas a una lista
         }
         conexion.close();
         sentencia2.close();
@@ -153,7 +153,7 @@ public class controladorVentanaAdmin {
         transition.play(); // Iniciar la animación
     }
 
-    public void cambiarVentanaLocalidades(ActionEvent actionEvent) throws IOException, SQLException, ClassNotFoundException {
+    public void cambiarVentanaLocalidades(ActionEvent actionEvent) throws IOException, SQLException, ClassNotFoundException {//Se lleva al menu que adminsitra las localidades
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaGestionLocalidades.fxml"));
         Parent root=loader.load();
         Scene escena = new Scene(root);
@@ -165,7 +165,7 @@ public class controladorVentanaAdmin {
         stage.show();
     }
 
-    public void crearUsu(MouseEvent mouseEvent) throws IOException{
+    public void crearUsu(MouseEvent mouseEvent) throws IOException{//LLeva a la ventana para crear un usuario
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/GestorPersonasView.fxml"));
         Parent root=loader.load();
         Scene escena = new Scene(root);

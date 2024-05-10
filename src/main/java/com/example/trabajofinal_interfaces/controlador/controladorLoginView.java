@@ -56,7 +56,7 @@ public class controladorLoginView {
         Scene escena = new Scene(root);
         Stage stage =(Stage) LogIn.getScene().getWindow();
         stage.setScene(escena);
-        controladorGestorPersonas c = (controladorGestorPersonas) loader.getController();
+        controladorGestorPersonas c = loader.getController();
         c.inicializarComboBox(true);
         stage.close();
         stage.show();
