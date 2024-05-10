@@ -26,7 +26,7 @@ public class ControladorVentanaEleccion {
     }
 
     @FXML
-    void registroEventoGratis(ActionEvent event) throws IOException {
+    void registroEventoGratis(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaRegistroEventoGratis.fxml"));
         Parent root=loader.load();
         Scene escena = new Scene(root);

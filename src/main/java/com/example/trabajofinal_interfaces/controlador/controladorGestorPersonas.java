@@ -19,15 +19,6 @@ public class controladorGestorPersonas {
     public CheckBox checkAdmin;
 
     @FXML
-    private Button btnEditar;
-
-    @FXML
-    private Button btnEliminar;
-
-    @FXML
-    private Button btnRegistrarse;
-
-    @FXML
     private Button btnVolver;
 
     @FXML

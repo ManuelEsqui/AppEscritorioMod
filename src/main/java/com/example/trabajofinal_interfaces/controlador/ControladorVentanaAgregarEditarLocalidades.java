@@ -79,9 +79,7 @@ public class ControladorVentanaAgregarEditarLocalidades {
                 Alertas(Alert.AlertType.ERROR, "Error", "No se pudo conectar a la base de datos");
             } catch (FileNotFoundException e) {
                 Alertas(Alert.AlertType.ERROR, "Error", "No se pudo encontrar la imagen");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (ClassNotFoundException e) {
+            } catch (IOException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
 

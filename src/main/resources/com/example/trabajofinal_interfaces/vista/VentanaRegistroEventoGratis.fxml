@@ -1,14 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.trabajofinal_interfaces.controlador.ControladorVentanaRegistroEventoGratis"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="628.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" stylesheets="@../css/loginCss.css" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trabajofinal_interfaces.controlador.ControladorVentanaRegistroEventoGratis">
+    <children>
+        <TextField fx:id="txtTipo" layoutX="54.0" layoutY="160.0" prefHeight="25.0" prefWidth="174.0" promptText="Tipo" />
+        <DatePicker fx:id="dpFecha" layoutX="54.0" layoutY="115.0" promptText="00/00/0000" />
+        <TextField fx:id="txtNombre" layoutX="54.0" layoutY="67.0" prefHeight="25.0" prefWidth="174.0" promptText="Nombre" />
+        <TextField fx:id="txtUbicación" layoutX="54.0" layoutY="206.0" prefHeight="25.0" prefWidth="174.0" promptText="Ubicacion" />
+        <TextArea fx:id="txtDescripcion" layoutX="54.0" layoutY="299.0" prefHeight="130.0" prefWidth="164.0" promptText="Descripción" />
+        <VBox layoutX="408.0" layoutY="153.0" prefHeight="295.0" prefWidth="100.0" spacing="80.0">
+            <children>
+                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="113.0" text="Insertar" />
+                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="122.0" text="Editar Eventos" />
+                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="128.0" text="Localidades" />
+                <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" text="Vista eventos" />
+            </children>
+        </VBox>
+        <ComboBox fx:id="cbLocalidades" layoutX="54.0" layoutY="252.0" prefHeight="25.0" prefWidth="174.0" promptText="Localidad" />
+      <TextArea fx:id="txtDescripcionAdicional" layoutX="54.0" layoutY="450.0" prefHeight="138.0" prefWidth="164.0" promptText="Descripcion adicional" />
+      <Label layoutX="136.0" layoutY="14.0" text="Crea un nuevo evento gratis">
+         <font>
+            <Font name="System Bold Italic" size="25.0" />
+         </font>
+         <textFill>
+            <LinearGradient endX="1.0" endY="0.6498422712933754" startY="0.7760252546436779">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.1419753134250641" green="0.9284979701042175" blue="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.7631579041481018" green="0.030620532110333443" blue="0.6532772779464722" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Label>
+    </children>
 </AnchorPane>
