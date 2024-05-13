@@ -15,6 +15,7 @@
     -fx-background-radius: 18 18 18 18;
     -fx-border-radius: 18 18 18 18;
     -fx-border-width:5;
+    -fx-background-color: derive(#2ca1ff, 20%);
 }
 .button:hover, #LogIn:hover, #SingUp:hover, #ExtrEvento:hover, #miCuenta:hover {
     -fx-background-color: #720AAA; /* Background color change on hover */
@@ -37,4 +38,10 @@
 #miCuenta{
     -fx-background-color: #8B0000;
     -fx-text-fill: white;
+}
+#lbVentana{
+    -fx-font-size: 30px;
+}
+#lbVentanaPago{
+    -fx-font-size: 25px;
 }

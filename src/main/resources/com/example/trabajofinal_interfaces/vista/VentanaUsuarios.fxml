@@ -29,7 +29,7 @@
             <InnerShadow />
          </effect>
       </TableView>
-      <ButtonBar layoutX="48.0" layoutY="401.0" prefHeight="50.0" prefWidth="655.0">
+      <ButtonBar layoutX="31.0" layoutY="401.0" prefHeight="50.0" prefWidth="665.0">
         <buttons>
           <Button mnemonicParsing="false" onAction="#informaciónDeEvento" prefHeight="25.0" text="Info de evento">
                <cursor>
@@ -51,9 +51,9 @@
             <DropShadow />
          </effect>
       </ButtonBar>
-      <Label layoutX="282.0" layoutY="23.0" text="Todos los eventos">
+      <Label layoutX="278.0" layoutY="14.0" text="Todos los eventos">
          <font>
-            <Font name="Arial Italic" size="23.0" />
+            <Font name="Arial Italic" size="28.0" />
          </font>
          <textFill>
             <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">

@@ -1,7 +1,7 @@
 package com.example.trabajofinal_interfaces.controlador;
 
 import com.example.trabajofinal_interfaces.modelo.Evento;
-import com.example.trabajofinal_interfaces.modelo.Usuario;
+import com.example.trabajofinal_interfaces.modelo.Evento_Pago;
 import com.example.trabajofinal_interfaces.utiles.utiles;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,10 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
@@ -21,6 +18,9 @@ import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
 import java.sql.*;
 import java.util.Date;
+import java.util.Optional;
+
+import static com.example.trabajofinal_interfaces.utiles.utiles.Alertas;
 
 public class controladorVentanaUsuarios {
 
@@ -74,47 +74,74 @@ public class controladorVentanaUsuarios {
                 }
                 result.sentencia2().close();
                 result.resul().close();
-                if (usu!=null && contra!=null){//consulta para extraer la id
-                    Statement sentencia3 = (Statement) result.conexion().createStatement();
-                    String sql3 = "SELECT id FROM personas WHERE user LIKE '"+usu+"' AND passwrd LIKE '"+contra+"';";
-                    ResultSet resul2 = sentencia3.executeQuery(sql3);
-                    while (resul2.next()) {
-                        id_usuario=resul2.getInt(1);
-                    }
-                    sentencia3.close();
-                    resul2.close();
-                    if (id_usuario!=0 && id_evento!=0){//consulta para insertar en tabla intermedia con las id
-                        String sql = "INSERT INTO Persona_Evento (id_Persona, id_Evento) VALUES (?, ?);";
-                        PreparedStatement sentencia=(PreparedStatement) result.conexion().prepareStatement(sql);
-                        sentencia.setInt(1, id_usuario);
-                        sentencia.setInt(2, id_evento);
-                        sentencia.executeUpdate();
-
-                        msgError(Alert.AlertType.WARNING, "Apuntado", "Has sido añadido a la lista de participantes del evento");
-
-                        result.conexion().close();
-                        sentencia.close();
-                    }else{
-                        msgError(Alert.AlertType.ERROR, "Error", "Ha ocurrido un error");
-                    }
-                }else{
-                    msgError(Alert.AlertType.ERROR, "Error", "Un administrador no puede apuntarse a eventos");
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Apuntarse");
+                alert.setHeaderText("Antes de apuntarse");
+                alert.setContentText("¿Deseas ver más datos del evento antes\n de apuntarse?");
+                Optional<ButtonType> resultado = alert.showAndWait();
+                if (resultado.get() == ButtonType.OK){
+                    cambiarVentanaEspecificacionEnvento(id_evento, eventoSelec);
+                    return;
                 }
+                apuntarAEvento(result, id_evento);
 
             }else{
-                msgError(Alert.AlertType.ERROR, "Nigun evento seleccionado", "Ningun evento seleccionado");
+                Alertas(Alert.AlertType.ERROR, "Nigun evento seleccionado", "Ningun evento seleccionado");
             }
         }catch (Exception e){
-            msgError(Alert.AlertType.ERROR, "Error", "Ya estas apuntado a este evento");
+            Alertas(Alert.AlertType.ERROR, "Error", "Ya estas apuntado a este evento");
         }
     }
 
-    private static void msgError(Alert.AlertType error, String Nigun_evento_seleccionado, String Ningun_evento_seleccionado) {
-        Alert alerta = new Alert(error);
-        alerta.setTitle(Nigun_evento_seleccionado);
-        alerta.setHeaderText(null);
-        alerta.setContentText(Ningun_evento_seleccionado);
-        alerta.showAndWait();
+    private void apuntarAEvento(Result result, int id_evento) throws SQLException {
+        if (usu!=null && contra!=null){//consulta para extraer la id
+            Statement sentencia3 = (Statement) result.conexion().createStatement();
+            String sql3 = "SELECT id FROM personas WHERE user LIKE '"+usu+"' AND passwrd LIKE '"+contra+"';";
+            ResultSet resul2 = sentencia3.executeQuery(sql3);
+            while (resul2.next()) {
+                id_usuario=resul2.getInt(1);
+            }
+            sentencia3.close();
+            resul2.close();
+            if (id_usuario!=0 && id_evento !=0){//consulta para insertar en tabla intermedia con las id
+                String sql = "INSERT INTO Persona_Evento (id_Persona, id_Evento) VALUES (?, ?);";
+                PreparedStatement sentencia=(PreparedStatement) result.conexion().prepareStatement(sql);
+                sentencia.setInt(1, id_usuario);
+                sentencia.setInt(2, id_evento);
+                sentencia.executeUpdate();
+
+                //Alertas(Alert.AlertType.WARNING, "Apuntado", "Has sido añadido a la lista de participantes del evento");
+
+
+                result.conexion().close();
+                sentencia.close();
+            }else{
+                Alertas(Alert.AlertType.ERROR, "Error", "Ha ocurrido un error");
+            }
+        }else{
+            Alertas(Alert.AlertType.ERROR, "Error", "Un administrador no puede apuntarse a eventos");
+        }
+    }
+
+    private void cambiarVentanaEspecificacionEnvento(int id_evento, Evento eventoSelec) throws ClassNotFoundException, SQLException {
+        Class.forName(utiles.driver);
+        // Establecemos la conexion con la BD
+        Connection conexion = DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
+
+        Statement sentencia2 = conexion.createStatement();
+        String sql2 = "SELECT * FROM eventosdepago;";
+        ResultSet resul = sentencia2.executeQuery(sql2);
+
+        while (resul.next()){
+            if (id_evento==resul.getInt(1)){
+                eventoSelec.setId(id_evento);
+                Evento_Pago eventoPago=new Evento_Pago(eventoSelec, resul.getFloat(2), resul.getString(3));
+                System.out.println(eventoPago);
+                return;
+            }else{
+                return;
+            }
+        }
     }
 
     private @NotNull Result getResult() throws ClassNotFoundException, SQLException {
@@ -126,8 +153,7 @@ public class controladorVentanaUsuarios {
         //consulta para extraer la id
         String sql2 = "SELECT id FROM eventos WHERE nombre LIKE '"+eventoSelec.getNombre()+"' AND descripcion LIKE '"+eventoSelec.getDescripcion()+"';";
         ResultSet resul = sentencia2.executeQuery(sql2);
-        Result result = new Result(conexion, sentencia2, resul);
-        return result;
+        return new Result(conexion, sentencia2, resul);
     }
 
     private record Result(Connection conexion, Statement sentencia2, ResultSet resul) {
@@ -225,7 +251,7 @@ public class controladorVentanaUsuarios {
         stage.close();
         stage.show();
         }else{
-            msgError(Alert.AlertType.ERROR, "Nigun evento seleccionado", "Ningun evento seleccionado");
+            Alertas(Alert.AlertType.ERROR, "Nigun evento seleccionado", "Ningun evento seleccionado");
         }
     }
 }

@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
@@ -30,7 +31,7 @@
         </VBox>
         <ComboBox fx:id="cbLocalidades" layoutX="54.0" layoutY="252.0" prefHeight="25.0" prefWidth="174.0" promptText="Localidad" />
       <TextArea fx:id="txtDescripcionAdicional" layoutX="54.0" layoutY="450.0" prefHeight="138.0" prefWidth="164.0" promptText="Descripcion adicional" />
-      <Label layoutX="136.0" layoutY="14.0" text="Crea un nuevo evento gratis">
+      <Label fx:id="lbVentana" layoutX="123.0" layoutY="14.0" text="Crea un nuevo evento gratis">
          <font>
             <Font name="System Bold Italic" size="25.0" />
          </font>
@@ -50,6 +51,9 @@
                </stops>
             </LinearGradient>
          </textFill>
+         <effect>
+            <Glow level="0.36" />
+         </effect>
       </Label>
     </children>
 </AnchorPane>

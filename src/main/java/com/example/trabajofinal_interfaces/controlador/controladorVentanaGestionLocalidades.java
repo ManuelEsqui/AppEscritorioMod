@@ -55,7 +55,13 @@ public class controladorVentanaGestionLocalidades {
 
     @FXML
     void delete(ActionEvent event) throws SQLException, ClassNotFoundException {
-        Localidad localidad = localidades.get(listViewLocalidades.getSelectionModel().getSelectedIndex());
+        Localidad localidad=null;
+        try{
+            localidad = localidades.get(listViewLocalidades.getSelectionModel().getSelectedIndex());
+        }catch (Exception e){
+            Alertas(Alert.AlertType.ERROR, "Selecciona una localidad", "Debes selaccionar una localidad para eliminarla");
+            return;
+        }
         if(localidad.getNombre().equalsIgnoreCase("desconocida")){
             Alertas(Alert.AlertType.ERROR, "NO", "Es imposible eliminar este registro");
             return;
