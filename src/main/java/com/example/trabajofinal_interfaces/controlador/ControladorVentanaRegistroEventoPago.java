@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.*;
@@ -36,6 +37,7 @@ public class ControladorVentanaRegistroEventoPago {
 
     @FXML
     private TextField txtUbicación;
+    utiles u=new utiles();
 
 
     public void inicializarComboBox() throws SQLException, ClassNotFoundException {
@@ -55,7 +57,7 @@ public class ControladorVentanaRegistroEventoPago {
             }
         cbLocalidades.setItems(listaLocalidades);
     }
-    private void insertarEventoGratis(int id) throws ClassNotFoundException, SQLException {
+    private void insertarEventoPago(int id) throws ClassNotFoundException, SQLException {
         float precio;
         try {
             precio = Float.parseFloat(txtPrecio.getText());
@@ -72,6 +74,7 @@ public class ControladorVentanaRegistroEventoPago {
         sentencia.setFloat(2,precio);
         sentencia.setString(3,txtPuntoVenta.getText());
         sentencia.executeUpdate();
+        Alertas(Alert.AlertType.INFORMATION,"Evento introducido","El evento se ha introducido correctamente");
         sentencia.close();
         conexion.close();
     }
@@ -86,7 +89,7 @@ public class ControladorVentanaRegistroEventoPago {
         String localidad = cbLocalidades.getSelectionModel().getSelectedItem();
         LocalDate datelocal = dpFecha.getValue();
         boolean bandera;
-        if (nombre.length()<1 || descripcion.length()<1 || ubicacion.length()<1 || localidad.length()<1 || datelocal==null){
+        if (nombre.length()<1 || descripcion.length()<1 || ubicacion.length()<1 || localidad.length()<1 || datelocal==null || txtPuntoVenta.getText().length()<1){
             bandera=false;
         }else {
             bandera=true;
@@ -124,21 +127,23 @@ public class ControladorVentanaRegistroEventoPago {
             sentencia.executeUpdate();
             sentencia.close();
             resul.close();
-            Alertas(Alert.AlertType.INFORMATION,"Evento introducido","El evento se ha introducido correctamente");
             int id=cogerIdEvento();
-            insertarEventoGratis(id);
+            insertarEventoPago(id);
         }else{
             Alertas(Alert.AlertType.ERROR, "No se pudo introducir", "Se deben rellenar todos los campos para insertar el evento correctamente");
         }
     }
 
-    public void ventanaEditarEventos(ActionEvent actionEvent) {
+    public void ventanaEditarEventos(ActionEvent actionEvent) throws SQLException, IOException, ClassNotFoundException {
+        u.cambiarVentanaAdminEventos((Stage) txtUbicación.getScene().getWindow());
     }
 
-    public void ventanaLocalidades(ActionEvent actionEvent) {
+    public void ventanaLocalidades(ActionEvent actionEvent) throws SQLException, IOException, ClassNotFoundException {
+        u.cambiarVentanaLocalidades((Stage) cbLocalidades.getScene().getWindow());
     }
 
-    public void ventanaVistaEventos(ActionEvent actionEvent) {
+    public void ventanaVistaEventos(ActionEvent actionEvent) throws SQLException, IOException, ClassNotFoundException {
+        u.CambiarVistaEventosDesdeAdmin((Stage) txtUbicación.getScene().getWindow());
     }
 
     public void init() throws SQLException, ClassNotFoundException {

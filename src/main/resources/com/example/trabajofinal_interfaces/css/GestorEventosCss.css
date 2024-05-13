@@ -13,25 +13,8 @@
     -fx-border-radius: 18 18 18 18;
     -fx-border-width:5;
 }
-.button:pressed {
+.button:hover {
     -fx-background-color: #000000; /* Background color change on hover */
-}
-
-.tab-pane {
-    -fx-background-color: #F0D0F0;
-}
-
-.tab {
-    -fx-background-color: #3498DB; /* Blue */
-    -fx-text-fill: white;
-}
-
-.tab-pane .tab-header-area {
-    -fx-background-color: #3498DB;
-}
-
-.tab-pane .tab-header-area .tab:selected .tab-label {
-    -fx-background-color: #2980B9;
 }
 
 .table-view {
@@ -46,4 +29,10 @@
 .table-view .table-row-cell:selected {
     -fx-background-color: 	#83072D;
     -fx-text-fill: white;
+}
+#insertarEvento {
+    -fx-background-color: #fad21c;
+}
+#insertarEvento:hover{
+    -fx-background-color: 	#83072D;
 }

@@ -58,6 +58,7 @@ public class controladorVentanaAdmin {
 
     private ObservableList lista;
     private Usuario usuarioselec;
+    utiles u=new utiles();
 
     public void init() throws SQLException, ClassNotFoundException {//inicializa la tabla de los usuarios
         inicializarTableView();
@@ -67,15 +68,7 @@ public class controladorVentanaAdmin {
 
     @FXML
     void AdministrarEventos(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {//Cambia a la ventana de evenstos
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/GestorEventos.fxml"));
-        Parent root=loader.load();
-        Scene escena = new Scene(root);
-        Stage stage =(Stage) btnVolver.getScene().getWindow();
-        stage.setScene(escena);
-        controladorGestorEventos controladorGestorEventos = loader.getController();
-        controladorGestorEventos.init("");
-        stage.close();
-        stage.show();
+        u.cambiarVentanaAdminEventos((Stage) btnVolver.getScene().getWindow());
     }
 
     @FXML
@@ -154,15 +147,7 @@ public class controladorVentanaAdmin {
     }
 
     public void cambiarVentanaLocalidades(ActionEvent actionEvent) throws IOException, SQLException, ClassNotFoundException {//Se lleva al menu que adminsitra las localidades
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaGestionLocalidades.fxml"));
-        Parent root=loader.load();
-        Scene escena = new Scene(root);
-        Stage stage =(Stage) btnVolver.getScene().getWindow();
-        stage.setScene(escena);
-        controladorVentanaGestionLocalidades c = loader.getController();
-        c.inicializarLocalidades();
-        stage.close();
-        stage.show();
+        u.cambiarVentanaLocalidades((Stage) btnVolver.getScene().getWindow());
     }
 
     public void crearUsu(MouseEvent mouseEvent) throws IOException{//LLeva a la ventana para crear un usuario

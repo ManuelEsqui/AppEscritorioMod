@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
@@ -16,127 +15,96 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/GestorEventosCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trabajofinal_interfaces.controlador.controladorGestorEventos">
+<AnchorPane prefHeight="595.0" prefWidth="1014.0" stylesheets="@../css/GestorEventosCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trabajofinal_interfaces.controlador.controladorGestorEventos">
    <children>
-      <TabPane layoutX="1.0" layoutY="-1.0" prefHeight="464.0" prefWidth="770.0" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab text="Añadir">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <DatePicker fx:id="AddFecha" layoutX="100.0" layoutY="259.0" />
-                        <Label layoutX="40.0" layoutY="120.0" text="Nombre:">
-                           <font>
-                              <Font size="14.0" />
-                           </font></Label>
-                        <Label layoutX="346.0" layoutY="121.0" text="Descripcion:">
-                           <font>
-                              <Font size="14.0" />
-                           </font></Label>
-                        <Label layoutX="47.0" layoutY="263.0" text="Fecha:">
-                           <font>
-                              <Font size="14.0" />
-                           </font></Label>
-                        <Label layoutX="36.0" layoutY="214.0" text="Ubicación:">
-                           <font>
-                              <Font size="14.0" />
-                           </font></Label>
-                        <Label layoutX="37.0" layoutY="167.0" text="Localidad:">
-                           <font>
-                              <Font size="14.0" />
-                           </font></Label>
-                        <TextField fx:id="txtAddUbicacion" layoutX="100.0" layoutY="210.0" prefHeight="26.0" prefWidth="175.0" />
-                        <TextArea fx:id="txtDescripcion" layoutX="431.0" layoutY="120.0" prefHeight="181.0" prefWidth="277.0" />
-                        <TextField fx:id="txtAddLocalidad" layoutX="100.0" layoutY="163.0" prefHeight="26.0" prefWidth="175.0" />
-                        <TextField fx:id="txtAddNombre" layoutX="100.0" layoutY="116.0" prefHeight="26.0" prefWidth="175.0" />
-                        <HBox layoutX="120.0" layoutY="356.0" prefHeight="32.0" prefWidth="602.0" spacing="40.0">
-                           <children>
-                              <Button mnemonicParsing="false" onAction="#VentanaAdminPrincipal" text="Volver" />
-                              <Button mnemonicParsing="false" onAction="#AddEvento" prefHeight="30.0" prefWidth="90.0" text="Añadir" />
-                              <Button fx:id="BtnVolver" mnemonicParsing="false" onAction="#VentanaLogin" prefHeight="30.0" prefWidth="99.0" text="Volver a login" />
-                              <Button mnemonicParsing="false" onAction="#VentanaUsuarios" prefHeight="30.0" prefWidth="140.0" text="Vista usuario" />
-                           </children>
-                        </HBox>
-                        <Label layoutX="176.0" layoutY="26.0" text="Crea un evento nuevo">
-                           <font>
-                              <Font name="Arial Bold Italic" size="40.0" />
-                           </font>
-                           <textFill>
-                              <LinearGradient endX="1.0" endY="1.0">
-                                 <stops>
-                                    <Stop>
-                                       <color>
-                                          <Color red="1.0" green="0.14814814925193787" blue="0.6734567880630493" />
-                                       </color>
-                                    </Stop>
-                                    <Stop offset="0.9977628635346756">
-                                       <color>
-                                          <Color red="0.008013862185180187" green="0.6491228342056274" blue="0.574326753616333" />
-                                       </color>
-                                    </Stop>
-                                    <Stop offset="1.0">
-                                       <color>
-                                          <Color red="0.008013862185180187" green="0.6491228342056274" blue="0.574326753616333" />
-                                       </color>
-                                    </Stop>
-                                 </stops>
-                              </LinearGradient>
-                           </textFill>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-          <Tab text="Editar/Eliminar">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="371.0" prefWidth="684.0">
-                     <children>
-                        <TableView fx:id="TableViewEventos" layoutX="560.0" layoutY="27.0" onMouseClicked="#rellenarCampos" prefHeight="384.0" prefWidth="203.0">
-                          <columns>
-                            <TableColumn fx:id="ColumnaId" prefWidth="64.66668701171875" text="ID" />
-                            <TableColumn fx:id="ColumnaNombre" prefWidth="136.6666463216146" text="Nombre" />
-                          </columns>
-                        </TableView>
-                        <DatePicker fx:id="EditFecha" layoutX="53.0" layoutY="333.0" />
-                        <Label layoutX="57.0" layoutY="144.0" text="Nombre:">
-                           <font>
-                              <Font name="System Italic" size="12.0" />
-                           </font></Label>
-                        <Label layoutX="331.0" layoutY="207.0" text="Descripcion:">
-                           <font>
-                              <Font name="System Italic" size="12.0" />
-                           </font></Label>
-                        <Label layoutX="53.0" layoutY="313.0" text="Fecha:">
-                           <font>
-                              <Font name="System Italic" size="12.0" />
-                           </font></Label>
-                        <Label layoutX="52.0" layoutY="197.0" text="Ubicación:">
-                           <font>
-                              <Font name="System Italic" size="12.0" />
-                           </font></Label>
-                        <Label layoutX="53.0" layoutY="252.0" text="Localidad:">
-                           <font>
-                              <Font name="System Italic" size="12.0" />
-                           </font></Label>
-                        <TextField fx:id="txtEditLocalidad" layoutX="53.0" layoutY="272.0" prefHeight="26.0" prefWidth="175.0" />
-                        <TextArea fx:id="txtEditDescripcion" layoutX="331.0" layoutY="225.0" prefHeight="143.0" prefWidth="211.0" />
-                        <TextField fx:id="txtEditUbicacion" layoutX="53.0" layoutY="217.0" prefHeight="26.0" prefWidth="175.0" />
-                        <TextField fx:id="txtEditNombre" layoutX="53.0" layoutY="159.0" prefHeight="26.0" prefWidth="175.0" />
-                        <Label layoutX="331.0" layoutY="144.0" text="ID:">
-                           <font>
-                              <Font name="System Italic" size="12.0" />
-                           </font></Label>
-                        <TextField fx:id="txtId" layoutX="331.0" layoutY="159.0" />
-                        <Label fx:id="lbError" layoutX="286.0" layoutY="312.0" />
-                        <Button layoutX="363.0" layoutY="385.0" mnemonicParsing="false" onAction="#DeleteEvento" text="Eliminar" />
-                        <Button layoutX="126.0" layoutY="385.0" mnemonicParsing="false" onAction="#Editar" text="Editar" />
-                        <Button layoutX="243.0" layoutY="47.0" mnemonicParsing="false" onAction="#buscarEvento" prefHeight="30.0" prefWidth="162.0" text="Buscar " />
-                        <TextField fx:id="txtBuscar" layoutX="223.0" layoutY="96.0" promptText="Nombre del evento" />
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
+      <Label layoutX="274.0" layoutY="70.0" text="¡Administra los eventos!">
+         <font>
+            <Font name="Arial Bold Italic" size="40.0" />
+         </font>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="1.0" green="0.14814814925193787" blue="0.6734567880630493" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.9977628635346756">
+                     <color>
+                        <Color red="0.008013862185180187" green="0.6491228342056274" blue="0.574326753616333" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.008013862185180187" green="0.6491228342056274" blue="0.574326753616333" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Label>
+      <Button fx:id="insertarEvento" layoutX="77.0" layoutY="523.0" mnemonicParsing="false" onAction="#AddEvento" prefHeight="30.0" prefWidth="501.0" text="Añadir" />
+      <Button layoutX="410.0" layoutY="143.0" mnemonicParsing="false" onAction="#buscarEvento" prefHeight="30.0" prefWidth="162.0" text="Buscar " />
+      <TextField fx:id="txtBuscar" layoutX="390.0" layoutY="191.0" promptText="Nombre del evento" />
+      <TextField fx:id="txtId" layoutX="322.0" layoutY="265.0" promptText="ID" />
+      <Label layoutX="322.0" layoutY="241.0" text="ID:">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="45.0" layoutY="241.0" text="Nombre:">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtEditNombre" layoutX="44.0" layoutY="265.0" prefHeight="26.0" prefWidth="175.0" promptText="Nombre" />
+      <TableView fx:id="TableViewEventos" layoutX="797.0" layoutY="143.0" onMouseClicked="#rellenarCampos" prefHeight="442.0" prefWidth="203.0">
+         <columns>
+            <TableColumn fx:id="ColumnaId" prefWidth="64.66668701171875" text="ID" />
+            <TableColumn fx:id="ColumnaNombre" prefWidth="136.6666463216146" text="Nombre" />
+         </columns>
+      </TableView>
+      <DatePicker fx:id="EditFecha" layoutX="44.0" layoutY="445.0" promptText="00/00/0000" />
+      <Label layoutX="322.0" layoutY="319.0" text="Descripcion:">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="44.0" layoutY="425.0" text="Fecha:">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="43.0" layoutY="309.0" text="Ubicación:">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="44.0" layoutY="364.0" text="Localidad:">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtEditLocalidad" layoutX="44.0" layoutY="384.0" prefHeight="26.0" prefWidth="175.0" promptText="Localidad" />
+      <TextArea fx:id="txtEditDescripcion" layoutX="322.0" layoutY="337.0" prefHeight="143.0" prefWidth="211.0" promptText="Descipcion" />
+      <TextField fx:id="txtEditUbicacion" layoutX="44.0" layoutY="329.0" prefHeight="26.0" prefWidth="175.0" promptText="Ubicacion" />
+      <Button layoutX="490.0" layoutY="523.0" mnemonicParsing="false" onAction="#DeleteEvento" text="Eliminar" />
+      <Button layoutX="284.0" layoutY="523.0" mnemonicParsing="false" onAction="#Editar" text="Editar" />
+      <TextArea fx:id="txtDescripcionAdicional" layoutX="559.0" layoutY="338.0" prefHeight="143.0" prefWidth="211.0" promptText="Descripcion adicional" visible="false" />
+      <TextField fx:id="txtTipo" layoutX="559.0" layoutY="265.0" promptText="Tipo" visible="false" />
+      <Label fx:id="lbTipoPrecio" layoutX="559.0" layoutY="241.0" text="Tipo:" visible="false" />
+      <Label fx:id="lbDescPuntoVenta" layoutX="559.0" layoutY="318.0" text="Descripcion adicional:" visible="false" />
+      <HBox layoutY="-1.0" prefHeight="78.0" prefWidth="1014.0" spacing="250.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#VentanaAdminPrincipal" text="Volver" />
+            <Button fx:id="BtnVolver" mnemonicParsing="false" onAction="#VentanaLogin" prefHeight="30.0" prefWidth="99.0" text="Volver a login" />
+            <Button mnemonicParsing="false" onAction="#VentanaUsuarios" prefHeight="30.0" prefWidth="140.0" text="Vista usuario" />
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </HBox>
+      <TextField fx:id="txtPuntoVentaEntrada" layoutX="559.0" layoutY="344.0" prefHeight="30.0" prefWidth="747.0" promptText="Punto de venta" visible="false" />
+      <TextField fx:id="txtPrecio" layoutX="559.0" layoutY="265.0" promptText="Precio" visible="false" />
    </children>
 </AnchorPane>

@@ -14,7 +14,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.*;
-import java.text.ParseException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -24,9 +23,13 @@ import static com.example.trabajofinal_interfaces.utiles.utiles.Alertas;
 
 public class controladorGestorEventos {
 
-    @FXML
-    private DatePicker AddFecha;
 
+    public TextArea txtDescripcionAdicional;
+    public Label lbTipoPrecio;
+    public Label lbDescPuntoVenta;
+    public TextField txtPuntoVentaEntrada;
+    public TextField txtPrecio;
+    public TextField txtTipo;
     @FXML
     private Button BtnVolver;
 
@@ -43,23 +46,9 @@ public class controladorGestorEventos {
     private TableView<Evento> TableViewEventos;
     private ObservableList lista;
 
-    @FXML
-    private Label lbError;
-
-    @FXML
-    private TextField txtAddLocalidad;
-
-    @FXML
-    private TextField txtAddNombre;
-
-    @FXML
-    private TextField txtAddUbicacion;
 
     @FXML
     private TextField txtBuscar;
-
-    @FXML
-    private TextArea txtDescripcion;
 
     @FXML
     private TextArea txtEditDescripcion;
@@ -82,16 +71,7 @@ public class controladorGestorEventos {
 
     @FXML
     void AddEvento() throws IOException {//metodo para añadir  un evento
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaEleccion.fxml"));
-                Parent root=loader.load();
-                Scene escena = new Scene(root);
-                Stage stage =(Stage) BtnVolver.getScene().getWindow();
-                stage.setScene(escena);
-                stage.close();
-                stage.setResizable(false);
-                stage.show();
-
-
+        u.cambiarVentanaAddEvento((Stage) txtEditLocalidad.getScene().getWindow());
     }
 
     @FXML
@@ -109,9 +89,7 @@ public class controladorGestorEventos {
             sentencia.setInt(1, idEvento);
             int filas=sentencia.executeUpdate();
             System.out.println(filas+" rows afected");
-            if (filas<1){
-                lbError.setText("No se ha eliminado ningun evento");
-            }else{
+            if (filas==1){
                 Alert alerta=new Alert(Alert.AlertType.WARNING);
                 alerta.setTitle("Eliminado");
                 alerta.setHeaderText(null);
@@ -182,23 +160,66 @@ public class controladorGestorEventos {
             sentencia.setString(5,ubicacion);
             sentencia.setInt(6,id);
             sentencia.executeUpdate();
-            Alert alerta=new Alert(Alert.AlertType.WARNING);
-            alerta.setTitle("Actualizado");
-            alerta.setHeaderText(null);
-            alerta.setContentText("Evento actualizado con exito");
-            alerta.showAndWait();
             sentencia.close();
             sentencia2.close();
+            if (txtPuntoVentaEntrada.isVisible()){
+                editDatosEventoPago(id);
+            } else if (txtDescripcionAdicional.isVisible()) {
+                editDatosEventoGratis(id);
+            }
             resul.close();
             init("");
+
         }else {
             Alertas(Alert.AlertType.ERROR, "Error", "Se deben rellenar todos los datos");
         }
 
     }
 
+    private void editDatosEventoGratis(int idEvento) throws ClassNotFoundException, SQLException {
+        if(txtTipo.getText().length()<1 || txtDescripcionAdicional.getText().length()<1){
+            Alertas(Alert.AlertType.ERROR, "Ha ocurrido un error", "Deben estar rellenos todos los campos para editar el evento");
+            return;
+        }
+        Class.forName(utiles.driver);
+        // Establecemos la conexion con la BD
+        Connection conexion = DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
+        String sql = "UPDATE eventosgratis SET tipo = ?, descripcionAdicional = ? WHERE id = ?;";
+        PreparedStatement sentencia= conexion.prepareStatement(sql);
+        sentencia.setString(1, txtTipo.getText());
+        sentencia.setString(2, txtDescripcionAdicional.getText());
+        sentencia.setInt(3, idEvento);
+        sentencia.executeUpdate();
+        Alertas(Alert.AlertType.INFORMATION, "Actualizacion exitosa", "El evento gratuito se ha actualizado correctamente");
+    }
+
+    private void editDatosEventoPago(int idEvento) throws ClassNotFoundException, SQLException {
+        float precio=0;
+        try {
+            precio=Float.parseFloat(txtPrecio.getText());
+            if(txtPuntoVentaEntrada.getText().length()<1){
+                Alertas(Alert.AlertType.ERROR, "Ha ocurrido un error", "Debes rellenar el campo punto de venta con el lugar donde se vende la entrada");
+                return;
+            }
+            Class.forName(utiles.driver);
+            // Establecemos la conexion con la BD
+            Connection conexion = DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
+            String sql = "UPDATE eventosdepago SET precio = ?, venta_entrada = ? WHERE id = ?;";
+            PreparedStatement sentencia= conexion.prepareStatement(sql);
+            sentencia.setFloat(1, precio);
+            sentencia.setString(2, txtPuntoVentaEntrada.getText());
+            sentencia.setInt(3, idEvento);
+            sentencia.executeUpdate();
+            Alertas(Alert.AlertType.INFORMATION, "Actualizacion exitosa", "El evento de pago se ha actualizado correctamente");
+        }catch (Exception e){
+            Alertas(Alert.AlertType.ERROR, "Ha ocurrido un error", "El campo precio debe estar relleno por un numero");
+        }
+
+
+    }
+
     @FXML
-    private void rellenarCampos() {
+    private void rellenarCampos() throws SQLException, ClassNotFoundException {
         eventoSelec=TableViewEventos.getSelectionModel().getSelectedItem();
         txtId.setText(""+eventoSelec.getId());
         for (Evento e:arrayEventos){
@@ -209,9 +230,60 @@ public class controladorGestorEventos {
                 txtEditLocalidad.setText(e.getLocalidad());
                 //EditFecha.setValue(e.getFecha().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
                 EditFecha.setValue(Instant.ofEpochMilli(e.getFecha().getTime()).atZone(ZoneId.systemDefault()).toLocalDate());
+                hacerVisibleYRellenarOtrosCampos(eventoSelec.getId());
                 break;
             }
         }
+    }
+
+    private void hacerVisibleYRellenarOtrosCampos(int id) throws ClassNotFoundException, SQLException {
+        Class.forName(utiles.driver);
+        // Establecemos la conexion con la BD
+        Connection conexion = DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
+
+        Statement sentencia2 = conexion.createStatement();
+        String sql2 = "SELECT * FROM eventosgratis;";
+        ResultSet resul = sentencia2.executeQuery(sql2);
+
+        while (resul.next()) {
+            if (resul.getInt(1)==id){
+                lbTipoPrecio.setVisible(true);
+                lbTipoPrecio.setText("Tipo:");
+                lbDescPuntoVenta.setVisible(true);
+                lbDescPuntoVenta.setText("Descripcion adicional:");
+                txtPrecio.setVisible(false);
+                txtPuntoVentaEntrada.setVisible(false);
+                txtTipo.setVisible(true);
+                txtDescripcionAdicional.setVisible(true);
+                txtTipo.setText(resul.getString(2));
+                txtDescripcionAdicional.setText(resul.getString(3));
+                return;
+            }
+        }
+        sentencia2 = conexion.createStatement();
+        sql2 = "SELECT * FROM eventosdepago;";
+        resul = sentencia2.executeQuery(sql2);
+        while (resul.next()){
+            if (resul.getInt(1)==id){
+                lbTipoPrecio.setVisible(true);
+                lbTipoPrecio.setText("Precio:");
+                lbDescPuntoVenta.setVisible(true);
+                lbDescPuntoVenta.setText("Punto de venta:");
+                txtDescripcionAdicional.setVisible(false);
+                txtTipo.setVisible(false);
+                txtPrecio.setVisible(true);
+                txtPuntoVentaEntrada.setVisible(true);
+                txtPrecio.setText(resul.getString(2));
+                txtPuntoVentaEntrada.setText(resul.getString(3));
+                return;
+            }
+        }
+        txtPrecio.setVisible(false);
+        txtPuntoVentaEntrada.setVisible(false);
+        txtDescripcionAdicional.setVisible(false);
+        txtTipo.setVisible(false);
+        lbTipoPrecio.setVisible(false);
+        lbDescPuntoVenta.setVisible(false);
     }
 
     public void init(String nombreEvento) throws SQLException, ClassNotFoundException {
@@ -271,15 +343,7 @@ public class controladorGestorEventos {
 
     @FXML
     void VentanaUsuarios(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaUsuarios.fxml"));
-        Parent root=loader.load();
-        Scene escena = new Scene(root);
-        Stage stage =(Stage) BtnVolver.getScene().getWindow();
-        stage.setScene(escena);
-        controladorVentanaUsuarios c=loader.getController();
-        c.init();
-        stage.close();
-        stage.show();
+        u.CambiarVistaEventosDesdeAdmin((Stage) BtnVolver.getScene().getWindow());
     }
 
     public void buscarEvento(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
