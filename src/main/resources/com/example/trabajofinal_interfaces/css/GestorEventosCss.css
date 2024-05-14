@@ -36,3 +36,6 @@
 #insertarEvento:hover{
     -fx-background-color: 	#83072D;
 }
+#btnMenu{
+    -fx-background-color: blue;
+}

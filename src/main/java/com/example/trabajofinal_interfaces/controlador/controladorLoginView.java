@@ -75,6 +75,7 @@ public class controladorLoginView {
             boolean bandera=false;
             while (result.resul().next()) {
                 if (usuario.equals(result.resul().getString(1)) && contra.equals(result.resul().getString(2))){
+                    eliminarRegistrosAterioresFechaActual();
                     if (result.resul().getBoolean(3)){
                         Stage stage =(Stage) LogIn.getScene().getWindow();
                         u.cambiarVentanaAdmin(stage);
@@ -97,6 +98,15 @@ public class controladorLoginView {
         } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void eliminarRegistrosAterioresFechaActual() throws ClassNotFoundException, SQLException {
+        Class.forName(utiles.driver);
+        Connection conexion = (Connection) DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
+        Statement sentencia = (Statement) conexion.createStatement();
+        sentencia.executeUpdate("DELETE FROM eventos WHERE fecha < CURDATE();");//cada vez que alguien se logea se eliminan los eventos pasados de fecha
+        sentencia.close();
+        conexion.close();
     }
 
     private @NotNull Consulta getConsulta(String sql) throws ClassNotFoundException, SQLException {
@@ -128,7 +138,7 @@ public class controladorLoginView {
         Scene escena = new Scene(root);
         Stage stage =(Stage) LogIn.getScene().getWindow();
         stage.setScene(escena);
-        controladorVentanaUsuarios c = (controladorVentanaUsuarios) loader.getController();
+        controladorVentanaUsuarios c = loader.getController();
         c.setUsu(usuario);
         c.setContra(contra);
         stage.close();

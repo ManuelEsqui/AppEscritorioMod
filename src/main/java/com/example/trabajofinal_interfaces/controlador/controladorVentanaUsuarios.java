@@ -1,6 +1,7 @@
 package com.example.trabajofinal_interfaces.controlador;
 
 import com.example.trabajofinal_interfaces.modelo.Evento;
+import com.example.trabajofinal_interfaces.modelo.Evento_Gratis;
 import com.example.trabajofinal_interfaces.modelo.Evento_Pago;
 import com.example.trabajofinal_interfaces.utiles.utiles;
 import javafx.collections.FXCollections;
@@ -63,7 +64,7 @@ public class controladorVentanaUsuarios {
     }
 
     @FXML
-    void apuntarseAEvento(ActionEvent event) throws ClassNotFoundException, SQLException {
+    void apuntarseAEvento(ActionEvent event) throws ClassNotFoundException, SQLException, IOException {
         try {
             int id_evento=0;
             eventoSelec=tablaEventos.getSelectionModel().getSelectedItem();
@@ -94,9 +95,9 @@ public class controladorVentanaUsuarios {
     }
 
     private void apuntarAEvento(Result result, int id_evento) throws SQLException {
-        if (usu!=null && contra!=null){//consulta para extraer la id
+        if (usu!=null){//consulta para extraer la id
             Statement sentencia3 = (Statement) result.conexion().createStatement();
-            String sql3 = "SELECT id FROM personas WHERE user LIKE '"+usu+"' AND passwrd LIKE '"+contra+"';";
+            String sql3 = "SELECT id FROM personas WHERE user = '"+usu+"';";
             ResultSet resul2 = sentencia3.executeQuery(sql3);
             while (resul2.next()) {
                 id_usuario=resul2.getInt(1);
@@ -123,7 +124,7 @@ public class controladorVentanaUsuarios {
         }
     }
 
-    private void cambiarVentanaEspecificacionEnvento(int id_evento, Evento eventoSelec) throws ClassNotFoundException, SQLException {
+    private void cambiarVentanaEspecificacionEnvento(int id_evento, Evento eventoSelec) throws ClassNotFoundException, SQLException, IOException {
         Class.forName(utiles.driver);
         // Establecemos la conexion con la BD
         Connection conexion = DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
@@ -134,14 +135,43 @@ public class controladorVentanaUsuarios {
 
         while (resul.next()){
             if (id_evento==resul.getInt(1)){
-                eventoSelec.setId(id_evento);
-                Evento_Pago eventoPago=new Evento_Pago(eventoSelec, resul.getFloat(2), resul.getString(3));
-                System.out.println(eventoPago);
-                return;
-            }else{
-                return;
+                //int id, String nombre, String descripcion, String localidad, String ubicacion, Date fecha
+                Evento_Pago eventoPago=new Evento_Pago(eventoSelec.getId(),eventoSelec.getNombre(),eventoSelec.getDescripcion(), eventoSelec.getLocalidad(), eventoSelec.getUbicacion(), eventoSelec.getFecha(),resul.getFloat(2), resul.getString(3));
+                cambiarVentanaPago(eventoPago);
             }
         }
+        sql2="SELECT * FROM eventosgratis;";
+        resul = sentencia2.executeQuery(sql2);
+        while (resul.next()){
+            if (id_evento==resul.getInt(1)){
+                Evento_Gratis eventoGratis=new Evento_Gratis(eventoSelec,resul.getString(3), resul.getString(2));
+                cambiarVentanaGratis(eventoGratis);
+            }
+        }
+    }
+
+    private void cambiarVentanaGratis(Evento_Gratis eventoGratis) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaDatosEventoGratis.fxml"));
+        Parent root=loader.load();
+        Scene escena = new Scene(root);
+        Stage stage= (Stage) btnVolver.getScene().getWindow();
+        stage.setScene(escena);
+        ControladorVentanaDatosEventoGratis c=loader.getController();
+        c.setUsu(usu);
+        c.setEvento_gratis(eventoGratis);
+        stage.show();
+    }
+
+    private void cambiarVentanaPago(Evento_Pago eventoPago) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaDatosEventoPago.fxml"));
+        Parent root=loader.load();
+        Scene escena = new Scene(root);
+        Stage stage= (Stage) btnVolver.getScene().getWindow();
+        stage.setScene(escena);
+        ControladorVentanaDatosEventoPago c=loader.getController();
+        c.setUsu(usu);
+        c.setEvento_pago(eventoPago);
+        stage.show();
     }
 
     private @NotNull Result getResult() throws ClassNotFoundException, SQLException {
@@ -177,15 +207,16 @@ public class controladorVentanaUsuarios {
         // Establecemos la conexion con la BD
         Connection conexion = (Connection) DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
         Statement sentencia2 = (Statement) conexion.createStatement();
-        String sql2 = "SELECT eventos.nombre, descripcion, fecha, ubicacion, localidades.nombre FROM eventos INNER JOIN localidades ON eventos.localidad_id = localidades.id;";
+        String sql2 = "SELECT eventos.id, eventos.nombre, descripcion, fecha, ubicacion, localidades.nombre FROM eventos INNER JOIN localidades ON eventos.localidad_id = localidades.id;";
         ResultSet resul = sentencia2.executeQuery(sql2);
         while (resul.next()) {
-            String nomb=resul.getNString(1);
-            String descripcion=resul.getNString(2);
-            Date fecha=resul.getDate(3);
-            String ubicacion=resul.getNString(4);
-            String loc_nombre=resul.getNString(5);
-            observableList.add(new Evento(nomb,descripcion,loc_nombre,ubicacion,fecha));
+            int id_evento=resul.getInt(1);
+            String nomb=resul.getNString(2);
+            String descripcion=resul.getNString(3);
+            Date fecha=resul.getDate(4);
+            String ubicacion=resul.getNString(5);
+            String loc_nombre=resul.getNString(6);
+            observableList.add(new Evento(id_evento,nomb,descripcion,loc_nombre,ubicacion,fecha));
         }
         conexion.close();
         sentencia2.close();
@@ -204,7 +235,7 @@ public class controladorVentanaUsuarios {
 
     @FXML
     void volverLogin(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {
-        if (usu!=null && contra!=null){
+        if (usu!=null || contra!=null){
             Parent root = FXMLLoader.load(getClass().getResource("/com/example/trabajofinal_interfaces/vista/LoginView.fxml"));
             Scene escena = new Scene(root);
             Stage stage =(Stage) btnVolver.getScene().getWindow();
@@ -244,7 +275,7 @@ public class controladorVentanaUsuarios {
         Scene escena = new Scene(root);
         Stage stage =(Stage) btnInfo.getScene().getWindow();
         stage.setScene(escena);
-        controladorVentanaInfoEventos c = (controladorVentanaInfoEventos)loader.getController();
+        controladorVentanaInfoEventos c = loader.getController();
         c.setNombreEvento(id_evento);
         c.setUsu(usu);
         c.setContra(contra);

@@ -79,6 +79,16 @@ public class utiles {
         stage.close();
         stage.show();
     }
+    public void ventanaSelecEventos(Stage stage, String usu) throws IOException, SQLException, ClassNotFoundException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaUsuarios.fxml"));
+        Parent root=loader.load();
+        Scene escena = new Scene(root);
+        stage.setScene(escena);
+        controladorVentanaUsuarios c = loader.getController();
+        c.setUsu(usu);
+        c.init();
+        stage.show();
+    }
 
     public static String url="jdbc:mysql://localhost/extreventos";
     public static String usuario="root";

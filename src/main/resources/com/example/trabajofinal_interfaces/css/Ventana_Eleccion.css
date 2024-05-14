@@ -1,8 +1,9 @@
 
-.label{
+#labelPresentacion{
     linear-gradient(from 0.0% 0.0% to 100.0% 100.0%, #ff1818 0.0%, #000000 100.0%);
     -fx-font-size: 40px;
 }
+
 .button{ -fx-background-color: #008287;
     -fx-border-color: #FFFFFF;
     -fx-border-width: 2;
@@ -12,6 +13,12 @@
     -fx-font-size: 28px;
     -fx-background-radius: 10 10 10 10;
     -fx-border-radius: 10 10 10 10;
+}
+
+.text-field{
+    -fx-font-size: 12px;
+    -fx-border-radius: 18 18 18 18;
+    -fx-background-radius: 18 18 18 18;
 }
 
 

@@ -19,7 +19,7 @@
             <Button fx:id="btnEventoPago" mnemonicParsing="false" onAction="#registroEventoPago" prefHeight="142.0" prefWidth="265.0" text="Evento de pago" />
          </children>
       </HBox>
-      <Label layoutX="14.0" layoutY="40.0" text="¡Elige el tipo de evento que quieres crear!">
+      <Label fx:id="labelPresentacion" layoutX="14.0" layoutY="40.0" text="¡Elige el tipo de evento que quieres crear!">
          <textFill>
             <LinearGradient endX="1.0" endY="1.0">
                <stops>

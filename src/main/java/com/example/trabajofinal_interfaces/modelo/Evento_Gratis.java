@@ -6,18 +6,16 @@ public class Evento_Gratis extends Evento{
      private String descripcionAdicional;
      private String tipo;
 
-    public Evento_Gratis(String nombre, String descripcion, String localidad, String ubicacion, Date fecha, String descripcionAdicional, String tipo) {
-        super(nombre, descripcion, localidad, ubicacion, fecha);
+    public Evento_Gratis(Evento e, String descripcionAdicional, String tipo) {
+        super(e.getId(), e.getNombre(), e.getDescripcion(), e.getLocalidad(), e.getUbicacion(), e.getFecha());
         this.descripcionAdicional = descripcionAdicional;
         this.tipo = tipo;
     }
 
-    public Evento_Gratis(int id, String nombre) {
-        super(id, nombre);
-    }
-
-    public Evento_Gratis(int id, String nombre, String descripcion, String localidad, String ubicacion, Date fecha) {
+    public Evento_Gratis(int id, String nombre, String descripcion, String localidad, String ubicacion, Date fecha, String descripcionAdicional, String tipo) {
         super(id, nombre, descripcion, localidad, ubicacion, fecha);
+        this.descripcionAdicional = descripcionAdicional;
+        this.tipo = tipo;
     }
     public String getDescripcionAdicional() {
         return descripcionAdicional;
