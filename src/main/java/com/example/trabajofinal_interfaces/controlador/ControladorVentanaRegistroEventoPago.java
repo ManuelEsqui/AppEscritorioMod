@@ -57,7 +57,7 @@ public class ControladorVentanaRegistroEventoPago {
             }
         cbLocalidades.setItems(listaLocalidades);
     }
-    private void insertarEventoPago(int id) throws ClassNotFoundException, SQLException {
+    private void insertarEventoPago(int id) throws ClassNotFoundException, SQLException, IOException {
         float precio;
         try {
             precio = Float.parseFloat(txtPrecio.getText());
@@ -77,6 +77,7 @@ public class ControladorVentanaRegistroEventoPago {
         Alertas(Alert.AlertType.INFORMATION,"Evento introducido","El evento se ha introducido correctamente");
         sentencia.close();
         conexion.close();
+        ventanaEditarEventos();
     }
     public void insertarEvento() throws SQLException, ClassNotFoundException, IOException {
 
@@ -134,7 +135,7 @@ public class ControladorVentanaRegistroEventoPago {
         }
     }
 
-    public void ventanaEditarEventos(ActionEvent actionEvent) throws SQLException, IOException, ClassNotFoundException {
+    public void ventanaEditarEventos() throws SQLException, IOException, ClassNotFoundException {
         u.cambiarVentanaAdminEventos((Stage) txtUbicación.getScene().getWindow());
     }
 

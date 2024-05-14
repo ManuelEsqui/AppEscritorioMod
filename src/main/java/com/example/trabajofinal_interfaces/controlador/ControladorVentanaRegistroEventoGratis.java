@@ -58,7 +58,7 @@ public class ControladorVentanaRegistroEventoGratis {
         }
         cbLocalidades.setItems(listaLocalidades);
     }
-    private void insertarEventoGratis(int id) throws ClassNotFoundException, SQLException {
+    private void insertarEventoGratis(int id) throws ClassNotFoundException, SQLException, IOException {
         Class.forName(utiles.driver);
         // Establecemos la conexion con la BD
         Connection conexion = (Connection) DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
@@ -71,6 +71,7 @@ public class ControladorVentanaRegistroEventoGratis {
         Alertas(Alert.AlertType.INFORMATION,"Evento introducido","El evento gratuito se ha introducido correctamente");
         sentencia.close();
         conexion.close();
+        ventanaEditarEventos();
     }
     public void insertarEvento() throws SQLException, ClassNotFoundException, IOException {
 
@@ -128,7 +129,7 @@ public class ControladorVentanaRegistroEventoGratis {
         }
     }
 
-    public void ventanaEditarEventos(ActionEvent actionEvent) throws SQLException, IOException, ClassNotFoundException {
+    public void ventanaEditarEventos() throws SQLException, IOException, ClassNotFoundException {
         u.cambiarVentanaAdminEventos((Stage) txtUbicación.getScene().getWindow());
     }
 

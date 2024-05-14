@@ -111,7 +111,7 @@ public class controladorVentanaUsuarios {
                 sentencia.setInt(2, id_evento);
                 sentencia.executeUpdate();
 
-                //Alertas(Alert.AlertType.WARNING, "Apuntado", "Has sido añadido a la lista de participantes del evento");
+                Alertas(Alert.AlertType.INFORMATION, "Apuntado", "Has sido añadido a la lista de participantes del evento");
 
 
                 result.conexion().close();
