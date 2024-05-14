@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.paint.Color?>
@@ -51,12 +53,54 @@
       </Label>
       <HBox alignment="TOP_CENTER" layoutX="-1.0" layoutY="60.0" prefHeight="45.0" prefWidth="1070.0" spacing="30.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#cambiarVentanaLocalidades" prefHeight="58.0" prefWidth="178.0" text="Gestion localidades" />
-            <Button mnemonicParsing="false" onAction="#AdministrarEventos" prefHeight="69.0" text="Gestion eventos" />
-            <Button mnemonicParsing="false" onAction="#AdministrarUsuarios" prefHeight="79.0" prefWidth="190.0" text="Gestion usuario" />
-            <Button mnemonicParsing="false" onMouseClicked="#crearUsu" prefHeight="64.0" prefWidth="141.0" text="Crear usuario" />
-            <Button mnemonicParsing="false" onAction="#CargarDatos" prefHeight="54.0" text="Refrescar" />
-            <Button fx:id="btnVolver" mnemonicParsing="false" onAction="#VolverLogin" prefHeight="70.0" prefWidth="151.0" text="Volver" />
+            <Button mnemonicParsing="false" onAction="#cambiarVentanaLocalidades" prefHeight="58.0" prefWidth="178.0" text="Localidades">
+               <graphic>
+                  <ImageView fitHeight="33.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8-ciudad-50.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button mnemonicParsing="false" onAction="#AdministrarEventos" prefHeight="69.0" text="Gestion eventos">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8-evento-48.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button mnemonicParsing="false" onAction="#AdministrarUsuarios" prefHeight="79.0" prefWidth="190.0" text="Gestion usuario">
+               <graphic>
+                  <ImageView fitHeight="29.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8-usuario-30.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button mnemonicParsing="false" onMouseClicked="#crearUsu" prefHeight="64.0" prefWidth="141.0" text="Crear usuario">
+               <graphic>
+                  <ImageView fitHeight="32.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8-registro-50.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button mnemonicParsing="false" onAction="#CargarDatos" prefHeight="54.0" text="Refrescar">
+               <graphic>
+                  <ImageView fitHeight="31.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8-actualizar-30.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="btnVolver" mnemonicParsing="false" onAction="#VolverLogin" prefHeight="70.0" prefWidth="151.0" text="Volver">
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8-volver-50.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
          </children>
       </HBox>
    </children>

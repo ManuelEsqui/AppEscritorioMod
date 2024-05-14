@@ -8,6 +8,8 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.paint.Color?>
@@ -43,7 +45,14 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <Button layoutX="410.0" layoutY="143.0" mnemonicParsing="false" onAction="#buscarEvento" prefHeight="30.0" prefWidth="162.0" text="Buscar " />
+      <Button layoutX="410.0" layoutY="143.0" mnemonicParsing="false" onAction="#buscarEvento" prefHeight="30.0" prefWidth="162.0" text="Buscar ">
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/icons8-búsqueda-50.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
       <TextField fx:id="txtBuscar" layoutX="390.0" layoutY="191.0" promptText="Nombre del evento" />
       <TextField fx:id="txtId" layoutX="322.0" layoutY="265.0" promptText="ID" />
       <Label layoutX="322.0" layoutY="241.0" text="ID:">
@@ -93,9 +102,30 @@
       <Label fx:id="lbDescPuntoVenta" layoutX="559.0" layoutY="318.0" text="Descripcion adicional:" visible="false" />
       <HBox layoutY="-1.0" prefHeight="47.0" prefWidth="1014.0" spacing="250.0">
          <children>
-            <Button id="btnMenu" mnemonicParsing="false" onAction="#VentanaAdminPrincipal" text="Volver" />
-            <Button id="btnMenu" fx:id="BtnVolver" mnemonicParsing="false" onAction="#VentanaLogin" prefHeight="30.0" prefWidth="99.0" text="Volver a login" />
-            <Button id="btnMenu" mnemonicParsing="false" onAction="#VentanaUsuarios" prefHeight="30.0" prefWidth="140.0" text="Vista usuario" />
+            <Button id="btnMenu" mnemonicParsing="false" onAction="#VentanaAdminPrincipal" text="Volver">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8-volver-50.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button id="btnMenu" fx:id="BtnVolver" mnemonicParsing="false" onAction="#VentanaLogin" prefHeight="30.0" prefWidth="99.0" text="Volver a login">
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8-casa-50.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button id="btnMenu" mnemonicParsing="false" onAction="#VentanaUsuarios" prefHeight="30.0" prefWidth="140.0" text="Vista usuario">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8-visible-50.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
          </children>
          <padding>
             <Insets bottom="20.0" left="20.0" right="20.0" top="10.0" />
@@ -105,9 +135,30 @@
       <TextField fx:id="txtPrecio" layoutX="559.0" layoutY="265.0" promptText="Precio" visible="false" />
       <HBox alignment="CENTER" layoutY="528.0" prefHeight="66.0" prefWidth="1014.0" spacing="120.0">
          <children>
-            <Button fx:id="insertarEvento" mnemonicParsing="false" onAction="#AddEvento" prefHeight="55.0" prefWidth="501.0" text="Añadir" />
-            <Button mnemonicParsing="false" onAction="#DeleteEvento" prefHeight="50.0" text="Eliminar" />
-            <Button mnemonicParsing="false" onAction="#Editar" prefHeight="53.0" text="Editar" />
+            <Button fx:id="insertarEvento" mnemonicParsing="false" onAction="#AddEvento" prefHeight="55.0" prefWidth="501.0" text="Añadir">
+               <graphic>
+                  <ImageView fitHeight="38.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8-calendario-más-64.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button mnemonicParsing="false" onAction="#DeleteEvento" prefHeight="50.0" text="Eliminar">
+               <graphic>
+                  <ImageView fitHeight="39.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8-basura-64.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button mnemonicParsing="false" onAction="#Editar" prefHeight="53.0" text="Editar">
+               <graphic>
+                  <ImageView fitHeight="39.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8-editar-80.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
          </children>
          <padding>
             <Insets left="40.0" right="40.0" />

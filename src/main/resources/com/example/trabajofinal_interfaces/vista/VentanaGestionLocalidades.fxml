@@ -7,6 +7,7 @@
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -19,12 +20,19 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <MenuButton fx:id="menuButton" layoutX="66.0" layoutY="380.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="103.0" text="Acciones">
+      <MenuButton fx:id="menuButton" layoutX="66.0" layoutY="380.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Acciones">
         <items>
           <MenuItem mnemonicParsing="false" onAction="#delete" text="borrar" />
           <MenuItem mnemonicParsing="false" onAction="#update" text="editar" />
             <MenuItem mnemonicParsing="false" onAction="#add" text="insertar" />
         </items>
+         <graphic>
+            <ImageView fitHeight="17.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/icons8-do-32.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </MenuButton>
       <ImageView fx:id="imagen" fitHeight="257.0" fitWidth="376.0" layoutX="286.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true">
          <effect>

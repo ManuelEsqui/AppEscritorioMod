@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.paint.RadialGradient?>
@@ -21,8 +23,22 @@
             <TableColumn fx:id="columnaFecha" prefWidth="84.0" text="Fecha" />
         </columns>
       </TableView>
-      <Button fx:id="volver" layoutX="533.0" layoutY="360.0" mnemonicParsing="false" onAction="#volverVentanaUsuarios" text="Volver" />
-      <Button fx:id="desapuntarse" layoutX="136.0" layoutY="360.0" mnemonicParsing="false" onAction="#delete" text="Desapuntarse" />
+      <Button fx:id="volver" layoutX="533.0" layoutY="360.0" mnemonicParsing="false" onAction="#volverVentanaUsuarios" text="Volver">
+         <graphic>
+            <ImageView fitHeight="27.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/icons8-volver-64.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button fx:id="desapuntarse" layoutX="136.0" layoutY="360.0" mnemonicParsing="false" onAction="#delete" text="Desapuntarse">
+         <graphic>
+            <ImageView fitHeight="27.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/icons8-cruz-50.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
       <Label fx:id="texto" layoutX="284.0" layoutY="14.0" text="Mis eventoos">
          <font>
             <Font name="System Bold Italic" size="33.0" />

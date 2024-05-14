@@ -6,6 +6,8 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.shape.Line?>
@@ -42,12 +44,19 @@
       <Label fx:id="total" layoutX="564.0" layoutY="68.0" text="Total de asistentes: X" />
       <MenuBar layoutY="2.0">
         <menus>
-          <Menu mnemonicParsing="false" text="Navegar">
+          <Menu mnemonicParsing="false">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#volverLogin" text="Volver al inicio" />
                   <MenuItem mnemonicParsing="false" onAction="#volverPagAnterio" text="Volver a seleccion de eventos" />
                   <MenuItem mnemonicParsing="false" onAction="#volverMisEventos" text="Ver mis eventos" />
             </items>
+               <graphic>
+                  <ImageView fitHeight="28.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8-volver-64.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
           </Menu>
         </menus>
       </MenuBar>
