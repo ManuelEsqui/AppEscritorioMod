@@ -109,7 +109,7 @@ public class controladorVentanaAdmin {
         // Establecemos la conexion con la BD
         Connection conexion = DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
         Statement sentencia2 = conexion.createStatement();
-        String sql2 = "SELECT personas.nombre, apellidos, sexo, estadoCivil, user, passwrd, edad, localidades.nombre FROM personas INNER JOIN localidades ON personas.localidad_id = localidades.id;";//Selecciona los datos de todas las personas
+        String sql2 = "SELECT personas.nombre, apellidos, sexo, estadoCivil, user, passwrd, edad, localidades.nombre FROM personas INNER JOIN localidades ON personas.localidad_id = localidades.id WHERE personas.admin=false;";//Selecciona los datos de todas las personas
         ResultSet resul = sentencia2.executeQuery(sql2);
         while (resul.next()) {// Extraer los datos de la base de datos
             String nomb=resul.getNString(1);
