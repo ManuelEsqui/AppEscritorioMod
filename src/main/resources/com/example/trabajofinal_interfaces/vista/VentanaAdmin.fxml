@@ -85,7 +85,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button mnemonicParsing="false" onAction="#CargarDatos" prefHeight="54.0" text="Refrescar">
+            <Button mnemonicParsing="false" onAction="#CargarDatos" prefHeight="54.0" text="Reporte">
                <graphic>
                   <ImageView fitHeight="31.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
                      <image>

@@ -18,7 +18,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.*;
 
@@ -96,11 +101,40 @@ public class controladorVentanaAdmin {
         new utiles().cambiarVentanaLogin((Stage) btnVolver.getScene().getWindow());
     }
     @FXML
-    public void CargarDatos(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
-//        inicializarTableView();
-//        this.lista=listAll();
-//        this.tableViewUsuarios.setItems(lista);
+    public void CargarDatos(ActionEvent actionEvent) throws SQLException, ClassNotFoundException{//Genera un pdf con los datos de los usuarios
+        Document document=new Document();
+        try {
+            String ruta=System.getProperty("user.home");//Propiedad para hacerlo en el usuario del escritorio
+            PdfWriter.getInstance(document, new FileOutputStream(ruta+"/Desktop/usuariosExtreventos.pdf"));//Ruta donde se va a generar el pdf
+            document.open();
+            PdfPTable table=new PdfPTable(6);//Se crea la tabla
+            table.addCell("ID");
+            table.addCell("Nombre");
+            table.addCell("Apellido");
+            table.addCell("Edad");
+            table.addCell("Estado Civil");
+            table.addCell("Localidad");
+
+            Connection cn=DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
+            PreparedStatement ps=cn.prepareStatement("SELECT personas.id, personas.nombre, apellidos, edad, estadoCivil, localidades.nombre FROM personas INNER JOIN localidades ON personas.localidad_id = localidades.id;");
+            ResultSet rs=ps.executeQuery();//Se ejecuta la consulta
+            if(rs.next()){
+                do{//Se añaden los datos a cada celda
+                    table.addCell(rs.getString(1));
+                    table.addCell(rs.getString(2));
+                    table.addCell(rs.getString(3));
+                    table.addCell(String.valueOf(rs.getInt(4)));
+                    table.addCell(rs.getString(5));
+                    table.addCell(rs.getString(6));
+                }while(rs.next());
+                document.add(table);//Se añade la tabla al documento
+            }
+            document.close();
+        }catch (Exception e){
+            Alertas(Alert.AlertType.ERROR, "Error", "No se ha podido cargar el informe");
+        }
         init();
+        Alertas(Alert.AlertType.INFORMATION, "Informe generado", "Se ha generado el informe y se ha actualizado la tabla");
     }
     public ObservableList<Usuario> listAll() throws ClassNotFoundException, SQLException {
         ObservableList<Usuario> listUser= FXCollections.observableArrayList();
