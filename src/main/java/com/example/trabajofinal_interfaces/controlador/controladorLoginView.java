@@ -78,7 +78,7 @@ public class controladorLoginView {
                     eliminarRegistrosAterioresFechaActual();
                     if (result.resul().getBoolean(3)){
                         Stage stage =(Stage) LogIn.getScene().getWindow();
-                        u.cambiarVentanaAdmin(stage);
+                        u.cambiarVentanaAdmin(stage, usuario);
                         bandera=true;
                     }else{
                         cambiarVentanaUsuario();
@@ -149,37 +149,6 @@ public class controladorLoginView {
         this.stage=stage;
     }
 
-    public void ventanaEditarUsuarios(MouseEvent mouseEvent) throws IOException, SQLException, ClassNotFoundException {
-        if(txtUsuario.getText().length()<1 || txtContrasenia.getText().length()<1){
-            Alertas(Alert.AlertType.WARNING, "Introduce los datos", "Debes rellenar los campos usuario y contraseña");
-            return;
-        }
-        boolean bandera=false;
-        String sql = "SELECT personas.nombre, apellidos, sexo, estadoCivil, user, passwrd, edad, localidades.nombre, admin FROM personas INNER JOIN localidades ON personas.localidad_id = localidades.id;";
-        Consulta result = getConsulta(sql);
-        while (result.resul().next()) {
-            if (usuario.equals(result.resul().getString(5)) && contra.equals(result.resul().getString(6))){
-                user=new Usuario(result.resul().getString(1), result.resul().getString(2), result.resul().getString(3), result.resul().getString(4), result.resul().getString(5),result.resul().getString(8), result.resul().getString(6), result.resul().getInt(7));
-                if (result.resul().getBoolean(9)){
-                    bandera=true;
-                }
-            }
-        }
-        if (user==null){
-            Alertas(Alert.AlertType.ERROR, "Editar usuarios falló", "Usuario o contraseña icorrectos");
-            return;
-        }
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaEdicionUsuarios.fxml"));
-        Parent root=loader.load();
-        Scene escena = new Scene(root);
-        Stage stage =(Stage) txtUsuario.getScene().getWindow();
-        stage.setScene(escena);
-        ControladorVentanaEdicionUsuarios c = (ControladorVentanaEdicionUsuarios) loader.getController();
-        c.setBandera(bandera);
-        c.setUsuario(user);
-        stage.close();
-        stage.show();
-    }
     @FXML
     void si(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {

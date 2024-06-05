@@ -38,6 +38,11 @@ public class ControladorVentanaRegistroEventoGratis {
     @FXML
     private TextField txtUbicación;
     utiles u=new utiles();
+    String usu;
+
+    public void setUsu(String usu) {
+        this.usu = usu;
+    }
 
     public void init() throws SQLException, ClassNotFoundException {
         inicializarComboBox();
@@ -130,15 +135,15 @@ public class ControladorVentanaRegistroEventoGratis {
     }
 
     public void ventanaEditarEventos() throws SQLException, IOException, ClassNotFoundException {
-        u.cambiarVentanaAdminEventos((Stage) txtUbicación.getScene().getWindow());
+        u.cambiarVentanaAdminEventos((Stage) txtUbicación.getScene().getWindow(), usu);
     }
 
     public void ventanaLocalidades(ActionEvent actionEvent) throws SQLException, IOException, ClassNotFoundException {
         Stage stage = (Stage) txtUbicación.getScene().getWindow();
-        u.cambiarVentanaLocalidades(stage);
+        u.cambiarVentanaLocalidades(stage, usu);
     }
 
     public void ventanaVistaEventos(ActionEvent actionEvent) throws SQLException, IOException, ClassNotFoundException {
-        u.CambiarVistaEventosDesdeAdmin((Stage) txtUbicación.getScene().getWindow());
+        u.CambiarVistaEventosDesdeAdmin((Stage) txtUbicación.getScene().getWindow(), usu);
     }
 }

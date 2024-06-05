@@ -18,6 +18,7 @@ public class ControladorVentanaEleccion {
 
     @FXML
     private Button btnEventoPago;
+    private String usu;
 
     @FXML
     void registroEventoGratis(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {
@@ -27,6 +28,7 @@ public class ControladorVentanaEleccion {
         Stage stage =(Stage) btnEventoGratis.getScene().getWindow();
         stage.setScene(escena);
         ControladorVentanaRegistroEventoGratis c = loader.getController();
+        c.setUsu(usu);
         c.init();
         stage.close();
         stage.show();
@@ -40,10 +42,14 @@ public class ControladorVentanaEleccion {
         Stage stage =(Stage) btnEventoPago.getScene().getWindow();
         stage.setScene(escena);
         ControladorVentanaRegistroEventoPago c = loader.getController();
+        c.setUsu(usu);
         c.init();
         stage.close();
         stage.show();
     }
 
+    public void setUsu(String usu) {
+        this.usu=usu;
+    }
 }
 

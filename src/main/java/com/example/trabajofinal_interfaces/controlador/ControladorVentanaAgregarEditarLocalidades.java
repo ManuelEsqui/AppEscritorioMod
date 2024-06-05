@@ -51,6 +51,11 @@ public class ControladorVentanaAgregarEditarLocalidades {
     private boolean bandera;
     File imagenSeleccionada;
     private int id_loc;
+    private  String usu;
+
+    public void setUsu(String usu) {
+        this.usu = usu;
+    }
 
     void inicializar(boolean bandera){
         this.bandera=bandera;//Detectar que quiere hacer
@@ -137,6 +142,7 @@ public class ControladorVentanaAgregarEditarLocalidades {
         Stage stage =(Stage) volver.getScene().getWindow();
         stage.setScene(escena);
         controladorVentanaGestionLocalidades c = (controladorVentanaGestionLocalidades) loader.getController();
+        c.setUsu(usu);
         c.inicializarLocalidades();//metdo para refescar la lista
         stage.close();
         stage.show();

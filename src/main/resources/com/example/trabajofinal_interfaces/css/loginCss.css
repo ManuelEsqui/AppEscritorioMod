@@ -30,15 +30,6 @@
     -fx-background-color: #008CBA;
     -fx-text-fill: white;
 }
-#ExtrEventos{
-    -fx-font-size: 50px;
-    -fx-font-family: Centaur;
-}
-
-#miCuenta{
-    -fx-background-color: #8B0000;
-    -fx-text-fill: white;
-}
 #lbVentana{
     -fx-font-size: 30px;
 }

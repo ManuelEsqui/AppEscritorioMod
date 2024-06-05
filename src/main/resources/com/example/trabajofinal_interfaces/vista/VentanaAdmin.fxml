@@ -13,9 +13,9 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="1070.0" stylesheets="@../css/VentanaAdminCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trabajofinal_interfaces.controlador.controladorVentanaAdmin">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="1218.0" stylesheets="@../css/VentanaAdminCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trabajofinal_interfaces.controlador.controladorVentanaAdmin">
    <children>
-      <TableView fx:id="tableViewUsuarios" editable="true" layoutX="41.0" layoutY="132.0" prefHeight="404.0" prefWidth="985.0">
+      <TableView fx:id="tableViewUsuarios" editable="true" layoutX="34.0" layoutY="139.0" prefHeight="415.0" prefWidth="1150.0">
         <columns>
           <TableColumn fx:id="ColumnaNombre" prefWidth="75.0" text="Nombre" />
           <TableColumn fx:id="ColumnaApellido" prefWidth="75.0" text="Apellidos" />
@@ -30,7 +30,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Label layoutX="312.0" layoutY="6.0" text="Ventana de administradores">
+      <Label layoutX="386.0" layoutY="14.0" text="Ventana de administradores">
          <font>
             <Font size="36.0" />
          </font>
@@ -51,13 +51,21 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <HBox alignment="TOP_CENTER" layoutX="-1.0" layoutY="60.0" prefHeight="45.0" prefWidth="1070.0" spacing="30.0">
+      <HBox alignment="TOP_CENTER" layoutX="34.0" layoutY="77.0" prefHeight="45.0" prefWidth="1150.0" spacing="30.0">
          <children>
             <Button mnemonicParsing="false" onAction="#cambiarVentanaLocalidades" prefHeight="58.0" prefWidth="178.0" text="Localidades">
                <graphic>
                   <ImageView fitHeight="33.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/icons8-ciudad-50.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="miCuenta" mnemonicParsing="false" onMouseClicked="#ventanaEditarUsuarios" prefHeight="52.0" prefWidth="138.0" text="Mi cuenta">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8-usuario-30.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
@@ -85,7 +93,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button mnemonicParsing="false" onAction="#CargarDatos" prefHeight="54.0" text="Reporte">
+            <Button mnemonicParsing="false" onAction="#crearReporte" prefHeight="54.0" text="Reporte">
                <graphic>
                   <ImageView fitHeight="31.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
                      <image>

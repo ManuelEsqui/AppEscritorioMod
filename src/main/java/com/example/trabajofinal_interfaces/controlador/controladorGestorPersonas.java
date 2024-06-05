@@ -47,6 +47,10 @@ public class controladorGestorPersonas {
     private TextField txtUsuario;
     private String nombre,apellidos,sexo,estadoCivil,user,passwrd,localidad;
     private int edad;
+    String usu;
+    public void setUsu(String usu) {
+        this.usu = usu;
+    }
 
     private void activarCheck() {
         checkAdmin.setDisable(false);
@@ -153,7 +157,7 @@ public class controladorGestorPersonas {
         if(bandera){
             new utiles().cambiarVentanaLogin((Stage) btnVolver.getScene().getWindow());
         }else{
-            new utiles().cambiarVentanaAdmin((Stage) btnVolver.getScene().getWindow());
+            new utiles().cambiarVentanaAdmin((Stage) btnVolver.getScene().getWindow(), usu);
         }
 
     }

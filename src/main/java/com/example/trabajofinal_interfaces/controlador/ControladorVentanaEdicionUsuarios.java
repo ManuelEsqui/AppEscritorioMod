@@ -46,6 +46,7 @@ public class ControladorVentanaEdicionUsuarios {
     private TextField txtUsuario;
     private Usuario usuario;
     private boolean bandera=false;
+    private String usuAdmin;
 
     public void setBandera(boolean bandera) {
         this.bandera = bandera;
@@ -224,8 +225,12 @@ public class ControladorVentanaEdicionUsuarios {
         if(!bandera){
             new utiles().cambiarVentanaLogin((Stage) txtApellidos.getScene().getWindow());
         }else{
-            new utiles().cambiarVentanaAdmin((Stage) txtApellidos.getScene().getWindow());
+            new utiles().cambiarVentanaAdmin((Stage) txtApellidos.getScene().getWindow(), usuAdmin);
         }
     }
 
+    public void setusuAdmin(String usu) {
+        this.usuAdmin=usu;
+        checkAdmin.setSelected(true);
+    }
 }

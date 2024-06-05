@@ -7,24 +7,32 @@
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.effect.Lighting?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="469.0" prefWidth="678.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trabajofinal_interfaces.controlador.controladorVentanaGestionLocalidades">
    <children>
-      <ListView fx:id="listViewLocalidades" editable="true" layoutY="81.0" onMouseClicked="#selecionarCiudad" prefHeight="283.0" prefWidth="235.0" />
-      <Label fx:id="provincia" layoutY="40.0" prefHeight="41.0" prefWidth="235.0" text="Esta en la provincia de: ____________">
+      <ListView fx:id="listViewLocalidades" editable="true" layoutX="14.0" layoutY="84.0" onMouseClicked="#selecionarCiudad" prefHeight="283.0" prefWidth="235.0">
+         <effect>
+            <InnerShadow />
+         </effect></ListView>
+      <Label fx:id="provincia" layoutX="14.0" layoutY="42.0" prefHeight="41.0" prefWidth="235.0" text="Esta en la provincia de: ____________">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <MenuButton fx:id="menuButton" layoutX="66.0" layoutY="380.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Acciones">
+      <MenuButton fx:id="menuButton" layoutX="75.0" layoutY="383.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="114.0" text="Acciones">
         <items>
           <MenuItem mnemonicParsing="false" onAction="#delete" text="borrar" />
           <MenuItem mnemonicParsing="false" onAction="#update" text="editar" />
             <MenuItem mnemonicParsing="false" onAction="#add" text="insertar" />
+            <MenuItem mnemonicParsing="false" onAction="#generarReporte" text="reporte" />
         </items>
          <graphic>
             <ImageView fitHeight="17.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
@@ -33,13 +41,43 @@
                </image>
             </ImageView>
          </graphic>
+         <textFill>
+            <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.15524691343307495" green="0.006172839552164078" blue="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.08053691275167787">
+                     <color>
+                        <Color red="0.15524691343307495" green="0.006172839552164078" blue="1.0" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.727069351230425">
+                     <color>
+                        <Color red="0.9561403393745422" green="0.15050357580184937" blue="0.7950130105018616" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.9561403393745422" green="0.15050357580184937" blue="0.7950130105018616" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </textFill>
+         <effect>
+            <Lighting bumpInput="$null" diffuseConstant="1.48">
+            </Lighting>
+         </effect>
       </MenuButton>
       <ImageView fx:id="imagen" fitHeight="257.0" fitWidth="376.0" layoutX="286.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true">
          <effect>
             <InnerShadow />
          </effect>
       </ImageView>
-      <MenuBar layoutY="1.0">
+      <MenuBar layoutY="1.0" style="-fx-border-color: green;">
         <menus>
           <Menu mnemonicParsing="false" text="Atras">
             <items>

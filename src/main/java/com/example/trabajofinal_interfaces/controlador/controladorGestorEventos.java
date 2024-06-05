@@ -68,10 +68,15 @@ public class controladorGestorEventos {
     private Evento eventoSelec;
     private utiles u=new utiles();
     ArrayList<Evento> arrayEventos=new ArrayList<>();
+    String usu;
+
+    public void setUsu(String usu) {
+        this.usu = usu;
+    }
 
     @FXML
     void AddEvento() throws IOException {//metodo para añadir  un evento
-        u.cambiarVentanaAddEvento((Stage) txtEditLocalidad.getScene().getWindow());
+        u.cambiarVentanaAddEvento((Stage) txtEditLocalidad.getScene().getWindow(), usu);
     }
 
     @FXML
@@ -338,12 +343,12 @@ public class controladorGestorEventos {
     @FXML
     void VentanaAdminPrincipal(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {
         Stage stage =(Stage) BtnVolver.getScene().getWindow();
-        u.cambiarVentanaAdmin(stage);
+        u.cambiarVentanaAdmin(stage, usu);
     }
 
     @FXML
     void VentanaUsuarios(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {
-        u.CambiarVistaEventosDesdeAdmin((Stage) BtnVolver.getScene().getWindow());
+        u.CambiarVistaEventosDesdeAdmin((Stage) BtnVolver.getScene().getWindow(), usu);
     }
 
     public void buscarEvento(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {

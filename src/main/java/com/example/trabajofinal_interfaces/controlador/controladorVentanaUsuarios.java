@@ -3,6 +3,7 @@ package com.example.trabajofinal_interfaces.controlador;
 import com.example.trabajofinal_interfaces.modelo.Evento;
 import com.example.trabajofinal_interfaces.modelo.Evento_Gratis;
 import com.example.trabajofinal_interfaces.modelo.Evento_Pago;
+import com.example.trabajofinal_interfaces.modelo.Usuario;
 import com.example.trabajofinal_interfaces.utiles.utiles;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
@@ -30,6 +32,7 @@ public class controladorVentanaUsuarios {
 
     @FXML
     private Button btnVolver;
+    private Usuario persona;
 
     @FXML
     private TableColumn<Evento, String> columnaDescripcion;
@@ -50,9 +53,14 @@ public class controladorVentanaUsuarios {
     private TableView<Evento> tablaEventos;
     private ObservableList lista;
     String usu;
+    String usuAdmin;
     String contra;
     int id_usuario=0;
     private Evento eventoSelec;
+
+    public void setUsuAdmin(String usuAdmin) {
+        this.usuAdmin = usuAdmin;
+    }
 
     public void setContra(String contra) throws SQLException, ClassNotFoundException {
         this.contra = contra;
@@ -243,7 +251,7 @@ public class controladorVentanaUsuarios {
             stage.close();
             stage.show();
         }else{
-            new utiles().cambiarVentanaAdminEventos((Stage) btnVolver.getScene().getWindow());
+            new utiles().cambiarVentanaAdminEventos((Stage) btnVolver.getScene().getWindow(), usuAdmin);
         }
 
 
@@ -284,6 +292,36 @@ public class controladorVentanaUsuarios {
         }else{
             Alertas(Alert.AlertType.ERROR, "Nigun evento seleccionado", "Ningun evento seleccionado");
         }
+    }
+    public void ventanaEditarUsuarios(MouseEvent mouseEvent) throws IOException, SQLException, ClassNotFoundException {
+        if (usu==null || contra==null){
+            Alertas(Alert.AlertType.ERROR, "Alerta", "No puedes editar tu usuario desde aqui");
+            return;
+        }
+        boolean bandera=false;
+        String sql = "SELECT personas.nombre, apellidos, sexo, estadoCivil, user, passwrd, edad, localidades.nombre FROM personas INNER JOIN localidades ON personas.localidad_id = localidades.id;";
+        // Cargar el driver
+        Class.forName(utiles.driver);
+        // Establecemos la conexion con la BD
+        Connection conexion = DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
+        Statement sentencia2 = conexion.createStatement();
+        ResultSet result = sentencia2.executeQuery(sql);
+        while (result.next()) {
+            if (usu.equals(result.getString(5))){
+                persona=new Usuario(result.getString(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5),result.getString(8), result.getString(6), result.getInt(7));
+            }
+        }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaEdicionUsuarios.fxml"));
+        Parent root=loader.load();
+        Scene escena = new Scene(root);
+        Stage stage =(Stage) btnVolver.getScene().getWindow();
+        stage.setScene(escena);
+        ControladorVentanaEdicionUsuarios c = (ControladorVentanaEdicionUsuarios) loader.getController();
+        c.setBandera(bandera);
+
+        c.setUsuario(persona);
+        stage.close();
+        stage.show();
     }
 }
 

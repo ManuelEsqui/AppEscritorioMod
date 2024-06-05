@@ -8,34 +8,20 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" onKeyPressed="#si" prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/loginCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trabajofinal_interfaces.controlador.controladorLoginView">
+<AnchorPane maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" onKeyPressed="#si" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@../css/loginCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trabajofinal_interfaces.controlador.controladorLoginView">
    <children>
-      <Label fx:id="ExtrEventos" layoutX="188.0" layoutY="52.0" text="ExtrEventos" textFill="#fc2929">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
-      <TextField fx:id="txtUsuario" layoutX="221.0" layoutY="175.0" />
-      <Label layoutX="207.0" layoutY="149.0" text="Usuario" />
+      <TextField fx:id="txtUsuario" layoutX="200.0" layoutY="174.0" />
+      <Label layoutX="195.0" layoutY="149.0" text="Usuario" />
       <Label layoutX="195.0" layoutY="225.0" text="Contraseña" />
-      <PasswordField fx:id="txtContrasenia" layoutX="221.0" layoutY="251.0" />
-      <HBox layoutX="15.0" layoutY="315.0" prefHeight="29.0" prefWidth="569.0" spacing="60.0">
+      <PasswordField fx:id="txtContrasenia" layoutX="200.0" layoutY="250.0" />
+      <HBox layoutX="99.0" layoutY="321.0" prefHeight="36.0" prefWidth="401.0" spacing="100.0">
          <children>
             <Button fx:id="LogIn" mnemonicParsing="false" onAction="#VentanaUsuario" text="Iniciar Sesion">
                <graphic>
                   <ImageView fitHeight="22.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/icons8-accede-redondeado-derecho-50.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-            <Button fx:id="miCuenta" mnemonicParsing="false" onMouseClicked="#ventanaEditarUsuarios" prefHeight="22.0" prefWidth="133.0" text="Mi cuenta">
-               <graphic>
-                  <ImageView fitHeight="24.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/icons8-usuario-30.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
@@ -49,5 +35,10 @@
                </graphic></Button>
          </children>
       </HBox>
+      <ImageView fitHeight="114.0" fitWidth="395.0" layoutX="104.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/nombrePrograma.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

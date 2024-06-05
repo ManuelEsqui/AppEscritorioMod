@@ -17,21 +17,21 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="745.0" stylesheets="@../css/VentanaUsuariosCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trabajofinal_interfaces.controlador.controladorVentanaUsuarios">
+<AnchorPane prefHeight="500.0" prefWidth="937.0" stylesheets="@../css/VentanaUsuariosCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trabajofinal_interfaces.controlador.controladorVentanaUsuarios">
    <children>
-      <TableView fx:id="tablaEventos" layoutY="70.0" prefHeight="295.0" prefWidth="745.0">
+      <TableView fx:id="tablaEventos" layoutX="23.0" layoutY="70.0" prefHeight="295.0" prefWidth="892.0">
         <columns>
-          <TableColumn fx:id="columnaNombre" prefWidth="104.00001525878906" text="Nombre" />
-          <TableColumn fx:id="columnaDescripcion" prefWidth="212.66665649414062" text="Descripcion" />
-            <TableColumn fx:id="columnaLocalidad" prefWidth="115.33331298828125" text="Localidad" />
-            <TableColumn fx:id="columnaUbicacion" prefWidth="190.0" text="Ubicacion" />
-            <TableColumn fx:id="columnaFecha" prefWidth="121.33331298828125" text="Fecha" />
+          <TableColumn fx:id="columnaNombre" prefWidth="124.0" text="Nombre" />
+          <TableColumn fx:id="columnaDescripcion" prefWidth="237.0" text="Descripcion" />
+            <TableColumn fx:id="columnaLocalidad" prefWidth="168.0" text="Localidad" />
+            <TableColumn fx:id="columnaUbicacion" prefWidth="219.0" text="Ubicacion" />
+            <TableColumn fx:id="columnaFecha" prefWidth="141.0" text="Fecha" />
         </columns>
          <effect>
             <InnerShadow />
          </effect>
       </TableView>
-      <ButtonBar layoutX="31.0" layoutY="401.0" prefHeight="50.0" prefWidth="665.0">
+      <ButtonBar layoutX="26.0" layoutY="401.0" prefHeight="50.0" prefWidth="869.0">
         <buttons>
           <Button mnemonicParsing="false" onAction="#informaciónDeEvento" prefHeight="25.0" text="Asistentes">
                <cursor>
@@ -67,6 +67,14 @@
                      </image>
                   </ImageView>
                </graphic></Button>
+            <Button fx:id="miCuenta" mnemonicParsing="false" onMouseClicked="#ventanaEditarUsuarios" prefHeight="22.0" prefWidth="133.0" text="Mi cuenta">
+                <graphic>
+                    <ImageView fitHeight="24.0" fitWidth="61.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@../images/icons8-usuario-30.png" />
+                        </image>
+                    </ImageView>
+                </graphic></Button>
             <Button mnemonicParsing="false" onAction="#apuntarseAEvento" text="Apuntarse">
                <graphic>
                   <ImageView fitHeight="31.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
@@ -88,7 +96,7 @@
             <DropShadow />
          </effect>
       </ButtonBar>
-      <Label layoutX="278.0" layoutY="14.0" text="Todos los eventos">
+      <Label layoutX="355.0" layoutY="14.0" text="Todos los eventos">
          <font>
             <Font name="Arial Italic" size="28.0" />
          </font>

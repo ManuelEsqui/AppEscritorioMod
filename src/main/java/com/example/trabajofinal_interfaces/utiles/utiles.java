@@ -12,24 +12,26 @@ import java.sql.SQLException;
 
 public class utiles {
 
-    public void cambiarVentanaAdminEventos(Stage stage) throws IOException, SQLException, ClassNotFoundException {
+    public void cambiarVentanaAdminEventos(Stage stage, String usu) throws IOException, SQLException, ClassNotFoundException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/GestorEventos.fxml"));
         Parent root=loader.load();
         Scene escena = new Scene(root);
         stage.setScene(escena);
         controladorGestorEventos c= loader.getController();
+        c.setUsu(usu);
         c.init("");
         stage.setResizable(false);
         stage.close();
         stage.show();
     }
 
-    public void cambiarVentanaAdmin(Stage stage) throws IOException, SQLException, ClassNotFoundException {
+    public void cambiarVentanaAdmin(Stage stage, String usu) throws IOException, SQLException, ClassNotFoundException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaAdmin.fxml"));
         Parent root=loader.load();
         Scene escena = new Scene(root);
         stage.setScene(escena);
         controladorVentanaAdmin c = loader.getController();
+        c.setUsu(usu);
         c.init();
         stage.close();
         stage.setResizable(false);
@@ -43,12 +45,13 @@ public class utiles {
         stage.setResizable(false);
         stage.show();
     }
-    public void cambiarVentanaLocalidades(Stage stage) throws IOException, SQLException, ClassNotFoundException {
+    public void cambiarVentanaLocalidades(Stage stage, String usu) throws IOException, SQLException, ClassNotFoundException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaGestionLocalidades.fxml"));
         Parent root=loader.load();
         Scene escena = new Scene(root);
         stage.setScene(escena);
         controladorVentanaGestionLocalidades c = loader.getController();
+        c.setUsu(usu);
         c.inicializarLocalidades();
         stage.close();
         stage.show();
@@ -60,22 +63,25 @@ public class utiles {
         alerta.setContentText(s);
         alerta.showAndWait();
     }
-    public void CambiarVistaEventosDesdeAdmin(Stage stage) throws IOException, SQLException, ClassNotFoundException {
+    public void CambiarVistaEventosDesdeAdmin(Stage stage, String usu) throws IOException, SQLException, ClassNotFoundException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaUsuarios.fxml"));
         Parent root=loader.load();
         Scene escena = new Scene(root);
         stage.setScene(escena);
         controladorVentanaUsuarios c=loader.getController();
+        c.setUsuAdmin(usu);
         c.init();
         stage.close();
         stage.show();
     }
 
-    public void cambiarVentanaAddEvento(Stage stage) throws IOException {
+    public void cambiarVentanaAddEvento(Stage stage, String usu) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaEleccion.fxml"));
         Parent root=loader.load();
         Scene escena = new Scene(root);
         stage.setScene(escena);
+        ControladorVentanaEleccion c=loader.getController();
+        c.setUsu(usu);
         stage.close();
         stage.show();
     }
