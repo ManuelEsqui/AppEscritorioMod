@@ -1,6 +1,5 @@
 package com.example.trabajofinal_interfaces.controlador;
 
-import com.example.trabajofinal_interfaces.modelo.Usuario;
 import com.example.trabajofinal_interfaces.utiles.utiles;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,6 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
 
 import static com.example.trabajofinal_interfaces.utiles.utiles.Alertas;
 
@@ -34,7 +34,7 @@ public class controladorGestorPersonas {
     private TextField txtEstadoCivil;
 
     @FXML
-    private TextField txtLocalidad;
+    private ComboBox<String> cbLocalidades;
 
     @FXML
     private TextField txtNombre;
@@ -75,7 +75,7 @@ public class controladorGestorPersonas {
                 Alertas(Alert.AlertType.WARNING, "Warning", "La contraseña no es segura");
                 return;
             }
-            localidad=txtLocalidad.getText();
+            localidad=cbLocalidades.getValue();
             String sEdad=txtEdad.getText();
             try {
                 edad=Integer.parseInt(sEdad);
@@ -86,7 +86,7 @@ public class controladorGestorPersonas {
 
             int id_loc=6;
             boolean comprobador;
-            if (user.length()<1 || passwrd.length()<1 || nombre.length()<1 || sexo==null || estadoCivil.length()<1 || apellidos.length()<1 || localidad.length()<1){
+            if (user.length()<1 || passwrd.length()<1 || nombre.length()<1 || sexo==null || estadoCivil.length()<1 || apellidos.length()<1 || localidad==null){
                 comprobador=false;
             }else{
                 comprobador= true;
@@ -100,20 +100,16 @@ public class controladorGestorPersonas {
 
                 // Recorremos el resultado para visualizar cada fila
                 // Se hace un bucle mientras haya registros
-                boolean encontrada=false;
                 while (resul.next()) {
 
                     if (resul.getString(2).equalsIgnoreCase(localidad)){
                         id_loc=resul.getInt(1);
-                        encontrada=true;
                     }
 
                 }
                 sql2="SELECT user FROM personas;";
                 resul = sentencia2.executeQuery(sql2);
-                //if (!encontrada) lbError.setText("Localidad no encontrada en la bd");
                 while (resul.next()) {
-
                     if (resul.getString(1).equals(user)){
                         Alertas(Alert.AlertType.ERROR, "Usuario existente", "Prueba con otro nombre de usuario");
                         return;
@@ -162,7 +158,7 @@ public class controladorGestorPersonas {
 
     }
 
-    public void inicializarComboBox(boolean bandera) {
+    public void inicializarComboBox(boolean bandera) throws SQLException {
         ObservableList<String> tiposSexo = FXCollections.observableArrayList();
         tiposSexo.addAll("Hombre","Mujer","Otro");
         cbSexo.setItems(tiposSexo);
@@ -170,6 +166,16 @@ public class controladorGestorPersonas {
         if (!bandera){
             activarCheck();
         }
+        ArrayList<String> localidades=new ArrayList<>();
+        Connection cn = DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
+        PreparedStatement ps = cn.prepareStatement("SELECT nombre FROM localidades;");
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            localidades.add(rs.getString(1));
+        }
+        ObservableList<String> observableListLocalidades = FXCollections.observableArrayList();
+        observableListLocalidades.addAll(localidades);
+        cbLocalidades.setItems(observableListLocalidades);
     }
 
 }

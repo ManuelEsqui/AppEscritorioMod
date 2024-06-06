@@ -12,6 +12,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.RadialGradient?>
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
@@ -26,6 +27,32 @@
          <font>
             <Font size="14.0" />
          </font>
+         <textFill>
+            <LinearGradient endX="1.0" endY="1.0" startY="1.0">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.1911306083202362" green="0.05409356579184532" blue="0.4868420958518982" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.6644295302013421">
+                     <color>
+                        <Color red="0.1911306083202362" green="0.05409356579184532" blue="0.4868420958518982" />
+                     </color>
+                  </Stop>
+                  <Stop offset="0.7080536912751676">
+                     <color>
+                        <Color green="0.6052631735801697" blue="0.04035087674856186" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color green="0.6052631735801697" blue="0.04035087674856186" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </textFill>
       </Label>
       <MenuButton fx:id="menuButton" layoutX="75.0" layoutY="383.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="114.0" text="Acciones">
         <items>

@@ -15,8 +15,17 @@
       <Label layoutX="195.0" layoutY="149.0" text="Usuario" />
       <Label layoutX="195.0" layoutY="225.0" text="Contraseña" />
       <PasswordField fx:id="txtContrasenia" layoutX="200.0" layoutY="250.0" />
-      <HBox layoutX="99.0" layoutY="321.0" prefHeight="36.0" prefWidth="401.0" spacing="100.0">
+      <HBox layoutX="20.0" layoutY="317.0" prefHeight="36.0" prefWidth="560.0" spacing="70.0">
          <children>
+            <Button fx:id="btnSalir" mnemonicParsing="false" onAction="#salirDeApp" text="Salir">
+               <graphic>
+                  <ImageView fitHeight="21.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/icons8-salida-30.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
             <Button fx:id="LogIn" mnemonicParsing="false" onAction="#VentanaUsuario" text="Iniciar Sesion">
                <graphic>
                   <ImageView fitHeight="22.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true">

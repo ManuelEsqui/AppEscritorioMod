@@ -16,13 +16,12 @@
 }
 
 .table-view {
-    -fx-background-color: #F0F0F0;
+    -fx-background-color: #F0CAFA;
 }
 
 .table-view .column-header,
 .table-view .column-header-background {
-    -fx-background-color: #190086;
-    -fx-text-fill: white;
+    -fx-background-color: #8f85cf;
 }
 
 .table-view .table-row-cell:odd {

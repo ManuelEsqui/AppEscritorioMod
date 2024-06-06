@@ -16,3 +16,7 @@
 .button:pressed {
     -fx-background-color: #000000; /* Background color change on hover */
 }
+.table-view .column-header,
+.table-view .column-header-background {
+    -fx-background-color: #9df6f6;
+}

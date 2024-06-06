@@ -17,7 +17,6 @@
       <TextField fx:id="txtApellidos" layoutX="34.0" layoutY="83.0" />
       <TextField fx:id="txtEstadoCivil" layoutX="394.0" layoutY="134.0" />
       <TextField fx:id="txtEdad" layoutX="34.0" layoutY="185.0" />
-      <TextField fx:id="txtLocalidad" layoutX="394.0" layoutY="185.0" />
       <Label layoutX="33.0" layoutY="14.0" text="Nombre:" />
       <Label layoutX="33.0" layoutY="66.0" text="Apellidos:" />
       <Label layoutX="33.0" layoutY="116.0" text="Sexo:" />
@@ -29,8 +28,8 @@
       <Label layoutX="395.0" layoutY="66.0" text="Contraseña" />
       <Label fx:id="lbError" layoutX="347.0" layoutY="337.0" prefHeight="20.0" prefWidth="182.0" />
       <PasswordField fx:id="txtContrasenia" layoutX="394.0" layoutY="83.0" prefHeight="30.0" prefWidth="206.0" />
-      <ComboBox fx:id="cbSexo" layoutX="30.0" layoutY="136.0" prefHeight="26.0" prefWidth="200.0" />
-      <HBox alignment="TOP_CENTER" layoutY="290.0" prefHeight="30.0" prefWidth="648.0" spacing="60.0">
+      <ComboBox fx:id="cbSexo" layoutX="34.0" layoutY="136.0" prefHeight="26.0" prefWidth="200.0" />
+      <HBox alignment="TOP_CENTER" layoutY="290.0" prefHeight="30.0" prefWidth="648.0" spacing="140.0">
          <children>
             <Button fx:id="btnRegistrarse" mnemonicParsing="false" onAction="#registrarse" text="Registrarse">
                <graphic>
@@ -51,5 +50,6 @@
          </children>
       </HBox>
       <CheckBox fx:id="checkAdmin" disable="true" layoutX="458.0" layoutY="234.0" mnemonicParsing="false" text="Administrador" />
+      <ComboBox fx:id="cbLocalidades" layoutX="394.0" layoutY="187.0" prefHeight="25.0" prefWidth="200.0" promptText="Selecciona localidad" />
    </children>
 </AnchorPane>

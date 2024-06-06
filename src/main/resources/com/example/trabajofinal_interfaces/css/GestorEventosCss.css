@@ -7,14 +7,14 @@
 .button {
     -fx-pref-width: 160px;
     -fx-font-size: 16px;
-    -fx-background-color: #4CAF50; /* Green */
+    -fx-background-color: #4CAF50; /* Verde */
     -fx-text-fill: white;
     -fx-background-radius: 18 18 18 18;
     -fx-border-radius: 18 18 18 18;
     -fx-border-width:5;
 }
 .button:hover {
-    -fx-background-color: #000000; /* Background color change on hover */
+    -fx-background-color: #000000; /* Background color cambia */
 }
 
 .table-view {

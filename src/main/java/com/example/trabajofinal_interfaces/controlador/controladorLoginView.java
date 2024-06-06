@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.sql.*;
 
 import static com.example.trabajofinal_interfaces.utiles.utiles.Alertas;
+import static java.lang.System.exit;
 
 public class controladorLoginView {
     private Stage stage;
@@ -43,14 +44,7 @@ public class controladorLoginView {
 
 
     @FXML
-    void VentanaRegistro(ActionEvent event) throws IOException {
-
-//        Parent root = FXMLLoader.load(getClass().getResource("/com/example/trabajofinal_interfaces/vista/GestorPersonasView.fxml"));
-//        Scene escena = new Scene(root);
-//        Stage stage = (Stage) SingUp.getScene().getWindow();
-//        stage.setScene(escena);
-//        stage.close();
-//        stage.show();
+    void VentanaRegistro(ActionEvent event) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/GestorPersonasView.fxml"));
         Parent root=loader.load();
         Scene escena = new Scene(root);
@@ -126,6 +120,10 @@ public class controladorLoginView {
         contra=txtContrasenia.getText();
         Consulta result = new Consulta(conexion, sentencia, resul);
         return result;
+    }
+
+    public void salirDeApp(ActionEvent actionEvent) {
+        exit(777);
     }
 
     private record Consulta(Connection conexion, Statement sentencia, ResultSet resul) {

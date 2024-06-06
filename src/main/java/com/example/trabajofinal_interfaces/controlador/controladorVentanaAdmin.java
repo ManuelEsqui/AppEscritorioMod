@@ -80,7 +80,7 @@ public class controladorVentanaAdmin {
     }
 
     @FXML
-    void AdministrarUsuarios(ActionEvent event) throws IOException {//Cambia a la ventana de editar usuarios
+    void AdministrarUsuarios(ActionEvent event) throws IOException, SQLException {//Cambia a la ventana de editar usuarios
         usuarioselec=tableViewUsuarios.getSelectionModel().getSelectedItem();
         if(usuarioselec==null){
             Alertas(Alert.AlertType.ERROR, "Error", "No has seleccinado ningun usuario");
@@ -191,7 +191,7 @@ public class controladorVentanaAdmin {
         u.cambiarVentanaLocalidades((Stage) btnVolver.getScene().getWindow(), usu);
     }
 
-    public void crearUsu(MouseEvent mouseEvent) throws IOException{//LLeva a la ventana para crear un usuario
+    public void crearUsu(MouseEvent mouseEvent) throws IOException, SQLException {//LLeva a la ventana para crear un usuario
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/GestorPersonasView.fxml"));
         Parent root=loader.load();
         Scene escena = new Scene(root);

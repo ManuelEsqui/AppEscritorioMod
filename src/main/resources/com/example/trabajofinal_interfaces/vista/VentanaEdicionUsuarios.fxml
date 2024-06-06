@@ -17,7 +17,6 @@
         <TextField fx:id="txtApellidos" layoutX="34.0" layoutY="83.0" />
         <TextField fx:id="txtEstadoCivil" layoutX="394.0" layoutY="134.0" />
         <TextField fx:id="txtEdad" layoutX="34.0" layoutY="185.0" />
-        <TextField fx:id="txtLocalidad" layoutX="394.0" layoutY="185.0" />
         <Label layoutX="33.0" layoutY="14.0" text="Nombre:" />
         <Label layoutX="33.0" layoutY="66.0" text="Apellidos:" />
         <Label layoutX="33.0" layoutY="116.0" text="Sexo:" />
@@ -59,5 +58,6 @@
             </children>
         </HBox>
         <CheckBox fx:id="checkAdmin" disable="true" layoutX="458.0" layoutY="234.0" mnemonicParsing="false" text="Administrador" />
+      <ComboBox fx:id="cbLocalidades" layoutX="393.0" layoutY="187.0" prefHeight="25.0" prefWidth="200.0" />
     </children>
 </AnchorPane>

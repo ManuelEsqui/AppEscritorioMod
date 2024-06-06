@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import static com.example.trabajofinal_interfaces.utiles.utiles.Alertas;
@@ -37,7 +38,7 @@ public class ControladorVentanaEdicionUsuarios {
     private TextField txtEstadoCivil;
 
     @FXML
-    private TextField txtLocalidad;
+    private ComboBox<String> cbLocalidades;
 
     @FXML
     private TextField txtNombre;
@@ -55,7 +56,7 @@ public class ControladorVentanaEdicionUsuarios {
         }
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(Usuario usuario) throws SQLException {
         this.usuario = usuario;
         rellenarCampos();
         if (bandera){
@@ -68,10 +69,20 @@ public class ControladorVentanaEdicionUsuarios {
         checkAdmin.setDisable(false);
     }
 
-    public void inicializarComboBox() {
+    public void inicializarComboBox() throws SQLException {
         ObservableList<String> tiposSexo = FXCollections.observableArrayList();
         tiposSexo.addAll("Hombre","Mujer","Otro");
         cbSexo.setItems(tiposSexo);
+        ArrayList<String> localidades=new ArrayList<>();
+        Connection cn = DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
+        PreparedStatement ps = cn.prepareStatement("SELECT nombre FROM localidades;");
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            localidades.add(rs.getString(1));
+        }
+        ObservableList<String> observableListLocalidades = FXCollections.observableArrayList();
+        observableListLocalidades.addAll(localidades);
+        cbLocalidades.setItems(observableListLocalidades);
     }
 
     private void rellenarCampos() {
@@ -83,7 +94,7 @@ public class ControladorVentanaEdicionUsuarios {
             txtEstadoCivil.setText(usuario.getEstadoCivil());
             txtUsuario.setText(usuario.getUser());
             txtContrasenia.setText(usuario.getPasswrd());
-            txtLocalidad.setText(usuario.getLocalidad());
+            cbLocalidades.setValue(usuario.getLocalidad());
         }
     }
 
@@ -110,7 +121,7 @@ public class ControladorVentanaEdicionUsuarios {
                 Alertas(Alert.AlertType.WARNING, "Warning", "La contraseña no es segura");
                 return;
             }
-            String localidad=txtLocalidad.getText();
+            String localidad=cbLocalidades.getValue();
             String sEdad=txtEdad.getText();
             int edad;
             try {
