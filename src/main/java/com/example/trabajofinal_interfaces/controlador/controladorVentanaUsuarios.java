@@ -294,7 +294,7 @@ public class controladorVentanaUsuarios {
         }
     }
     public void ventanaEditarUsuarios(MouseEvent mouseEvent) throws IOException, SQLException, ClassNotFoundException {
-        if (usu==null || contra==null){
+        if (usu==null){
             Alertas(Alert.AlertType.ERROR, "Alerta", "No puedes editar tu usuario desde aqui");
             return;
         }
