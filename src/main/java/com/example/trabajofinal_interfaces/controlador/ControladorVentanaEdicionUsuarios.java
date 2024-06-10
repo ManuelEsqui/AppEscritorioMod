@@ -197,6 +197,7 @@ public class ControladorVentanaEdicionUsuarios {
 
 
     }
+    //metodo para eliminar una cuenta de la base de datos
     @FXML
     void eliminarCuenta(ActionEvent event) throws SQLException, ClassNotFoundException, IOException {//metodo para eliminar usuarios
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -231,6 +232,7 @@ public class ControladorVentanaEdicionUsuarios {
 
     }
 
+    //metodo para cambiar de ventana
     @FXML
     void volver() throws IOException, SQLException, ClassNotFoundException {
         if(!bandera){
@@ -240,6 +242,7 @@ public class ControladorVentanaEdicionUsuarios {
         }
     }
 
+    //seter del string usu para controlar fallos
     public void setusuAdmin(String usu) {
         this.usuAdmin=usu;
         checkAdmin.setSelected(true);

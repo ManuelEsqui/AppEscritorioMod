@@ -20,6 +20,7 @@ public class ControladorVentanaEleccion {
     private Button btnEventoPago;
     private String usu;
 
+    //cambia de ventana a la de insertar evento gratis
     @FXML
     void registroEventoGratis(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaRegistroEventoGratis.fxml"));
@@ -34,6 +35,7 @@ public class ControladorVentanaEleccion {
         stage.show();
     }
 
+    //cambia de ventana a la de insertar evento de pago
     @FXML
     void registroEventoPago(ActionEvent event) throws IOException, SQLException, ClassNotFoundException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaRegistroEventoPago.fxml"));

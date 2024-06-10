@@ -75,7 +75,7 @@ public class controladorVentanaGestionLocalidades {
             Alertas(Alert.AlertType.ERROR, "Selecciona una localidad", "Debes selaccionar una localidad para eliminarla");
             return;
         }
-        if (localidad.getNombre().equalsIgnoreCase("desconocida")) {
+        if (localidad.getNombre().equalsIgnoreCase("no registrada")) {
             Alertas(Alert.AlertType.ERROR, "NO", "Es imposible eliminar este registro");
             return;
         }
@@ -100,6 +100,7 @@ public class controladorVentanaGestionLocalidades {
         inicializarLocalidades();
     }
 
+    //metodo que selecciona una localidad de la lista y la prepera para editarla en la siguiente ventana
     @FXML
     void update(ActionEvent event) throws IOException, SQLException {
         Localidad localidad;
@@ -123,6 +124,7 @@ public class controladorVentanaGestionLocalidades {
         stage.show();
     }
 
+    //metodo para llenar la lista de localidades
     public void inicializarLocalidades() throws ClassNotFoundException, SQLException {
         localidades = new ArrayList<>();
         localidadesNombre = new ArrayList<>();
@@ -169,6 +171,7 @@ public class controladorVentanaGestionLocalidades {
         utiles.cambiarVentanaLogin(stage);
     }
 
+    //metodo para generar un pdf en el escritorio con la información de las localidades
     public void generarReporte(ActionEvent actionEvent) {
         Document document = new Document();
         try {

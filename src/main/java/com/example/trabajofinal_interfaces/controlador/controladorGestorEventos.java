@@ -181,6 +181,7 @@ public class controladorGestorEventos {
 
     }
 
+    //metodo que edita los eventos gratis
     private void editDatosEventoGratis(int idEvento) throws ClassNotFoundException, SQLException {
         if(txtTipo.getText().length()<1 || txtDescripcionAdicional.getText().length()<1){
             Alertas(Alert.AlertType.ERROR, "Ha ocurrido un error", "Deben estar rellenos todos los campos para editar el evento");
@@ -198,6 +199,7 @@ public class controladorGestorEventos {
         Alertas(Alert.AlertType.INFORMATION, "Actualizacion exitosa", "El evento gratuito se ha actualizado correctamente");
     }
 
+    //metodo que edita los eventos de pago
     private void editDatosEventoPago(int idEvento) throws ClassNotFoundException, SQLException {
         float precio=0;
         try {
@@ -223,6 +225,7 @@ public class controladorGestorEventos {
 
     }
 
+    //rellena los campos de los eventos
     @FXML
     private void rellenarCampos() throws SQLException, ClassNotFoundException {
         eventoSelec=TableViewEventos.getSelectionModel().getSelectedItem();
@@ -241,6 +244,7 @@ public class controladorGestorEventos {
         }
     }
 
+    //posibilita la vista de los elementos unicos de cada tipo de evento
     private void hacerVisibleYRellenarOtrosCampos(int id) throws ClassNotFoundException, SQLException {
         Class.forName(utiles.driver);
         // Establecemos la conexion con la BD
@@ -297,6 +301,7 @@ public class controladorGestorEventos {
         this.TableViewEventos.setItems(lista);//inserta los datos en la tabla
     }
 
+    //Lista los eventos, los inserta en la tabla y en un arraylist de control
     private ObservableList listAll(String nombreEvento) throws SQLException, ClassNotFoundException {
         ObservableList<Evento> listUser= FXCollections.observableArrayList();
         // Cargar el driver
@@ -329,6 +334,7 @@ public class controladorGestorEventos {
         this.ColumnaNombre.setCellValueFactory(new PropertyValueFactory<Evento, String>("nombre"));
     }
 
+    //vuelve a la venta del login
     @FXML
     void VentanaLogin(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/com/example/trabajofinal_interfaces/vista/LoginView.fxml"));

@@ -148,6 +148,7 @@ public class ControladorVentanaAgregarEditarLocalidades {
         stage.show();
     }
 
+    //rellena los camos de las localidades para editarla
     public void rellenarCampos(String nombre, String provincia) throws SQLException {
         lbAccion.setText("¡Edita la localidad!");
         txtNombre.setText(nombre);
@@ -172,6 +173,7 @@ public class ControladorVentanaAgregarEditarLocalidades {
 
     }
 
+    //Controla la seleccion de la imagen deseada
     public void selecImagen(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         imagenSeleccionada = fileChooser.showOpenDialog(rutaImagen.getScene().getWindow());

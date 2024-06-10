@@ -24,25 +24,27 @@ import static com.example.trabajofinal_interfaces.utiles.utiles.Alertas;
 import static java.lang.System.exit;
 
 public class controladorLoginView {
-    private Stage stage;
+    private Stage stage; // Referencia al escenario de la aplicación
+
+    // Elementos de la interfaz de usuario
+    @FXML
+    private Button LogIn; // Botón de inicio de sesión
 
     @FXML
-    private Button LogIn;
+    private Button SingUp; // Botón de registro
 
     @FXML
-    private Button SingUp;
+    private TextField txtContrasenia; // Campo de texto para la contraseña
 
     @FXML
-    private TextField txtContrasenia;
+    private TextField txtUsuario; // Campo de texto para el usuario
 
-    @FXML
-    private TextField txtUsuario;
-    private String usuario;
-    private String contra;
-    Usuario user;
-    utiles u = new utiles();
+    private String usuario; // Nombre de usuario ingresado
+    private String contra; // Contraseña ingresada
+    Usuario user; // Objeto de usuario
+    utiles u = new utiles(); // Utilidades
 
-
+    // Método para manejar el evento de abrir la ventana de registro
     @FXML
     void VentanaRegistro(ActionEvent event) throws IOException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/GestorPersonasView.fxml"));
@@ -54,14 +56,15 @@ public class controladorLoginView {
         c.inicializarComboBox(true);
         stage.close();
         stage.show();
-
     }
 
+    // Método para manejar el evento de iniciar sesión
     @FXML
     void VentanaUsuario(ActionEvent event) {
         inicioSesion();
     }
 
+    // Método para realizar el inicio de sesión
     private void inicioSesion() {
         try {
             String sql = "SELECT user,passwrd,admin FROM personas;";
@@ -79,13 +82,14 @@ public class controladorLoginView {
                         bandera=true;
                     }
                 }
-            }if (!bandera){
-                Alertas(Alert.AlertType.ERROR, "Login incorrecto", "Usuario o contraseña icorrectos");
+            }
+            if (!bandera){
+                Alertas(Alert.AlertType.ERROR, "Login incorrecto", "Usuario o contraseña incorrectos");
             }
 
             result.resul().close(); // Cerrar ResultSet
             result.sentencia().close(); // Cerrar Statement
-            result.conexion().close(); // Cerrar conexi�n
+            result.conexion().close(); // Cerrar conexión
 
         } catch (ClassNotFoundException cn) {
             cn.printStackTrace();
@@ -94,27 +98,29 @@ public class controladorLoginView {
         }
     }
 
+    // Método para eliminar registros anteriores a la fecha actual
     private void eliminarRegistrosAterioresFechaActual() throws ClassNotFoundException, SQLException {
         Class.forName(utiles.driver);
         Connection conexion = (Connection) DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
         Statement sentencia = (Statement) conexion.createStatement();
-        sentencia.executeUpdate("DELETE FROM eventos WHERE fecha < CURDATE();");//cada vez que alguien se logea se eliminan los eventos pasados de fecha
+        sentencia.executeUpdate("DELETE FROM eventos WHERE fecha < CURDATE();"); // Se eliminan eventos pasados de fecha
         sentencia.close();
         conexion.close();
     }
 
+    // Método para obtener una consulta a partir de una consulta SQL
     private @NotNull Consulta getConsulta(String sql) throws ClassNotFoundException, SQLException {
         // Cargar el driver
         Class.forName(utiles.driver);
 
-        // Establecemos la conexion con la BD
+        // Establecer la conexión con la base de datos
         Connection conexion = (Connection) DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
 
-        // Preparamos la consulta
+        // Preparar la consulta
         Statement sentencia = (Statement) conexion.createStatement();
         ResultSet resul = sentencia.executeQuery(sql);
 
-        // Recorremos el resultado para visualizar cada fila
+        // Recorrer el resultado para visualizar cada fila
         // Se hace un bucle mientras haya registros
         usuario=txtUsuario.getText();
         contra=txtContrasenia.getText();
@@ -122,15 +128,17 @@ public class controladorLoginView {
         return result;
     }
 
+    // Método para manejar el evento de salir de la aplicación
     public void salirDeApp(ActionEvent actionEvent) {
         exit(777);
     }
 
+    // Clase para almacenar una consulta SQL
     private record Consulta(Connection conexion, Statement sentencia, ResultSet resul) {
     }
 
+    // Método para cambiar a la ventana de usuario
     private void cambiarVentanaUsuario() throws IOException, SQLException, ClassNotFoundException {
-      //  Parent root = FXMLLoader.load(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaUsuarios.fxml"));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaUsuarios.fxml"));
         Parent root=loader.load();
         Scene escena = new Scene(root);
@@ -143,10 +151,12 @@ public class controladorLoginView {
         stage.show();
     }
 
+    // Método para establecer el escenario de la aplicación
     public void setStage(Stage stage) {
         this.stage=stage;
     }
 
+    // Método para manejar el evento cuando se presiona la tecla Enter
     @FXML
     void si(KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER) {
@@ -154,4 +164,5 @@ public class controladorLoginView {
         }
     }
 }
+
 

@@ -16,157 +16,166 @@ import static com.example.trabajofinal_interfaces.utiles.utiles.Alertas;
 
 public class controladorGestorPersonas {
 
-    public CheckBox checkAdmin;
+    // Elementos de la interfaz de usuario
+    public CheckBox checkAdmin; // Casilla de verificación para administrador
 
     @FXML
-    private Button btnVolver;
+    private Button btnVolver; // Botón para volver
 
     @FXML
-    private TextField txtApellidos;
+    private TextField txtApellidos; // Campo de texto para los apellidos
 
     @FXML
-    private TextField txtContrasenia;
+    private TextField txtContrasenia; // Campo de texto para la contraseña
 
     @FXML
-    private TextField txtEdad;
+    private TextField txtEdad; // Campo de texto para la edad
 
     @FXML
-    private TextField txtEstadoCivil;
+    private TextField txtEstadoCivil; // Campo de texto para el estado civil
 
     @FXML
-    private ComboBox<String> cbLocalidades;
+    private ComboBox<String> cbLocalidades; // Menú desplegable para las localidades
 
     @FXML
-    private TextField txtNombre;
+    private TextField txtNombre; // Campo de texto para el nombre
 
     @FXML
-    private ComboBox<String> cbSexo;
-    boolean bandera=true;
+    private ComboBox<String> cbSexo; // Menú desplegable para el sexo
 
     @FXML
-    private TextField txtUsuario;
-    private String nombre,apellidos,sexo,estadoCivil,user,passwrd,localidad;
-    private int edad;
-    String usu;
+    private TextField txtUsuario; // Campo de texto para el nombre
+
+    // Variables de control
+    private String nombre, apellidos, sexo, estadoCivil, user, passwrd, localidad; // Datos del usuario
+    private int edad; // Edad del usuario
+    private String usu; // Usuario actual
+    boolean bandera = true; // Bandera de control
+
+    // Método para establecer el usuario
     public void setUsu(String usu) {
         this.usu = usu;
     }
 
+    // Método para activar la casilla de verificación de administrador
     private void activarCheck() {
         checkAdmin.setDisable(false);
     }
-   @FXML
-    void registrarse(ActionEvent event) {//metodo para introducir nuevos usuarios
 
+    // Método para registrar un nuevo usuario
+    @FXML
+    void registrarse(ActionEvent event) {
         try {
-            // Cargar el driver
+            // Conexión a la base de datos
             Class.forName(utiles.driver);
-            // Establecemos la conexion con la BD
             Connection conexion = (Connection) DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
-            //Se recogen los datos
-            nombre=this.txtNombre.getText();
-            apellidos=this.txtApellidos.getText();
-            sexo=this.cbSexo.getValue();
-            estadoCivil=this.txtEstadoCivil.getText();
-            user=this.txtUsuario.getText();
-            passwrd=this.txtContrasenia.getText();
-            String regex="^.{8,}$";
-            if (!passwrd.matches(regex)){
+
+            // Recolección de datos del formulario
+            nombre = this.txtNombre.getText();
+            apellidos = this.txtApellidos.getText();
+            sexo = this.cbSexo.getValue();
+            estadoCivil = this.txtEstadoCivil.getText();
+            user = this.txtUsuario.getText();
+            passwrd = this.txtContrasenia.getText();
+
+            // Validación de la contraseña
+            String regex = "^.{8,}$";
+            if (!passwrd.matches(regex)) {
                 Alertas(Alert.AlertType.WARNING, "Warning", "La contraseña no es segura");
                 return;
             }
-            localidad=cbLocalidades.getValue();
-            String sEdad=txtEdad.getText();
+
+            // Obtención de la localidad
+            localidad = cbLocalidades.getValue();
+
+            // Obtención de la edad
+            String sEdad = txtEdad.getText();
             try {
-                edad=Integer.parseInt(sEdad);
-            }catch (Exception e){
-                Alertas(Alert.AlertType.ERROR, "Fallo", "Debes de rellenar el campo edad con un numero");
+                edad = Integer.parseInt(sEdad);
+            } catch (Exception e) {
+                Alertas(Alert.AlertType.ERROR, "Fallo", "Debes de rellenar el campo edad con un número");
                 return;
             }
 
-            int id_loc=6;
+            int id_loc = 6;
             boolean comprobador;
-            if (user.length()<1 || passwrd.length()<1 || nombre.length()<1 || sexo==null || estadoCivil.length()<1 || apellidos.length()<1 || localidad==null){
-                comprobador=false;
-            }else{
-                comprobador= true;
+            if (user.length() < 1 || passwrd.length() < 1 || nombre.length() < 1 || sexo == null || estadoCivil.length() < 1 || apellidos.length() < 1 || localidad == null) {
+                comprobador = false;
+            } else {
+                comprobador = true;
             }
 
-            if (comprobador){
+            // Verificación de campos requeridos
+            if (comprobador) {
                 Statement sentencia2 = (Statement) conexion.createStatement();
                 String sql2 = "SELECT * FROM Localidades;";
                 ResultSet resul = sentencia2.executeQuery(sql2);
 
-
-                // Recorremos el resultado para visualizar cada fila
-                // Se hace un bucle mientras haya registros
+                // Recorrido para obtener el ID de la localidad
                 while (resul.next()) {
-
-                    if (resul.getString(2).equalsIgnoreCase(localidad)){
-                        id_loc=resul.getInt(1);
+                    if (resul.getString(2).equalsIgnoreCase(localidad)) {
+                        id_loc = resul.getInt(1);
                     }
-
                 }
-                sql2="SELECT user FROM personas;";
+
+                // Verificación de usuario existente
+                sql2 = "SELECT user FROM personas;";
                 resul = sentencia2.executeQuery(sql2);
                 while (resul.next()) {
-                    if (resul.getString(1).equals(user)){
+                    if (resul.getString(1).equals(user)) {
                         Alertas(Alert.AlertType.ERROR, "Usuario existente", "Prueba con otro nombre de usuario");
                         return;
                     }
-
                 }
 
-
+                // Inserción de los datos en la base de datos
                 String sql = "INSERT INTO personas (nombre, apellidos, sexo, estadoCivil, user, passwrd, edad, admin, localidad_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
-                PreparedStatement sentencia=(PreparedStatement) conexion.prepareStatement(sql);
-                //Se introducen los parametros en el preparedStatement
+                PreparedStatement sentencia = (PreparedStatement) conexion.prepareStatement(sql);
                 sentencia.setString(1, nombre);
                 sentencia.setString(2, apellidos);
                 sentencia.setString(3, sexo);
                 sentencia.setString(4, estadoCivil);
-                sentencia.setString(5,user);
+                sentencia.setString(5, user);
                 sentencia.setString(6, passwrd);
-                sentencia.setInt(7,edad);
+                sentencia.setInt(7, edad);
                 sentencia.setBoolean(8, checkAdmin.isSelected());
                 sentencia.setInt(9, id_loc);
                 sentencia.executeUpdate();
-                Alertas(Alert.AlertType.INFORMATION, "Añadido", "Persona añadida con exito");
+                Alertas(Alert.AlertType.INFORMATION, "Añadido", "Persona añadida con éxito");
                 sentencia.close();
                 sentencia2.close();
                 resul.close();
                 volver();
-            }else{
+            } else {
                 Alertas(Alert.AlertType.ERROR, "Error", "Se deben rellenar todos los datos");
             }
             conexion.close();
 
-
         } catch (ClassNotFoundException | SQLException | IOException e) {
             Alertas(Alert.AlertType.ERROR, "Error", "Ha ocurrido un error inesperado");
         }
-
     }
 
+    // Método para volver a la ventana principal
     @FXML
-    void volver() throws IOException, SQLException, ClassNotFoundException {// metodo para volver a la ventana principal
-        if(bandera){
+    void volver() throws IOException, SQLException, ClassNotFoundException {
+        if (bandera) {
             new utiles().cambiarVentanaLogin((Stage) btnVolver.getScene().getWindow());
-        }else{
+        } else {
             new utiles().cambiarVentanaAdmin((Stage) btnVolver.getScene().getWindow(), usu);
         }
-
     }
 
+    // Método para inicializar los ComboBox
     public void inicializarComboBox(boolean bandera) throws SQLException {
         ObservableList<String> tiposSexo = FXCollections.observableArrayList();
-        tiposSexo.addAll("Hombre","Mujer","Otro");
+        tiposSexo.addAll("Hombre", "Mujer", "Otro");
         cbSexo.setItems(tiposSexo);
-        this.bandera=bandera;
-        if (!bandera){
+        this.bandera = bandera;
+        if (!bandera) {
             activarCheck();
         }
-        ArrayList<String> localidades=new ArrayList<>();
+        ArrayList<String> localidades = new ArrayList<>();
         Connection cn = DriverManager.getConnection(utiles.url, utiles.usuario, utiles.clave);
         PreparedStatement ps = cn.prepareStatement("SELECT nombre FROM localidades;");
         ResultSet rs = ps.executeQuery();
@@ -179,4 +188,3 @@ public class controladorGestorPersonas {
     }
 
 }
-

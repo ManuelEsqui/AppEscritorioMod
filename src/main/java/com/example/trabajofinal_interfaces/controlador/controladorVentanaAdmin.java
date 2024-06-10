@@ -68,7 +68,8 @@ public class controladorVentanaAdmin {
         this.usu = usu;
     }
 
-    public void init() throws SQLException, ClassNotFoundException {//inicializa la tabla de los usuarios
+    //inicializa los datos de la tabla usuarios
+    public void init() throws SQLException, ClassNotFoundException {
         inicializarTableView();
         this.lista=listAll();
         this.tableViewUsuarios.setItems(lista);
@@ -169,6 +170,7 @@ public class controladorVentanaAdmin {
 
         return listUser;
     }
+    //inicializa las columnas de la tabla además de hacer una animación
     private void inicializarTableView() { // Añadir los campos a las columnas
         this.ColumnaNombre.setCellValueFactory(new PropertyValueFactory<Usuario, String>("nombre"));
         this.ColumnaApellido.setCellValueFactory(new PropertyValueFactory<Usuario, String>("apellidos"));

@@ -8,6 +8,7 @@ import java.sql.*;
 
 public class registroEventosBD {
 
+    //metodo que extrae la id del evento
     static int cogerIdEvento() throws IOException, ClassNotFoundException, SQLException {
         int id=-1;
         Class.forName(utiles.driver);

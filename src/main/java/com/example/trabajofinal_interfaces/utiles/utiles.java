@@ -12,6 +12,7 @@ import java.sql.SQLException;
 
 public class utiles {
 
+    // Método para cambiar a la ventana de gestión de eventos para administradores
     public void cambiarVentanaAdminEventos(Stage stage, String usu) throws IOException, SQLException, ClassNotFoundException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/GestorEventos.fxml"));
         Parent root=loader.load();
@@ -25,6 +26,7 @@ public class utiles {
         stage.show();
     }
 
+    // Método para cambiar a la ventana de administrador
     public void cambiarVentanaAdmin(Stage stage, String usu) throws IOException, SQLException, ClassNotFoundException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaAdmin.fxml"));
         Parent root=loader.load();
@@ -37,6 +39,7 @@ public class utiles {
         stage.setResizable(false);
         stage.show();
     }
+    // Método para cambiar a la ventana de inicio de sesión
     public void cambiarVentanaLogin(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/com/example/trabajofinal_interfaces/vista/LoginView.fxml"));
         Scene escena = new Scene(root);
@@ -45,6 +48,7 @@ public class utiles {
         stage.setResizable(false);
         stage.show();
     }
+    // Método para cambiar a la ventana de gestión de localidades
     public void cambiarVentanaLocalidades(Stage stage, String usu) throws IOException, SQLException, ClassNotFoundException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaGestionLocalidades.fxml"));
         Parent root=loader.load();
@@ -56,6 +60,7 @@ public class utiles {
         stage.close();
         stage.show();
     }
+    // Método para mostrar alertas
     public static void Alertas(Alert.AlertType type, String Fallo, String s) {
         Alert alerta = new Alert(type);
         alerta.setTitle(Fallo);
@@ -63,6 +68,7 @@ public class utiles {
         alerta.setContentText(s);
         alerta.showAndWait();
     }
+    // Método para cambiar a la ventana de eventos desde la administración
     public void CambiarVistaEventosDesdeAdmin(Stage stage, String usu) throws IOException, SQLException, ClassNotFoundException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaUsuarios.fxml"));
         Parent root=loader.load();
@@ -75,6 +81,7 @@ public class utiles {
         stage.show();
     }
 
+    // Método para cambiar a la ventana de agregar evento
     public void cambiarVentanaAddEvento(Stage stage, String usu) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaEleccion.fxml"));
         Parent root=loader.load();
@@ -85,6 +92,7 @@ public class utiles {
         stage.close();
         stage.show();
     }
+    // Método para cambiar a la ventana de selección de eventos
     public void ventanaSelecEventos(Stage stage, String usu) throws IOException, SQLException, ClassNotFoundException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaUsuarios.fxml"));
         Parent root=loader.load();
@@ -96,6 +104,7 @@ public class utiles {
         stage.show();
     }
 
+    // Información de la base de datos
     public static String url="jdbc:mysql://localhost/extreventos";
     public static String usuario="root";
     public static String clave="";
