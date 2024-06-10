@@ -107,14 +107,14 @@ public class ControladorVentanaRegistroEventoPago {
         // Verificar si todos los campos están completos
         if (nombre.length() < 1 || descripcion.length() < 1 || ubicacion.length() < 1 || localidad.length() < 1 || datelocal == null || txtPuntoVenta.getText().length() < 1) {
             bandera = false;
+        } else {
+            bandera = true;
             try{
                 Float.parseFloat(txtPrecio.getText());
             }catch (Exception e){
                 Alertas(Alert.AlertType.ERROR, "se debe introducir un numero", "campo precio tiene que lleva un numero");
                 return;
             }
-        } else {
-            bandera = true;
         }
         if (bandera) {
             Date date = Date.valueOf(datelocal);
