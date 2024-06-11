@@ -1,5 +1,5 @@
+//Manuel Esquivel Sevillano 2ºDAM
 package com.example.trabajofinal_interfaces.controlador;
-
 import com.example.trabajofinal_interfaces.modelo.Evento;
 import com.example.trabajofinal_interfaces.modelo.Evento_Gratis;
 import com.example.trabajofinal_interfaces.modelo.Evento_Pago;
@@ -62,13 +62,14 @@ public class controladorVentanaUsuarios {
         this.usuAdmin = usuAdmin;
     }
 
-    public void setContra(String contra) throws SQLException, ClassNotFoundException {
+    public void setContra(String contra) {
         this.contra = contra;
-        init();
+
     }
 
-    public void setUsu(String usu) {
+    public void setUsu(String usu) throws SQLException, ClassNotFoundException {
         this.usu = usu;
+        init();
     }
 
     @FXML

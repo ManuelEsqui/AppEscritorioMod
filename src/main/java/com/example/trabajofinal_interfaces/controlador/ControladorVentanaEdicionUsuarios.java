@@ -6,6 +6,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
@@ -223,7 +226,7 @@ public class ControladorVentanaEdicionUsuarios {
             Alertas(Alert.AlertType.ERROR, "Fallo", "No ha sido posible eliminar la cuenta, puede deberse a que la cuenta ya no existe");
         }else{
             Alertas(Alert.AlertType.INFORMATION, "Tu cuenta se ha eliminado con éxito", "Has eliminado la cuenta de: "+usuario.getUser());
-            volver();
+            new utiles().cambiarVentanaLogin((Stage) txtApellidos.getScene().getWindow());
         }
 
 
@@ -237,7 +240,20 @@ public class ControladorVentanaEdicionUsuarios {
     @FXML
     void volver() throws IOException, SQLException, ClassNotFoundException {
         if(!bandera){
-            new utiles().cambiarVentanaLogin((Stage) txtApellidos.getScene().getWindow());
+            if(usuario.getUser().equals(txtUsuario.getText())){
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/trabajofinal_interfaces/vista/VentanaUsuarios.fxml"));
+                Parent root=loader.load();
+                Scene escena = new Scene(root);
+                Stage stage =(Stage) txtApellidos.getScene().getWindow();
+                stage.setScene(escena);
+                controladorVentanaUsuarios c = loader.getController();
+                c.setUsu(usuario.getUser());
+                stage.close();
+                stage.show();
+            }else{
+                Alertas(Alert.AlertType.INFORMATION, "Debes volver a iniciar sesión", "Se ha confirmado el cambio, por favor vuelve a iniciar sesión");
+                new utiles().cambiarVentanaLogin((Stage) txtApellidos.getScene().getWindow());
+            }
         }else{
             new utiles().cambiarVentanaAdmin((Stage) txtApellidos.getScene().getWindow(), usuAdmin);
         }
