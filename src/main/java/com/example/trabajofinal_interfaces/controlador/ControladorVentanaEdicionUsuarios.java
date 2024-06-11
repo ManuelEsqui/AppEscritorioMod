@@ -67,6 +67,7 @@ public class ControladorVentanaEdicionUsuarios {
 
     private void activarCheck() {
         checkAdmin.setDisable(false);
+        txtUsuario.setEditable(false);
     }
 
     public void inicializarComboBox() throws SQLException {
