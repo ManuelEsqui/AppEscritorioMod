@@ -13,9 +13,9 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="1218.0" stylesheets="@../css/VentanaAdminCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trabajofinal_interfaces.controlador.controladorVentanaAdmin">
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="638.0" prefWidth="1263.0" stylesheets="@../css/VentanaAdminCss.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.trabajofinal_interfaces.controlador.controladorVentanaAdmin">
    <children>
-      <TableView fx:id="tableViewUsuarios" editable="true" layoutX="34.0" layoutY="139.0" prefHeight="415.0" prefWidth="1150.0">
+      <TableView fx:id="tableViewUsuarios" editable="true" layoutX="57.0" layoutY="143.0" prefHeight="415.0" prefWidth="1150.0">
         <columns>
           <TableColumn fx:id="ColumnaNombre" prefWidth="75.0" text="Nombre" />
           <TableColumn fx:id="ColumnaApellido" prefWidth="75.0" text="Apellidos" />
@@ -51,7 +51,7 @@
             </LinearGradient>
          </textFill>
       </Label>
-      <HBox alignment="TOP_CENTER" layoutX="34.0" layoutY="77.0" prefHeight="45.0" prefWidth="1150.0" spacing="30.0">
+      <HBox alignment="TOP_CENTER" layoutX="22.0" layoutY="78.0" prefHeight="45.0" prefWidth="1220.0" spacing="30.0">
          <children>
             <Button mnemonicParsing="false" onAction="#cambiarVentanaLocalidades" prefHeight="58.0" prefWidth="178.0" text="Localidades">
                <graphic>
@@ -111,5 +111,14 @@
                </graphic></Button>
          </children>
       </HBox>
+      <Button fx:id="backUp" layoutX="557.0" layoutY="577.0" mnemonicParsing="false" onAction="#crearCopiaSeguridad" text="BackUp">
+         <graphic>
+            <ImageView fitHeight="28.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/icons8-base-de-datos-96.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

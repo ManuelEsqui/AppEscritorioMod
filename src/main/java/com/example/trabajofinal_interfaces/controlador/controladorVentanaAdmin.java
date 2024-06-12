@@ -7,6 +7,7 @@ import com.itextpdf.text.Paragraph;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,14 +16,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.sql.*;
 import java.util.Optional;
 
@@ -244,6 +246,82 @@ public class controladorVentanaAdmin {
 
         }
 
+    }
+
+    public void crearCopiaSeguridad(ActionEvent actionEvent) {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Indique donde quiere que se coloque");
+
+        // Mostrar el diálogo de selección de directorio
+        File file = directoryChooser.showDialog(btnVolver.getScene().getWindow());
+
+        if (file != null) {
+            String ruta = file.getAbsolutePath();
+
+            // Crear un Task para ejecutar el proceso en segundo plano
+            Task<Void> backupTask = new Task<>() {
+                @Override
+                protected Void call() throws Exception {
+                    // Construir el comando mysqldump
+                    String command = String.format("C:\\xampp\\mysql\\bin\\mysqldump -u root extreventos");
+
+
+                    // Crear el proceso
+                    ProcessBuilder processBuilder = new ProcessBuilder("cmd.exe", "/c", command);
+
+                    // Redirigir los errores y la salida del proceso
+                    processBuilder.redirectErrorStream(true);
+                    processBuilder.redirectOutput(new File(ruta+"\\extreventos.sql"));
+
+                    // Iniciar el proceso
+                    Process process = processBuilder.start();
+
+                    // Leer la salida del proceso
+                    try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+                         BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
+
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            System.out.println(line);
+                        }
+
+                        // Leer cualquier error
+                        StringBuilder errorOutput = new StringBuilder();
+                        while ((line = errorReader.readLine()) != null) {
+                            errorOutput.append(line).append("\n");
+                        }
+
+                        if (!errorOutput.isEmpty()) {
+                            System.err.println("Errores del proceso:\n" + errorOutput);
+                        }
+                    }
+
+                    // Esperar a que el proceso termine
+                    int exitCode = process.waitFor();
+                    if (exitCode == 0) {
+                        System.out.println("Backup creado exitosamente.");
+                    } else {
+                        System.out.println("Error al crear el backup. Código de salida: " + exitCode);
+                    }
+
+                    return null;
+                }
+            };
+
+            // Manejar excepciones del Task
+            backupTask.setOnFailed(e -> {
+                Throwable exception = backupTask.getException();
+                if (exception != null) {
+                    exception.printStackTrace();
+                    System.out.println("Ocurrió un error durante la creación del backup.");
+                }
+            });
+
+            // Ejecutar el Task en un hilo separado
+            new Thread(backupTask).start();
+        } else {
+            System.out.println("Selección de directorio cancelada.");
+        }
     }
 }
 
